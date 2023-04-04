@@ -1,0 +1,65 @@
+@import "../../styles/global_styles/_variables";
+@import "../../styles/global_styles/_mixins";
+@import "../../styles/global_styles/_animations";
+
+.asideBar {
+  position: relative;
+  //width: 17em;
+  flex-basis: 17em;
+  min-height: 1100px; //for the starting loading empty page
+  color: $white;
+  background-color: $blue;
+  padding: 1.5em;
+  user-select: text;
+  cursor: default;
+
+  @include flex-box($flex-box-col-top...);
+
+  flex-wrap: nowrap;
+
+  .hero-name {  //:)
+    @include init-font(1.3em, 700);
+    @include text-shadow(0.12em, 0.15em);
+
+    width: 100%;  //it will take all the raw of the container in flex
+    color: $foxy;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .image-section-container {
+    margin-bottom: 0.7em;
+
+    .imageContainer {
+      max-width: 22em;
+      margin: 1.2em 0;
+      @include flex-box($flex-box-row-center...);
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .sectionList {
+    .sectionName {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.1em;
+
+      @include init-font(1.15em, 700);
+      @include text-shadow(3px, 4px);
+      @include transition();
+
+      &.toBeHovered:hover {
+        transform: translateX(7px);
+        cursor: pointer;
+      }
+
+      &.specClass {
+        color: $foxy;
+      }
+    }
+  }
+}

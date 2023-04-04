@@ -1,0 +1,111 @@
+@import './_variables.scss';
+@import './_mixins.scss';
+
+/*@media screen and (max-width: 1920px) {
+}
+@media screen and (max-width: 1680px) {
+}
+@media screen and (max-width: 1440px) {
+}
+@media screen and (max-width: 1366px) {
+}
+@media screen and (max-width: 1280px) {
+}*/
+
+@media screen and (max-width: 1024px) {
+  #root {
+    font-size: 0.9rem !important;
+
+    .contentWrapper {
+      @include flex-box($flex-box-col-left...);
+
+      .remarkCol {
+        width: initial !important;
+      }
+
+      .contentBlock {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/*@media screen and (max-width: 992px) {
+
+}*/
+
+@media screen and (max-width: 800px) {
+
+}
+
+@media screen and (max-width: 782px) {
+
+}
+
+@media screen and (max-width: 768px) {
+  #root {
+    font-size: 0.8rem !important;
+
+    .totalWrapper {
+      @include flex-box($flex-box-col-top...);
+      align-items: flex-start !important;
+
+      .asideBar {
+        width: 100% !important;
+        height: fit-content !important;
+        min-height: unset !important;
+
+        @include flex-box($flex-box-row-top...);
+
+        .hero-name {
+          margin-bottom: 1em;
+        }
+
+        .image-section-container {
+          margin-left: 1.5em;
+          margin-right: 1.5em;
+
+          .imageContainer {
+            max-width: 16em;
+          }
+        }
+
+        .aside-item-wrapper {
+          padding: 0.5em 1.5em;
+        }
+      }
+
+      .contentBar {
+        width: 100%;
+        padding-left: unset !important;
+
+        .heading {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+}
+
+@media screen and (max-width: 600px) {
+}
+
+@media screen and (max-width: 568px) {
+}
+
+@media screen and (max-width: 425px) {
+}
+
+@media screen and (max-width: 375px) {
+}
+
+@media screen and (max-width: 320px) {
+}

@@ -1,0 +1,9 @@
+# Ignore artifacts:
+build
+dist
+coverage
+.eslintrc.json
+.gitignore
+
+# Ignore all HTML files:
+*.html

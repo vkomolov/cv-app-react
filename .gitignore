@@ -9,7 +9,8 @@
 /coverage
 
 # production
-/build
+# build will need for the gitPages
+#/build
 
 # misc
 .DS_Store

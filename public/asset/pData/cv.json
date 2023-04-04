@@ -1,0 +1,384 @@
+{
+  "fullName": "Vadim Komolov",
+  "photoUrl": "asset/img/vk.jpeg",
+  "personal": {
+    "aside": {
+      "details": [
+        {
+          "title": "Cellular",
+          "details": "+(380) 66 350-61-04"
+        },
+        {
+          "title": "Email",
+          "details": "vkomolov.ua@gmail.com"
+        }
+      ],
+      "skills": [
+        {
+          "title": "Languages",
+          "details": [
+            {
+              "title": "Ukrainian",
+              "details": "95"
+            },
+            {
+              "title": "Russian",
+              "details": "95"
+            },
+            {
+              "title": "English",
+              "details": "80"
+            }
+          ]
+        },
+        {
+          "title": "Soft Skills",
+          "details": [
+            {
+              "title": "Remote Ready",
+              "details": "90"
+            },
+            {
+              "title": "Collaboration with Team",
+              "details": "80"
+            },
+            {
+              "title": "Self-Organized and Self-Taught",
+              "details": "90"
+            },
+            {
+              "title": "Flexibility",
+              "details": "85"
+            }
+          ]
+        }
+      ]
+    },
+    "content": {
+      "title": "Covering Letter",
+      "details": [
+        {
+          "p": [
+            "Dear Sirs,",
+            "I have worked in the sales \u0026 marketing management, structuring, operating \u0026 analyzing the business and market data, for more than 15 years.",
+            "Gaining a wealth of knowledge and skills in the management and data analysis, I combined them with my natural inclination to programming: creating something from the idea and the algorithm of its realisation...",
+            "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of responsibility and functionality to the elementary operations and processes.",
+            "The same SOLID principles of the object-oriented programming lay on the thoroughly constructed business management",
+            "It happens that some apps suffer not only adaptability, but also their imbalance in programming, using \u0027big\u0027 for the \u0027little\u0027: overloaded with many libraries for a couple of simple methods...",
+            "Achieving the most efficiency with smallest cost - is a worth challenge...",
+            "Knowing the rules is the vital goal, but to overcome the rules is a thorny and educational path, which bears creativity, originality and natural beauty.",
+            "Sincerely,",
+            "Vadim Komolov"
+          ]
+        }
+      ]
+    }
+  },
+  "experience": {
+    "aside": {
+      "skills": [
+        {
+          "title": "Development",
+          "details": [
+            {
+              "title": "HTML",
+              "details": "90"
+            },
+            {
+              "title": "CSS",
+              "details": "85"
+            },
+            {
+              "title": "SCSS",
+              "details": "90"
+            },
+            {
+              "title": "JS (...ES6)",
+              "details": "85"
+            },
+            {
+              "title": "PHP",
+              "details": "75"
+            },
+            {
+              "title": "MySql",
+              "details": "80"
+            }
+          ]
+        },
+        {
+          "title": "Frameworks, Libraries...",
+          "details": [
+            {
+              "title": "React",
+              "details": "85"
+            },
+            {
+              "title": "Redux",
+              "details": "85"
+            },
+            {
+              "title": "Router",
+              "details": "80"
+            },
+            {
+              "title": "Styled-Components",
+              "details": "80"
+            },
+            {
+              "title": "Module Styling",
+              "details": "85"
+            }
+          ]
+        },
+        {
+          "title": "IDE, API, etc...",
+          "details": [
+            {
+              "title": "PHP Storm, Web Storm",
+              "details": "90"
+            },
+            {
+              "title": "GIT",
+              "details": "75"
+            },
+            {
+              "title": "Gulp, Webpack",
+              "details": "80"
+            },
+            {
+              "title": "JSDoc, PropTypes",
+              "details": "85"
+            },
+            {
+              "title": "Power Pivot, Power Query, DAX",
+              "details": "87"
+            },
+            {
+              "title": "Photoshop, Illustrator",
+              "details": "75"
+            },
+            {
+              "title": "Adobe Indesign, Solid Works",
+              "details": "70"
+            }
+          ]
+        },
+        {
+          "title": "Sales \u0026 Marketing Management",
+          "details": [
+            {
+              "title": "Product Management",
+              "details": "80"
+            },
+            {
+              "title": "Structuring and Organizing Data operations",
+              "details": "90"
+            },
+            {
+              "title": "Marketing Mix Analysis, Positioning and Penetration",
+              "details": "85"
+            }
+          ]
+        }
+      ]
+    },
+    "content": {
+      "title": "Experience",
+      "details": [
+        {
+          "remark": "Apr 2022 - till present",
+          "subheading": "Outsource",
+          "comments": "FullStack Dev, design, copywriting, translating",
+          "li": [
+            "Stack: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, JSDoc, PropTypes, PHP, MySql;",
+            "Creating catalogs, tech-lists with a unique design and content (ua, ru, en);",
+            "Copywriting, translating (ua, ru, en);"
+          ]
+        },
+        {
+          "remark": "1997 - till Apr 2022",
+          "subheading": "Non IT / partial IT Experience",
+          "comments": "Sales and Marketing management, data analysis \u0026 planning in B2B",
+          "li": [
+            "Analysis of Business and Marketing data, statistics, positioning;",
+            "Product and Distribution Management;",
+            "Creating the visual and text content for the corporate catalogs, tech-lists, web...;",
+            "Creating and support of the data base on Power Pivot, Power Querry, DAX;",
+            "Sales \u0026 Marketing Management;"
+          ]
+        },
+        {
+          "remark": "Non-IT",
+          "subheading": "Achievements",
+          "comments": "corporate awards",
+          "li": [
+            "3M International Sales \u0026 Marketing Professional Award;",
+            "Team \u0026 Department Awards on exceptional results;"
+          ]
+        },
+        {
+          "remark": "Git:",
+          "subheading": "Some samples of the code:",
+          "comments": "links: ",
+          "a": [
+            {
+              "title": "CV on JS, rendered from fetched JSON",
+              "path": "https://github.com/vkomolov/cv-app-js"
+            },
+            {
+              "title": "CV on React, rendered from fetched JSON",
+              "path": "https://github.com/vkomolov/cv-app"
+            },
+            {
+              "title": "PostIt Application on React",
+              "path": "https://github.com/vkomolov/post-it"
+            },
+            {
+              "title": "Bundling pack on Gulp-4 (SCSS, JS, Browserify, Babelify, image optimizing, etc...) ",
+              "path": "https://github.com/vkomolov/Gulp4_Scss_JS-Browserify_Babelify"
+            },
+            {
+              "title": "Cart Realisation on Gulp-4 (SCSS, JS)",
+              "path": "https://github.com/vkomolov/cartForm_Gulp4_SCSS_ES2015"
+            },
+            {
+              "title": "Filtering data on React",
+              "path": "https://github.com/vkomolov/React_Filter_ModuleWork"
+            },
+            {
+              "title": "Product Catalog AdobeIndesign (Copywriting, Design)",
+              "path": "https://github.com/vkomolov/AdobeIndesign-Catalog"
+            }
+          ]
+        },
+        {
+          "remark": "Some:",
+          "subheading": "REALISATION",
+          "a": [
+            {
+              "title": "PostIt Application on React (Demo)",
+              "path": "https://vkomolov.github.io/post-it/"
+            },
+            {
+              "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
+              "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
+            },
+            {
+              "title": "Filtering data on React (Demo)",
+              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "education": {
+    "aside": {
+      "details": [
+        {
+          "title": "Non IT:"
+        },
+        {
+          "title": "CopyWriting",
+          "details": "self-study"
+        },
+        {
+          "title": "Power Pivot, Power Querry, DAX",
+          "details": "self-study"
+        },
+        {
+          "title": "Data structuring and analysis",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Microsoft Excel, Access...",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Adobe Photoshop, Illustrator",
+          "details": "self-study"
+        },
+        {
+          "title": "Adobe InDesign, Solid Works",
+          "details": "self-study"
+        },
+        {
+          "title": "Customer Focus Selling",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Lean Six Sigma",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Presentations",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Negotiations",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Time Management",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "ISO 9000",
+          "details": "Corporate Courses"
+        }
+      ]
+    },
+    "content": {
+      "title": "Education",
+      "details": [
+        {
+          "remark": "Nov 2017 - Apr 2018",
+          "subheading": "PHP Academy ( Deutsche-It-Schule )",
+          "li": [
+            "Frontend: HTML, CSS/SCSS, JS, React/Redux/Router;",
+            "Backend: PHP, MySQL;",
+            "REST API",
+            "ToDo (advanced): GraphQL"
+          ]
+        },
+        {
+          "remark": "Sep 2017 - Oct 2017",
+          "subheading": "Institute of Information and Business Technologies",
+          "li": [
+            "Front-End Course: HTML, CSS;"
+          ]
+        },
+        {
+          "remark": "Sep 1992 - June 1995",
+          "subheading": "International Institute of Business, Management and Law",
+          "li": [
+            "Management",
+            "Bachelor Degree with excellence"
+          ]
+        },
+        {
+          "remark": "Advanced:",
+          "subheading": "TODO: advanced learn:",
+          "li": [
+            "Node.js, Headless CMS: Strapi",
+            "GraphQL",
+            "MongoDB",
+            "Payment APIs",
+            "TypeScript"
+          ]
+        },
+        {
+          "remark": "CV",
+          "subheading": "CV Downloads",
+          "file": [
+            {
+              "title": "English CV download:",
+              "path": "asset/pData/VKomolov_Eng22_CV_JS.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

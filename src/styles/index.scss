@@ -1,0 +1,40 @@
+@import "./global_styles/reset";
+@import './global_styles/_variables.scss';
+@import './global_styles/_mixins.scss';
+@import './global_styles/_fonts.scss';
+@import './global_styles/_media.scss';
+
+
+/////// STYLES ///////
+
+body {
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /**** user-select: none; *****/
+  @include transition();
+}
+/*************TOP BORDER BODY****************/
+body:before {
+  content: "";
+  position: fixed;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  z-index: 100;
+  @include box-shadow(0, 10px);
+}
+/*****************END TOP BORDER BODY************/
+
+#root {
+  position: relative; //for the alert block in absolute position
+  max-width: $maxWidth;
+  background-color: $white;
+  margin: 0 auto;
+  padding: 1.5em 0.5em;
+
+  font-size: 1rem;
+}
+
+

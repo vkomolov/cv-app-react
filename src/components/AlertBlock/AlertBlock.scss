@@ -1,0 +1,46 @@
+@import "../../styles/global_styles/variables";
+@import "../../styles/global_styles/mixins";
+@import "../../styles/global_styles/animations";
+
+#alert-block {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: $greyLight;
+  opacity: 0.95;
+
+  @include flex-box($flex-box-row-center...);
+
+  .alert-content-block {
+    max-width: 25em;
+    padding: 1.5em;
+
+    opacity: 1;
+
+    @include init-font(1em, 700);
+    @include flex-box($flex-box-col-center...);
+
+    animation: popup 0.3s ease-in-out;
+
+    img {
+    }
+
+    span {
+      padding: 0.2em 0.8em;
+    }
+
+    .alert-error {
+      color: $red;
+      background-color: $greyLightest;
+
+      @include box-shadow(0.2em, 0.4em);
+    }
+
+    .alert-loading {
+      color: $blueDark;
+    }
+  }
+}
