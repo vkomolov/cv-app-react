@@ -17,7 +17,7 @@
       "ecmaFeatures": {
         "jsx": true
       },
-      "ecmaVersion": "latest",
+      "ecmaVersion": 2019,
         "sourceType": "module"
     },
     "plugins": [
@@ -26,6 +26,7 @@
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/prefer-stateless-function": 0,
-        "quotes": ["error", "double"]
+        "quotes": [1, "double"],
+        "object-curly-spacing": [1, "always"]
     }
 }

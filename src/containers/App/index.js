@@ -84,6 +84,9 @@ export default class App extends React.Component {
      */
     _handleData(data={}) {
         if (Object.keys(data).length) {
+
+            log(data, "data:");
+
             const filterArr = Object.keys(data).reduce((acc, key) => {
                 if (key !== "fullName" && key !== "photoUrl") {
                     const isActive = acc.length === 0;
@@ -96,6 +99,7 @@ export default class App extends React.Component {
             }, []);
 
             if (filterArr.length) {
+                this._data = data;
                 this.setState({
                     dataFilters: [
                         ...filterArr
@@ -110,6 +114,32 @@ export default class App extends React.Component {
         } else {
             this.dispatchAlert("error", "no correct data received...");
         }
+    }
+
+    /**
+     *
+     * @param {Object[]} filters: this.state.dataFilters as Array of Objects
+     * @param {Object} innData: this._data as Object
+     * @returns {null|Object} returns the Object from this._data, taken from the target property, or null
+     */
+    dataFiltered(filters, innData) {
+        if (!filters.length || !innData) {
+            log("empty...");
+            return null;
+        }
+
+        /**
+         * @description it returns the name of the active filter
+         */
+        const filterActive = filters.find(filter => !!filter.isActive).filterName;
+        log(filterActive, "filterActive");
+
+        if (!innData[filterActive]) {
+            console.error(`no "${ filterActive }" is found in the given data at App.js this.dataFiltered...`);
+            return null;
+        }
+
+        return innData[filterActive];
     }
 
     componentDidMount() {
@@ -131,13 +161,14 @@ export default class App extends React.Component {
         log("render...");
 
         const { alertState, dataFilters } = this.state;
-        log(dataFilters, "dataFilters: ");
+        const dataActive = this.dataFiltered(dataFilters, this._data);
+        const { aside, content } = dataActive || {};
 
         return (
             <div className="totalWrapper">
-                { !!alertState.alertType && <AlertBlock {...{alertState}} /> }
-                <AsideBar />
-                <ContentBar />
+                { !!alertState.alertType && <AlertBlock { ...{ alertState } } /> }
+                { !!aside && <AsideBar data={ aside }/> }
+                { !!content &&  <ContentBar data={ content } /> }
             </div>
         );
     }
