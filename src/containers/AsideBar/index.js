@@ -15,7 +15,7 @@ export default function AsideBar({ data }) {
     );
 }
 
-AsideBar.proptypes = {
+AsideBar.propTypes = {
     data: PropTypes.object
 };
 

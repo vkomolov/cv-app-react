@@ -142,6 +142,35 @@ export default class App extends React.Component {
         return innData[filterActive];
     }
 
+    render() {
+        log("render...");
+
+        let fullName, photoUrl, aside, content;
+        const { alertState, dataFilters } = this.state;
+
+        if (this._data) {
+            fullName = this._data.fullName;
+            photoUrl = this._data.photoUrl;
+            const dataActive = this.dataFiltered(dataFilters, this._data);
+            aside = {
+                ...dataActive.aside,
+                fullName,
+                photoUrl
+            };
+            content = dataActive.content;
+        }
+
+        //log(this._data, "this.data");
+
+        return (
+            <div className="totalWrapper">
+                { !!alertState.alertType && <AlertBlock { ...{ alertState } } /> }
+                { !!aside && <AsideBar data={ aside }/> }
+                { !!content &&  <ContentBar data={ content } /> }
+            </div>
+        );
+    }
+
     componentDidMount() {
         log("componentDidMount");
 
@@ -152,25 +181,9 @@ export default class App extends React.Component {
                 }, 1000);
             })
             .catch(e => {
-            console.error(e.message);
-            this.dispatchAlert("error", e.message)
-        });
-    }
-
-    render() {
-        log("render...");
-
-        const { alertState, dataFilters } = this.state;
-        const dataActive = this.dataFiltered(dataFilters, this._data);
-        const { aside, content } = dataActive || {};
-
-        return (
-            <div className="totalWrapper">
-                { !!alertState.alertType && <AlertBlock { ...{ alertState } } /> }
-                { !!aside && <AsideBar data={ aside }/> }
-                { !!content &&  <ContentBar data={ content } /> }
-            </div>
-        );
+                console.error(e.message);
+                this.dispatchAlert("error", e.message)
+            });
     }
 }
 
