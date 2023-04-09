@@ -25,6 +25,8 @@ export default class App extends React.Component {
         };
 
         this._data = null;
+        //this.dispatchAlert = this.dispatchAlert.bind(this);
+        this.setFilterActive = this.setFilterActive.bind(this);
     }
 
     /**@async
@@ -69,6 +71,9 @@ export default class App extends React.Component {
         });
     }
 
+    /**
+     * it sets the alert state to the initial values
+     */
     alertClear() {
         this.setState({
             alertState: {
@@ -84,9 +89,6 @@ export default class App extends React.Component {
      */
     _handleData(data={}) {
         if (Object.keys(data).length) {
-
-            log(data, "data:");
-
             const filterArr = Object.keys(data).reduce((acc, key) => {
                 if (key !== "fullName" && key !== "photoUrl") {
                     const isActive = acc.length === 0;
@@ -117,56 +119,84 @@ export default class App extends React.Component {
     }
 
     /**
-     *
-     * @param {Object[]} filters: this.state.dataFilters as Array of Objects
-     * @param {Object} innData: this._data as Object
-     * @returns {null|Object} returns the Object from this._data, taken from the target property, or null
+     * @description it returns the array of the filters` names
+     * @returns {null|*[]}
      */
-    dataFiltered(filters, innData) {
-        if (!filters.length || !innData) {
-            log("empty...");
+    _getFilterNames() {
+        if (!this.state.dataFilters.length) {
             return null;
         }
+        return this.state.dataFilters.map(filter => filter.filterName);
+    }
 
-        /**
-         * @description it returns the name of the active filter
-         */
-        const filterActive = filters.find(filter => !!filter.isActive).filterName;
-        log(filterActive, "filterActive");
-
-        if (!innData[filterActive]) {
-            console.error(`no "${ filterActive }" is found in the given data at App.js this.dataFiltered...`);
+    /**
+     * @description it returns the active filter name
+     * @returns {null|string}
+     */
+    _getFilterActive() {
+        if (!this.state.dataFilters.length) {
             return null;
         }
+        return this.state.dataFilters.find(filter => !!filter.isActive).filterName;
+    }
 
-        return innData[filterActive];
+    /**
+     *
+     * @param {string} filterNameSet: selected filter name to be active
+     */
+    setFilterActive({ target }) {
+        const filterArr = this._getFilterNames();
+        const filterNameSet = target.dataset.filter;
+
+        if (!filterArr.includes(filterNameSet)) {
+            this.dispatchAlert("error", "no such filter in the App...");
+        } else {
+            this.setState(prevState => ({
+                dataFilters: [
+                    ...prevState.dataFilters.map(filter => {
+                        const isActive = filter.filterName === filterNameSet;
+
+                        return {
+                            filterName: filter.filterName,
+                            isActive
+                        }
+                    })
+                ]
+            }));
+        }
     }
 
     render() {
         log("render...");
+        log(this.state, "this.state:");
 
-        let fullName, photoUrl, aside, content;
-        const { alertState, dataFilters } = this.state;
+        let fullName, photoUrl, asideData, contentData;
+        const { alertState } = this.state;
+        const isNotError = alertState.alertType !== "error";
 
         if (this._data) {
             fullName = this._data.fullName;
             photoUrl = this._data.photoUrl;
-            const dataActive = this.dataFiltered(dataFilters, this._data);
-            aside = {
-                ...dataActive.aside,
-                fullName,
-                photoUrl
-            };
-            content = dataActive.content;
-        }
+            const filterActive = this._getFilterActive();
+            const filterNames = this._getFilterNames();
+            const dataActive = this._data[filterActive];
 
-        //log(this._data, "this.data");
+            asideData = {
+                data: dataActive["aside"],
+                fullName,
+                photoUrl,
+                filterActive,
+                filterNames,
+                setFilterActive: this.setFilterActive,
+            };
+            contentData = dataActive["content"];
+        }
 
         return (
             <div className="totalWrapper">
-                { !!alertState.alertType && <AlertBlock { ...{ alertState } } /> }
-                { !!aside && <AsideBar data={ aside }/> }
-                { !!content &&  <ContentBar data={ content } /> }
+                { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
+                { asideData && isNotError && <AsideBar {...{ asideData }} /> }
+                { contentData && isNotError && <ContentBar {...{ contentData }} /> }
             </div>
         );
     }

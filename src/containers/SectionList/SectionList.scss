@@ -1,0 +1,24 @@
+@import "../../styles/global_styles/_variables";
+@import "../../styles/global_styles/_mixins";
+@import "../../styles/global_styles/_animations";
+
+.sectionList {
+    .sectionName {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.1em;
+
+      @include init-font(1.15em, 700);
+      @include text-shadow(3px, 4px);
+      @include transition();
+
+      &.toBeHovered:hover {
+        transform: translateX(7px);
+        cursor: pointer;
+      }
+
+      &.specClass {
+        color: $foxy;
+      }
+    }
+  }

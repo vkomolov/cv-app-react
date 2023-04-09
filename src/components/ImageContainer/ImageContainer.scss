@@ -1,0 +1,13 @@
+@import "../../styles/global_styles/_variables";
+@import "../../styles/global_styles/_mixins";
+@import "../../styles/global_styles/_animations";
+
+.imageContainer {
+  max-width: 22em;
+  margin: 1.2em 0;
+  @include flex-box($flex-box-row-center...);
+
+  img {
+    width: 100%;
+  }
+}

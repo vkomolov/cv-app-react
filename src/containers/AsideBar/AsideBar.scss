@@ -27,39 +27,4 @@
     text-transform: uppercase;
     text-align: center;
   }
-
-  .image-section-container {
-    margin-bottom: 0.7em;
-
-    .imageContainer {
-      max-width: 22em;
-      margin: 1.2em 0;
-      @include flex-box($flex-box-row-center...);
-
-      img {
-        width: 100%;
-      }
-    }
-  }
-
-  .sectionList {
-    .sectionName {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.1em;
-
-      @include init-font(1.15em, 700);
-      @include text-shadow(3px, 4px);
-      @include transition();
-
-      &.toBeHovered:hover {
-        transform: translateX(7px);
-        cursor: pointer;
-      }
-
-      &.specClass {
-        color: $foxy;
-      }
-    }
-  }
 }
