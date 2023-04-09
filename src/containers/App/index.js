@@ -166,30 +166,50 @@ export default class App extends React.Component {
         }
     }
 
+    /**
+     *
+     * @returns {null|Function}
+     * @private
+     */
+    _getDataActive() {
+        if (!this._data) {
+            return null;
+        }
+        const filterActive = this._getFilterActive();
+        const dataFiltered = this._data[filterActive];
+        return (prop) => {
+            if (prop in dataFiltered) {
+                return dataFiltered[prop];
+            }
+            console.error(`property ${ prop } is not found at App.js: _getDataActive`);
+            return null;
+        };
+    }
+
     render() {
         log("render...");
-        log(this.state, "this.state:");
+        //log(this.state, "this.state:");
 
         let fullName, photoUrl, asideData, contentData;
         const { alertState } = this.state;
         const isNotError = alertState.alertType !== "error";
+        const dataActive = this._getDataActive();
 
         if (this._data) {
             fullName = this._data.fullName;
             photoUrl = this._data.photoUrl;
             const filterActive = this._getFilterActive();
             const filterNames = this._getFilterNames();
-            const dataActive = this._data[filterActive];
 
             asideData = {
-                data: dataActive["aside"],
+                data: dataActive("aside"),
                 fullName,
                 photoUrl,
                 filterActive,
                 filterNames,
                 setFilterActive: this.setFilterActive,
             };
-            contentData = dataActive["content"];
+            contentData = dataActive("content");
         }
 
         return (
