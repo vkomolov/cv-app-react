@@ -131,7 +131,7 @@ export default class App extends React.Component {
 
     /**
      * @description it returns the active filter name
-     * @returns {null|string}
+     * @returns { null|string }
      */
     _getFilterActive() {
         if (!this.state.dataFilters.length) {
@@ -142,33 +142,36 @@ export default class App extends React.Component {
 
     /**
      *
-     * @param {string} filterNameSet: selected filter name to be active
+     * @param { HTMLElement } target: selected filter name to be active
      */
     setFilterActive({ target }) {
         const filterArr = this._getFilterNames();
         const filterNameSet = target.dataset.filter;
+        const filterActive = this._getFilterActive();
 
         if (!filterArr.includes(filterNameSet)) {
             this.dispatchAlert("error", "no such filter in the App...");
         } else {
-            this.setState(prevState => ({
-                dataFilters: [
-                    ...prevState.dataFilters.map(filter => {
-                        const isActive = filter.filterName === filterNameSet;
+            if (filterNameSet !== filterActive) {
+                this.setState(prevState => ({
+                    dataFilters: [
+                        ...prevState.dataFilters.map(filter => {
+                            const isActive = filter.filterName === filterNameSet;
 
-                        return {
-                            filterName: filter.filterName,
-                            isActive
-                        }
-                    })
-                ]
-            }));
+                            return {
+                                filterName: filter.filterName,
+                                isActive
+                            }
+                        })
+                    ]
+                }));
+            }
         }
     }
 
     /**
      *
-     * @returns {null|Function}
+     * @returns { null|Function }
      * @private
      */
     _getDataActive() {

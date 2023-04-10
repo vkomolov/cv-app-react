@@ -3,9 +3,10 @@ import * as PropTypes from "prop-types";
 
 import "./AsideBar.scss";
 import ImageSectionContainer from "../ImageSectionContainer";
+import AsideContent from "../AsideContent";
 
 export default function AsideBar({ asideData }) {
-    log(asideData, "innData inside AsideBar");
+    //log(asideData, "asideData inside AsideBar");
 
      const {
          data,
@@ -13,15 +14,17 @@ export default function AsideBar({ asideData }) {
          ...innData
      } = asideData;
 
-    log(data, "data inside AsideBar");
+    //log(data, "data inside AsideBar");
+    //log(innData, "innData inside AsideBar");
 
     return (
-        <div className="asideBar">
+        <aside className="asideBar">
             <h1 className="hero-name">
                 { fullName }
             </h1>
             <ImageSectionContainer {...{ innData }} />
-        </div>
+            <AsideContent {...{ data }} />
+        </aside>
     );
 }
 

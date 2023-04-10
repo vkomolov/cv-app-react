@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 import "./SectionList.scss";
 
 export default function SectionList({ sectionData }) {
-    log(sectionData, "innData in SectionList");
+    //log(sectionData, "innData in SectionList");
 
     const {
         filterActive,
@@ -12,16 +12,29 @@ export default function SectionList({ sectionData }) {
         setFilterActive
     } = sectionData;
 
+    const onKeyDownHandler = (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+
+            setFilterActive(event);
+        }
+    };
+
     const filtersArr = filterNames.map(filter => {
         let specClass = filter === filterActive
             ? "sectionName specClass"
             : "sectionName toBeHovered";
 
         return (
+
             <li
                 className={ specClass }
                 data-filter={ filter }
+                aria-label={ filter }
+                role="menuitem"
+                tabIndex="0"
                 onClick={ setFilterActive }
+                onKeyDown={ onKeyDownHandler }
                 key={v4()}
             >
                 { filter }
@@ -32,7 +45,10 @@ export default function SectionList({ sectionData }) {
 
 
     return (
-        <ul className="sectionList" >
+        <ul
+            className="sectionList"
+            role="menu"
+        >
             {
                 filtersArr
             }

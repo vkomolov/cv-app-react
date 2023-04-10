@@ -25,8 +25,27 @@
     ],
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "jsx-a11y/click-events-have-key-events": "warn",
         "react/prefer-stateless-function": 0,
-        "quotes": [1, "double"],
-        "object-curly-spacing": [1, "always"]
+        "quotes": ["warn", "double"],
+        "object-curly-spacing": ["warn", "always"],
+/*        "no-noninteractive-element-to-interactive-role": [
+            1,
+            {
+                "ul": ["listbox", "menu", "menubar", "list", "tablist", "tree", "radiogroup", "navigation"],
+                "ol": ["listbox", "menu", "menubar", "list", "tablist", "tree", "radiogroup", "navigation"],
+                "li": ["listitem","menuitem", "option", "row", "tab", "treeitem"],
+                "div": ["menu", "button", "tab"],
+                "span": ["button"]
+            }
+        ],*/
+        "jsx-a11y/no-static-element-interactions": [
+            "error",
+            {
+                "handlers": [
+                    "onClick"
+                ]
+            }
+        ]
     }
 }

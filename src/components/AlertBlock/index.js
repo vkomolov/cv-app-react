@@ -20,7 +20,10 @@ export default function AlertBlock({ alertState }) {
 
     return (
         <div id="alert-block">
-            <div className="alert-content-block">
+            <div
+                className="alert-content-block"
+                role="alert"
+            >
                 { classNameOut === "alert-loading"
                 && <img src={loadingIcon} alt="loading" /> }
                 { contentArr }

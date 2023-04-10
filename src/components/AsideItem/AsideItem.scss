@@ -1,0 +1,19 @@
+@import "../../styles/global_styles/_variables";
+@import "../../styles/global_styles/_mixins";
+
+.aside-item-wrapper {
+  padding-bottom: 1em;
+
+  h3 {
+    color: $foxyGrey;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3em;
+    @include text-shadow(0.17em, 0.2em);
+  }
+
+  .spanDetails {
+    letter-spacing: 0.05em;
+
+    @include init-font(14px, 400);
+  }
+}

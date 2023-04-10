@@ -8,9 +8,9 @@ export default function ContentBar({ contentData }) {
     log(contentData, "data inside ContentBar");
 
     return (
-        <div className="contentBar">
+        <main className="contentBar">
             Content Bar
-        </div>
+        </main>
     );
 }
 
