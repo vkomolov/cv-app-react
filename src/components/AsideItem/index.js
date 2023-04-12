@@ -5,7 +5,6 @@ import GraphSection from "../GraphSection";
 import { v4 } from "uuid";
 
 export default function AsideItem({ data }) {
-    log(data, "data inside AsideItem");
     const { title, details } = data;
     let content;
 

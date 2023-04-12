@@ -5,8 +5,6 @@ import AsideSegment from "../AsideSegment";
 import { v4 } from "uuid";
 
 export default function AsideContent({ data }) {
-    log(data, "data in AsideContent");
-
     /** to filter from possible not array data... **/
     const keysArr = Object.keys(data).filter(key => {
         return Array.isArray(data[key]);

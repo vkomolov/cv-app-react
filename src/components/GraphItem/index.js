@@ -1,23 +1,44 @@
-import React from "react";
+import React, { Component, createRef } from "react";
 import * as PropTypes from "prop-types";
 import "./GraphItem.scss";
 
-export default function GraphItem({ score }) {
-    const getStyle = score => {
-        const innScore = score.trim();
-        if (parseInt(innScore)) {
-            return {
-                width: parseInt(innScore) + "%"
-            }
-        }
-        return {}
-    };
+/**
+ * @class
+ * TODO: to implement useRef approach
+ */
 
-    return (
-        <div className="graphBlock">
-            <div style={ getStyle( score ) } className="score" />
-        </div>
-    );
+export default class GraphItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.score = this.props.score.trim();
+        this.ref = createRef();
+    }
+
+    initScore(score="0") {
+        const outScore = parseInt(score);
+        return outScore > 0 ? outScore : 0;
+    }
+
+    render() {
+
+        return (
+            <div className="graphBlock" >
+                <div
+                    className="score"
+                    ref={ this.ref }
+                />
+            </div>
+        );
+    }
+
+    componentDidMount() {
+        const { current } = this.ref;
+
+        setTimeout(() => {
+            current.style.width = this.initScore(this.score) + "%";
+        }, 300);
+    }
 }
 
 GraphItem.propTypes = {

@@ -6,16 +6,11 @@ import ImageSectionContainer from "../ImageSectionContainer";
 import AsideContent from "../AsideContent";
 
 export default function AsideBar({ asideData }) {
-    //log(asideData, "asideData inside AsideBar");
-
      const {
          data,
          fullName,
          ...innData
      } = asideData;
-
-    //log(data, "data inside AsideBar");
-    //log(innData, "innData inside AsideBar");
 
     return (
         <aside className="asideBar">

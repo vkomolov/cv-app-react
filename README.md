@@ -1,3 +1,85 @@
+## App Description
+
+### Overall Description
+
+### ESLint configurations
+
+#### "react/jsx-no-target-blank" rules:
+```
+"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "jsx-a11y/click-events-have-key-events": "warn",
+        "react/prefer-stateless-function": 0,
+        "quotes": ["warn", "double"],
+        "object-curly-spacing": ["warn", "always"],
+        "react/jsx-no-target-blank": ["enabled", {
+            "allowReferrer": false,
+            "enforceDynamicLinks": "never",
+            "warnOnSpreadAttributes": false
+        }],
+```
+##### "allowReferrer": false (in exceptions object)
+It does not require rel="noreferrer", which is safe for the inner links within the site, even for SEO.
+Nevertheless, using rel="noreferrer" is recommended for avoiding vulnerabilities of older browsers linking to other urls
+##### "enforceDynamicLinks": "never"
+It allows to dynamic links, which is safe for the inner links and handy for
+the dynamic creation of links.
+##### "warnOnSpreadAttributes": false (by default)
+Spread attributes are a handy way of passing programmatically-generated props to components, 
+but may contain unsafe props e.g.
+If false, this rule will ignore all spread attributes. If true, this rule will treat all spread attributes as if they contain an unsafe combination of props, unless specifically overridden by props after the last spread attribute prop e.g. the following would not be violations:
+
+`<a {...unsafeProps} rel="noreferrer"></a>`
+`<a {...unsafeProps} target="_self"></a>`
+`<a {...unsafeProps} href="/some-page"></a>`
+
+####TODO:
+```
+"no-noninteractive-element-to-interactive-role": [
+   1,
+   
+       {
+          "ul": ["listbox", "menu", "menubar", "list", "tablist", "tree", "radiogroup", "navigation"],
+          "ol": ["listbox", "menu", "menubar", "list", "tablist", "tree", "radiogroup", "navigation"],
+          "li": ["listitem","menuitem", "option", "row", "tab", "treeitem"],
+          "div": ["menu", "button", "tab", "list", "listitem"],
+          "span": ["button"]
+       }
+]
+```
+#### "jsx-a11y/no-static-element-interactions" rules:
+```
+"jsx-a11y/no-static-element-interactions": [
+            "error",
+            {
+                "handlers": [
+                    "onClick"
+                ]
+            }
+        ]
+```
+#### "react/jsx-filename-extension" rules:
+`"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]`
+
+#### "jsx-a11y/click-events-have-key-events": "warn"
+
+#### "react/prefer-stateless-function": 0,
+
+#### "quotes": ["warn", "double"],
+
+#### "object-curly-spacing": ["warn", "always"],
+
+#### "react/jsx-no-target-blank" rules:
+```
+"react/jsx-no-target-blank": [1, {
+            "allowReferrer": true,
+            "enforceDynamicLinks": "never",
+            "warnOnSpreadAttributes": false
+        }]
+```
+
+
+______________________
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

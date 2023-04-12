@@ -7,6 +7,10 @@ import { getAndStore } from "../../utils/services/userService";
 
 const jsonUrl = "./asset/pData/cv.json";
 
+/**
+ * @class
+ * TODO: to implement stateless function with useState method in the new git branch
+ */
 export default class App extends React.Component {
     constructor(props) {
         super(props);
@@ -212,9 +216,20 @@ export default class App extends React.Component {
                 filterNames,
                 setFilterActive: this.setFilterActive,
             };
-            contentData = dataActive("content");
+            contentData = {
+                data: dataActive("content"),
+                filterActive
+            }
         }
 
+        /**
+         * @description
+         * if this.state.alertState.alertType !== null then to show AlertBlock
+         * if asideData (or contentData) !== null (if fetched data) and if this.state.alertState.alertType !== "error"
+         * then to show AsideBar (or ContentBar): they will be shown at other alerts or if no alerts...
+         * condition isNotError acts as a protector against looping of render when an error is dispatched by one of the
+         * Components without interactive events...
+         */
         return (
             <div className="totalWrapper">
                 { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
@@ -227,6 +242,10 @@ export default class App extends React.Component {
     componentDidMount() {
         log("componentDidMount");
 
+        /**
+         * at this stage to get the data from the localStorage or to fetch it from the server and record it to the
+         * localStorage
+         */
         this.getAndRenderData(jsonUrl)
             .then(data => {
                 setTimeout(() => {

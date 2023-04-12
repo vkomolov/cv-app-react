@@ -1,0 +1,76 @@
+@import "../../styles/global_styles/_variables";
+@import "../../styles/global_styles/_mixins";
+@import "../../styles/global_styles/_animations";
+
+.contentWrapper {
+  position: relative; //for loading icon
+
+  @include scroll-init(5px, $blueDark, $foxyGrey);
+  @include flex-box($flex-box-row-left...);
+
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  margin: 1.2em 0;
+
+  &.personal-spec {
+    max-width: 40em;
+    line-height: 1.5em;
+    margin: 1em auto;
+  }
+
+  $remarkColWidth: 5em;
+  .remarkCol {
+    box-sizing: border-box;
+    padding-bottom: 0.5em;
+    width: #{$remarkColWidth};
+
+    .remark {
+      @include init-font(0.75em, 400);
+      line-height: 1.1em;
+    }
+  }
+
+  .contentBlock {
+    box-sizing: border-box;
+    //flex-basis: 80%;
+    width: calc(100% - #{$remarkColWidth});
+
+    padding: 0 0.5em;
+
+    h3 {
+      margin-bottom: 10px;
+
+      @include init-font(18px, 700);
+    }
+
+    h4 {
+      margin-bottom: 17px;
+
+      @include init-font(16px, 400);
+    }
+  }
+
+  p {
+    margin-top: 20px;
+    text-align: justify;
+  }
+
+  ul {
+    list-style: disc inside;
+
+    li {
+      margin-bottom: 5px;
+      line-height: 1.2em;
+    }
+  }
+
+  .link {
+    padding: 0 10px;
+    @include transition();
+
+    &:hover {
+      transform: translateX(5px);
+      color: $foxy
+    }
+  }
+}

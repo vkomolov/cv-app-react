@@ -5,8 +5,6 @@ import AsideItem from "../../components/AsideItem";
 import { v4 } from "uuid";
 
 export default function AsideSegment({ data }) {
-    log(data, "data inside AsideSegment");
-
     const asideItems = data.map(dataItem => (
         <AsideItem
             data={ dataItem }

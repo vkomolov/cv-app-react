@@ -29,16 +29,11 @@
         "react/prefer-stateless-function": 0,
         "quotes": ["warn", "double"],
         "object-curly-spacing": ["warn", "always"],
-/*        "no-noninteractive-element-to-interactive-role": [
-            1,
-            {
-                "ul": ["listbox", "menu", "menubar", "list", "tablist", "tree", "radiogroup", "navigation"],
-                "ol": ["listbox", "menu", "menubar", "list", "tablist", "tree", "radiogroup", "navigation"],
-                "li": ["listitem","menuitem", "option", "row", "tab", "treeitem"],
-                "div": ["menu", "button", "tab"],
-                "span": ["button"]
-            }
-        ],*/
+        "react/jsx-no-target-blank": [1, {
+            "allowReferrer": false,
+            "enforceDynamicLinks": "never",
+            "warnOnSpreadAttributes": false
+        }],
         "jsx-a11y/no-static-element-interactions": [
             "error",
             {

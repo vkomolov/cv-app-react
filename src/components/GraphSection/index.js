@@ -4,7 +4,6 @@ import "./GraphSection.scss";
 import GraphItem from "../GraphItem";
 
 export default function GraphSection({ data }) {
-    log(data, "data inside GraphSection");
     const { title, details } = data;
 
     return (

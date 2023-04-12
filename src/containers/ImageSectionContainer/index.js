@@ -6,10 +6,7 @@ import SectionList from "../SectionList";
 
 
 export default function ImageSectionContainer({ innData }) {
-    log(innData, "innData inside ImageSectionContainer");
-
     const { photoUrl, ...sectionData } = innData;
-    //log(sectionData, "sectionData inside ImageSectionContainer");
 
     return (
         <div className="image-section-container" >
