@@ -48,29 +48,29 @@
 
       @include init-font(16px, 400);
     }
-  }
 
-  p {
-    margin-top: 20px;
-    text-align: justify;
-  }
-
-  ul {
-    list-style: disc inside;
-
-    li {
-      margin-bottom: 5px;
-      line-height: 1.2em;
+    p {
+      margin-top: 20px;
+      text-align: justify;
     }
-  }
 
-  .link {
-    padding: 0 10px;
-    @include transition();
+    ul {
+      list-style: disc inside;
 
-    &:hover {
-      transform: translateX(5px);
-      color: $foxy
+      li {
+        margin-bottom: 5px;
+        line-height: 1.2em;
+
+        .link {
+          padding: 0 10px;
+          @include transition();
+
+          &:hover {
+            transform: translateX(5px);
+            color: $foxy
+          }
+        }
+      }
     }
   }
 }

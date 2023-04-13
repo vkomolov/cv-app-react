@@ -9,11 +9,11 @@ export default function ContentItem({ classAux, data }) {
     const dataHandles = {
         subheading: ( data ) => {
             return (
-                <h2
+                <h3
                     key={ v4() }
                 >
                     {data["subheading"]}
-                </h2>
+                </h3>
             )
         },
         comments: ( data ) => {
@@ -52,6 +52,7 @@ export default function ContentItem({ classAux, data }) {
                                 target="_blank"
                                 rel="noreferrer noopener nofollow"
                                 aria-label="follow the link for review"
+                                title="follow the link for review"
                             >
                                 { title }
                             </a>
@@ -91,7 +92,7 @@ export default function ContentItem({ classAux, data }) {
             if (Array.isArray(data["file"])) {
                 const linkArr = data["file"].map(linkElem => {
                     const { path, title } = linkElem;
-                    const titleLabel = `Save the file ${ title } in pdf format`;
+                    const titleLabel = `${ title } in pdf format`;
 
                     return (
                         <li
@@ -101,6 +102,7 @@ export default function ContentItem({ classAux, data }) {
                                 href={ path }
                                 className="link"
                                 aria-label={ titleLabel }
+                                title={titleLabel}
                                 download={ true }
                             >
                                 { titleLabel }
@@ -139,8 +141,8 @@ export default function ContentItem({ classAux, data }) {
 
     return (
         <div className={ classAux }>
+            { data["remark"] && remark( data ) }
             <div className="contentBlock">
-                { remark( data ) }
                 { elemsArr }
             </div>
         </div>
