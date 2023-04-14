@@ -57,30 +57,3 @@
     }
   }
 }
-
-#scrolling-text-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(100% - 1em);
-  height: 1.5em;
-  margin: 0 0.5em;
-  overflow: hidden;
-
-  @include transition('left', 5s);
-
-  .scrolling-text {
-    margin: 0;
-    position: absolute;
-    top: 0;
-    //left: will be assigned with JS for scrolling text from the right side of the parent to the left
-    width: max-content;
-    color: $violet;
-    font: {
-      size: 1em;
-      weight: 700;
-    }
-    line-height: 1.5em;
-    letter-spacing: 0.04em;
-  }
-}

@@ -1,17 +1,23 @@
-import React from "react";
+import React, { Component, Fragment } from "react";
 import "./App.scss";
+import ScrollingText from "../ScrollingText";
 import AsideBar from "../AsideBar";
 import ContentBar from "../ContentBar";
 import AlertBlock from "../../components/AlertBlock";
 import { getAndStore } from "../../utils/services/userService";
 
 const jsonUrl = "./asset/pData/cv.json";
+const scrollingText = "To realize the CV App with React, dynamically constructing " +
+    "the Components from the fetched JSON file, which then to be temporally stored in the localStorage for 24 hours. " +
+    "To make git branches of the realisations: using state drilling, using stateless functions on hooks and " +
+    "using Redux and Router, which will be merged as the final version. "
+    + "The link to the code is available in the section \"Experience\"... ";
 
 /**
  * @class
  * TODO: to implement stateless function with useState method in the new git branch
  */
-export default class App extends React.Component {
+export default class App extends Component {
     constructor(props) {
         super(props);
 
@@ -201,6 +207,11 @@ export default class App extends React.Component {
         const { alertState } = this.state;
         const isNotError = alertState.alertType !== "error";
         const dataActive = this._getDataActive();
+        const scrollingTextData = {
+            text: scrollingText,
+            duration: 50000,
+            isFinite: true,
+        };
 
         if (this._data) {
             fullName = this._data.fullName;
@@ -231,11 +242,14 @@ export default class App extends React.Component {
          * Components without interactive events...
          */
         return (
-            <div className="totalWrapper">
-                { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
-                { asideData && isNotError && <AsideBar {...{ asideData }} /> }
-                { contentData && isNotError && <ContentBar {...{ contentData }} /> }
-            </div>
+            <Fragment>
+                { isNotError && this._data && <ScrollingText data={ scrollingTextData } /> }
+                <div className="totalWrapper">
+                    { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
+                    { isNotError && asideData && <AsideBar {...{ asideData }} /> }
+                    { isNotError && contentData && <ContentBar {...{ contentData }} /> }
+                </div>
+            </Fragment>
         );
     }
 
@@ -256,6 +270,8 @@ export default class App extends React.Component {
                 console.error(e.message);
                 this.dispatchAlert("error", e.message)
             });
+
+
     }
 }
 
