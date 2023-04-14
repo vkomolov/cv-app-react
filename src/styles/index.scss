@@ -11,6 +11,8 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $greyLight;
+
   /**** user-select: none; *****/
   @include transition();
 }
@@ -30,7 +32,6 @@ body:before {
 #root {
   position: relative; //for the alert block in absolute position
   max-width: $maxWidth;
-  background-color: $white;
   margin: 0 auto;
   padding: 1.5em 0.5em;
 
