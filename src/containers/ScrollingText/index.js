@@ -53,7 +53,6 @@ export default class ScrollingText extends Component {
                     startTime = null;
                     requestAnimationFrame(measure);
                 }
-                log("text scrolling ended...");
             }
         });
 

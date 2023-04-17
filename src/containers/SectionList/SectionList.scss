@@ -3,22 +3,64 @@
 @import "../../styles/global_styles/_animations";
 
 .sectionList {
-    .sectionName {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.3em;
 
-      @include init-font(1.15em, 700);
-      @include text-shadow(3px, 4px);
-      @include transition();
+}
 
-      &.toBeHovered:hover {
+.sectionName {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.3em;
+
+    @include init-font(1.15em, 700);
+    @include text-shadow(0.11em, 0.2em);
+    @include transition();
+
+    &.toBeHovered:hover {
         transform: translateX(7px);
         cursor: pointer;
-      }
-
-      &.specClass {
-        color: $foxy;
-      }
     }
-  }
+
+    &.specClass {
+        color: $foxy;
+    }
+}
+
+.wrapper-on-scroll {
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+    top: -100px;
+    left: 0;
+
+    @include flex-box($flex-box-row-center...);
+    @include transition();
+
+    &.scroll-active {
+      top: 0;
+    }
+
+    .sectionList {
+        margin: 0;
+        width: 100%;
+        max-width: calc(#{$maxWidth} - 1em);
+        background: linear-gradient(90deg, $white, $foxy);
+        opacity: 0.97;
+
+        @include flex-box($flex-box-row-left...);
+
+        .sectionName {
+            color: $greyDark;
+            margin: 0;
+            padding: 0.25em;
+
+            &.toBeHovered:hover {
+                transform: scale(1.05);
+                cursor: pointer;
+            }
+
+            &.specClass {
+                color: $foxy;
+            }
+        }
+    }
+}

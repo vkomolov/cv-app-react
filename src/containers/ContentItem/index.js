@@ -4,8 +4,6 @@ import "./ContentItem.scss";
 import { v4 } from "uuid";
 
 export default function ContentItem({ classAux, data }) {
-    //log(data, "data in ContentItem");
-
     const dataHandles = {
         subheading: ( data ) => {
             return (

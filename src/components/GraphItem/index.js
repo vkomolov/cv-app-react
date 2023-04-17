@@ -2,11 +2,6 @@ import React, { Component, createRef } from "react";
 import * as PropTypes from "prop-types";
 import "./GraphItem.scss";
 
-/**
- * @class
- * TODO: to implement useRef approach
- */
-
 export default class GraphItem extends Component {
     constructor(props) {
         super(props);

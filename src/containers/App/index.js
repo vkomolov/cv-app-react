@@ -13,10 +13,6 @@ const scrollingText = "To realize the CV App with React, dynamically constructin
     "using Redux and Router, which will be merged as the final version. "
     + "The link to the code is available in the section \"Experience\"... ";
 
-/**
- * @class
- * TODO: to implement stateless function with useState method in the new git branch
- */
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -175,6 +171,8 @@ export default class App extends Component {
                         })
                     ]
                 }));
+                //starting page from the initial position
+                window.scrollTo(0, 0);
             }
         }
     }
@@ -200,9 +198,6 @@ export default class App extends Component {
     }
 
     render() {
-        log("render...");
-        //log(this.state, "this.state:");
-
         let fullName, photoUrl, asideData, contentData;
         const { alertState } = this.state;
         const isNotError = alertState.alertType !== "error";
@@ -254,8 +249,6 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        log("componentDidMount");
-
         /**
          * at this stage to get the data from the localStorage or to fetch it from the server and record it to the
          * localStorage
@@ -270,8 +263,6 @@ export default class App extends Component {
                 console.error(e.message);
                 this.dispatchAlert("error", e.message)
             });
-
-
     }
 }
 

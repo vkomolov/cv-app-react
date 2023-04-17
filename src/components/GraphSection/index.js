@@ -20,13 +20,6 @@ export default function GraphSection({ data }) {
     );
 }
 
-/*GraphSection.propTypes = {
-    data: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        details: PropTypes.string.isRequired
-    })
-};*/
-
 GraphSection.propTypes = {
     data: PropTypes.objectOf(PropTypes.string).isRequired
 };

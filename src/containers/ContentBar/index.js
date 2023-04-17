@@ -6,7 +6,6 @@ import ContentItem from "../ContentItem";
 import { v4 } from "uuid";
 
 /**
- * //TODO: to change transition on mount
  * @param { Object } contentData
  * @constructor
  */
@@ -19,9 +18,6 @@ export default class ContentBar extends Component {
 
     render() {
         const { contentData } = this.props;
-
-        //log(contentData, "data inside ContentBar");
-
         const { filterActive, data } = contentData;
         /**
          * avoiding additional state, this.filterActiveCurrent is used for componentDidUpdate
@@ -57,8 +53,6 @@ export default class ContentBar extends Component {
      * @param { Object } contentData from 'prevProps'
      */
     componentDidUpdate({ contentData }) {
-        log("componentDidUpdate...");
-
         const contentBarHtml = this.ref.current;
         const prevFilterActive = contentData.filterActive;
         if (this.filterActiveCurrent !== prevFilterActive) {

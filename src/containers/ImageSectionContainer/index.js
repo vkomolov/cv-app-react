@@ -4,7 +4,6 @@ import "./ImageSectionContainer.scss";
 import ImageContainer from "../../components/ImageContainer";
 import SectionList from "../SectionList";
 
-
 export default function ImageSectionContainer({ innData }) {
     const { photoUrl, ...sectionData } = innData;
 
