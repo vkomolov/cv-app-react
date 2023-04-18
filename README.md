@@ -1,94 +1,42 @@
-## App Description
-
-### Overall Description
-
-### ESLint configurations
-
-#### "react/jsx-no-target-blank" rules:
-```
-"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "jsx-a11y/click-events-have-key-events": "warn",
-        "react/prefer-stateless-function": 0,
-        "quotes": ["warn", "double"],
-        "object-curly-spacing": ["warn", "always"],
-        "react/jsx-no-target-blank": ["enabled", {
-            "allowReferrer": false,
-            "enforceDynamicLinks": "never",
-            "warnOnSpreadAttributes": false
-        }],
-```
-##### "allowReferrer": false (in exceptions object)
-It does not require rel="noreferrer", which is safe for the inner links within the site, even for SEO.
-Nevertheless, using rel="noreferrer" is recommended for avoiding vulnerabilities of older browsers linking to other urls
-##### "enforceDynamicLinks": "never"
-It allows to dynamic links, which is safe for the inner links and handy for
-the dynamic creation of links.
-##### "warnOnSpreadAttributes": false (by default)
-Spread attributes are a handy way of passing programmatically-generated props to components, 
-but may contain unsafe props e.g.
-If false, this rule will ignore all spread attributes. If true, this rule will treat all spread attributes as if they contain an unsafe combination of props, unless specifically overridden by props after the last spread attribute prop e.g. the following would not be violations:
-
-`<a {...unsafeProps} rel="noreferrer"></a>`
-`<a {...unsafeProps} target="_self"></a>`
-`<a {...unsafeProps} href="/some-page"></a>`
-
-####TODO:
-```
-"no-noninteractive-element-to-interactive-role": [
-   1,
-   
-       {
-          "ul": ["listbox", "menu", "menubar", "list", "tablist", "tree", "radiogroup", "navigation"],
-          "ol": ["listbox", "menu", "menubar", "list", "tablist", "tree", "radiogroup", "navigation"],
-          "li": ["listitem","menuitem", "option", "row", "tab", "treeitem"],
-          "div": ["menu", "button", "tab", "list", "listitem"],
-          "span": ["button"]
-       }
-]
-```
-#### "jsx-a11y/no-static-element-interactions" rules:
-```
-"jsx-a11y/no-static-element-interactions": [
-            "error",
-            {
-                "handlers": [
-                    "onClick"
-                ]
-            }
-        ]
-```
-#### "react/jsx-filename-extension" rules:
-`"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]`
-
-#### "jsx-a11y/click-events-have-key-events": "warn"
-
-#### "react/prefer-stateless-function": 0,
-
-#### "quotes": ["warn", "double"],
-
-#### "object-curly-spacing": ["warn", "always"],
-
-#### "react/jsx-no-target-blank" rules:
-```
-"react/jsx-no-target-blank": [1, {
-            "allowReferrer": true,
-            "enforceDynamicLinks": "never",
-            "warnOnSpreadAttributes": false
-        }]
-```
-
-
+# App Description
+This cv app is made as a demonstration of rendering the HTML Elements with the content, dynamically rendered 
+from the JSON file, which is requested from the server, while the empty page is on the client side.
+## Task: 
+- To realize the CV App with React, dynamically constructing the HTMLElements from the fetched JSON file, and 
+re-render the HTMLElements on the events, connected to the data or chosen filters;
+- All the UI elements (lists, paragraphs, filters, etc) should be rendered according to the JSON data;
+- The fetched data should be stored in the localStorage for 24 hours, avoiding repeated http requests to the
+server;
+- To renew the LocalStorage, if the creation date of the LocalStorage is more than 24 hours; 
+- To set the LocalStorage with the image, fetched from the JSON data url and read with FileReader;
+- If the fetched JSON data contains refs on pdf files to be downloaded, then to create downloadable <a> links 
+with href to the fetched pdf files; <br>
+The pdf files for the <a> links should be fetched and stored separately;
+- Fetched pdf files should be stored in the LocalStorage for the next sessions; <br>
+The files should be also validated with the creation date and restored if necessary;
+- The link to the code is available in the section "Experience";
+- Finally, bundled in the App container, it will be appended to the '#root' DOM Element of the initial empty page;
+- No hardcoded names and elements UI;
+- The initial render of the App is empty with the only 'loading' icon;
+- To make adoptive html on desktop and mobile screens;
+- To imitate the loading time, showing the loading icon, when fetching the data;
+- On choosing the filter, the components must be re-rendered with the new data;
+- To visually demonstrate the level of knowledge and skills with the indicating bar from 0 to 100%;
+- On scrolling the page down, the filter`s bar must emerge on the top of the page in the fixed position 
+in order to be accessible in the scrolled page;
+- On re-rendering the data to scroll up the page to zero position;
+- To make animation of the scrolling text on the top of the page;
 ______________________
 
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -96,12 +44,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+#### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+#### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -111,7 +59,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+#### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
@@ -121,32 +69,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
+### Learn More
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
