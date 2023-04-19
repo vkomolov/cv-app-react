@@ -2,10 +2,9 @@
 @import "../../styles/global_styles/_mixins";
 @import "../../styles/global_styles/_animations";
 
-.imageContainer {
-  max-width: 22em;
-  margin: 1.2em 0;
+.imageWrapper {
   @include flex-box($flex-box-row-center...);
+  width: fit-content;
 
   img {
     width: 100%;

@@ -115,7 +115,7 @@
           ]
         },
         {
-          "title": "Frameworks, Libraries, etc",
+          "title": "Frameworks, Libraries...",
           "details": [
             {
               "title": "React",
@@ -256,6 +256,10 @@
           "remark": "Some:",
           "subheading": "REALISATION",
           "a": [
+            {
+              "title": "CV Application on React",
+              "path": "https://vkomolov-cv-react.pages.dev/"
+            },
             {
               "title": "CV Application on vanilla JS",
               "path": "https://vkomolov-cv-js.pages.dev/"

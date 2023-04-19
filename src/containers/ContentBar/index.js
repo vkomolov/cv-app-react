@@ -1,8 +1,9 @@
 import React, { Component, createRef } from "react";
 import * as PropTypes from "prop-types";
-
 import "./ContentBar.scss";
 import ContentItem from "../ContentItem";
+import reactIcon from "../../asset/img/reactIcon.png";
+import ImageWrapper from "../../components/ImageWrapper";
 import { v4 } from "uuid";
 
 /**
@@ -41,6 +42,11 @@ export default class ContentBar extends Component {
                 className="contentBar fade-in"
                 ref={ this.ref }
             >
+                <ImageWrapper
+                    alt="React icon"
+                    imgSrc={ reactIcon }
+                    className="reactIconWrapper"
+                />
                 <h2 className="heading" >
                     { title }
                 </h2>

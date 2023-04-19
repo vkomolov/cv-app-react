@@ -1,7 +1,7 @@
 import React from "react";
 import * as PropTypes from "prop-types";
 import "./ImageSectionContainer.scss";
-import ImageContainer from "../../components/ImageContainer";
+import ImageWrapper from "../../components/ImageWrapper";
 import SectionList from "../SectionList";
 
 export default function ImageSectionContainer({ innData }) {
@@ -9,7 +9,11 @@ export default function ImageSectionContainer({ innData }) {
 
     return (
         <div className="image-section-container" >
-            <ImageContainer imgSrc={ photoUrl } />
+            <ImageWrapper
+                imgSrc={ photoUrl }
+                alt="VKomolov CV"
+                className="photoWrapper"
+            />
             <SectionList {...{ sectionData }} />
         </div>
     );

@@ -1,4 +1,13 @@
+@import "../../styles/global_styles/_variables";
+@import "../../styles/global_styles/_mixins";
+@import "../../styles/global_styles/_animations";
 
 .image-section-container {
   margin-bottom: 0.7em;
+
+  .photoWrapper {
+    position: relative;
+    max-width: 22em;
+    margin: 1.2em 0;
+  }
 }

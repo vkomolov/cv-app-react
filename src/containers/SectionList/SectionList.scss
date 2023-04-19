@@ -28,9 +28,10 @@
 .wrapper-on-scroll {
     position: fixed;
     z-index: 200;
-    width: 100%;
+    width: calc(100% - 1em);
     top: -100px;
     left: 0;
+    margin: 0 0.5em;
 
     @include flex-box($flex-box-row-center...);
     @include transition();
