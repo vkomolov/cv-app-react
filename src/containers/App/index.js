@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import "./App.scss";
 import ScrollingText from "../ScrollingText";
 import AsideBar from "../AsideBar";
@@ -237,14 +237,14 @@ export default class App extends Component {
          * Components without interactive events...
          */
         return (
-            <Fragment>
+            <React.StrictMode>
                 { isNotError && this._data && <ScrollingText data={ scrollingTextData } /> }
                 <div className="totalWrapper">
                     { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
                     { isNotError && asideData && <AsideBar {...{ asideData }} /> }
                     { isNotError && contentData && <ContentBar {...{ contentData }} /> }
                 </div>
-            </Fragment>
+            </React.StrictMode>
         );
     }
 
