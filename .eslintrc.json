@@ -41,6 +41,8 @@
                     "onClick"
                 ]
             }
-        ]
+        ],
+        "react-hooks/rules-of-hooks": "error", // checking hooks rules
+        "react-hooks/exhaustive-deps": "warn" // checking effect dependencies
     }
 }

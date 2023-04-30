@@ -1,19 +1,80 @@
-import React, { Component, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
-import ScrollingText from "../ScrollingText";
-import AsideBar from "../AsideBar";
-import ContentBar from "../ContentBar";
-import AlertBlock from "../../components/AlertBlock";
-import { getAndStore } from "../../utils/services/userService";
+//import ScrollingText from "../ScrollingText";
+//import AsideBar from "../AsideBar";
+//import ContentBar from "../ContentBar";
+//import AlertBlock from "../../components/AlertBlock";
+
+import { getAndRenderData, handleData, getAndStore } from "../../utils/services/userService";
 
 const jsonUrl = "./asset/pData/cv.json";
-const scrollingText = "To realize the CV App with React, dynamically constructing " +
+/*const scrollingText = "To realize the CV App with React, dynamically constructing " +
     "the Components from the fetched JSON file, which then to be temporally stored in the localStorage for 24 hours. " +
     "To make git branches of the realisations: using state drilling, using stateless functions on hooks and " +
     "using Redux and Router, which will be merged as the final version. "
-    + "The link to the code is available in the section \"Experience\"... ";
+    + "The link to the code is available in the section \"Experience\"... ";*/
 
-export default class App extends Component {
+const alertStateDefault = {
+    alertType: null,
+    alertContent: []
+};
+
+export default function App() {
+    const [dataFilters, setDataFilters] = useState([]);
+    const [data, setData] = useState({});
+    const [alertState, setAlertState] = useState({
+        alertType: "loading",       //    could be "loading", "error" or "null"
+        alertContent: ["loading"]   //    the array of strings
+    });
+
+    //using componentDidMount Effect for one initial update of the states
+    useEffect(() => {
+        log("useEffect didMount...");
+        getAndRenderData(jsonUrl, getAndStore)
+            .then(auxData => {
+                const filterArr = handleData(auxData);
+
+                setTimeout(() => {
+                    setData(Object.assign(data, auxData));
+                    setDataFilters([...filterArr]);
+                    setAlertState({ ...alertStateDefault });
+                }, 1000);
+            })
+            .catch(e => {
+            console.error(e.message, "catching error:");
+            //if alertType is already "error" and added new error content, then to concat the content
+            const alertContent = alertState.alertType === "error"
+                ? alertState.alertContent.concat(e.message)
+                : e.message;
+
+            setAlertState({
+                alertType: "error",
+                alertContent
+            });
+        })
+    /*eslint react-hooks/exhaustive-deps:0*/
+    //for only componentDidMount effect
+    }, []);
+
+    useEffect(() => {
+        log("updating");
+    });
+
+
+   log(alertState, "alert State inside function App");
+   log(dataFilters, "state filters inside function App:");
+   log(data, "data inside App:");
+
+    return (
+        <>
+            <div className="totalWrapper">
+                TotalWrapper
+            </div>
+        </>
+    );
+}
+
+/*export default class App extends Component {
     constructor(props) {
         super(props);
 
@@ -35,19 +96,19 @@ export default class App extends Component {
         this.setFilterActive = this.setFilterActive.bind(this);
     }
 
-    /**@async
+    /!**@async
      * @function
      * @description: it is the main start method, which is initiated right after the App is mounted
      * @param {string} dataPath url to the source for fetching data
-     */
+     *!/
      getAndRenderData(dataPath) {
         return getAndStore(dataPath, 1, "json")
             .then(data =>{
-                /**
+                /!**
                  * on fetching the data it takes data['photoUrl'] and additionally fetches the blob from this url,
                  * then reading by File-Reader it re-sets the value of data['photoUrl'] and finally returns the
                  * updated data
-                 */
+                 *!/
                 if (data["photoUrl"]) {
                     return getAndStore(data["photoUrl"], 1, "blob")
                         .then(objUrl => ({
@@ -60,12 +121,12 @@ export default class App extends Component {
             });
     }
 
-    /**@function
+    /!**@function
      * @param {string} type: 'error', 'loading'... to be scaled
      * @param {...string} content
      * @example
      * dispatchAlert("error", "text" | Error.message());
-     */
+     *!/
     dispatchAlert(type, ...content) {
         this.setState({
             alertState: {
@@ -77,9 +138,9 @@ export default class App extends Component {
         });
     }
 
-    /**
+    /!**
      * it sets the alert state to the initial values
-     */
+     *!/
     alertClear() {
         this.setState({
             alertState: {
@@ -88,11 +149,11 @@ export default class App extends Component {
         })
     }
 
-    /**
+    /!**
      * it sets this.state.dataFilters and this.state.alertState with the data received
      * @param {Object} data which is fetched or taken from the localStore
      * @private
-     */
+     *!/
     _handleData(data={}) {
         if (Object.keys(data).length) {
             const filterArr = Object.keys(data).reduce((acc, key) => {
@@ -124,10 +185,10 @@ export default class App extends Component {
         }
     }
 
-    /**
+    /!**
      * @description it returns the array of the filters` names
      * @returns {null|*[]}
-     */
+     *!/
     _getFilterNames() {
         if (!this.state.dataFilters.length) {
             return null;
@@ -135,10 +196,10 @@ export default class App extends Component {
         return this.state.dataFilters.map(filter => filter.filterName);
     }
 
-    /**
+    /!**
      * @description it returns the active filter name
      * @returns { null|string }
-     */
+     *!/
     _getFilterActive() {
         if (!this.state.dataFilters.length) {
             return null;
@@ -146,10 +207,10 @@ export default class App extends Component {
         return this.state.dataFilters.find(filter => !!filter.isActive).filterName;
     }
 
-    /**
+    /!**
      *
      * @param { HTMLElement } target: selected filter name to be active
-     */
+     *!/
     setFilterActive({ target }) {
         const filterArr = this._getFilterNames();
         const filterNameSet = target.dataset.filter;
@@ -177,11 +238,11 @@ export default class App extends Component {
         }
     }
 
-    /**
+    /!**
      *
      * @returns { null|Function }
      * @private
-     */
+     *!/
     _getDataActive() {
         if (!this._data) {
             return null;
@@ -228,14 +289,14 @@ export default class App extends Component {
             }
         }
 
-        /**
+        /!**
          * @description
          * if this.state.alertState.alertType !== null then to show AlertBlock
          * if asideData (or contentData) !== null (if fetched data) and if this.state.alertState.alertType !== "error"
          * then to show AsideBar (or ContentBar): they will be shown at other alerts or if no alerts...
          * condition isNotError acts as a protector against looping of render when an error is dispatched by one of the
          * Components without interactive events...
-         */
+         *!/
         return (
             <Fragment>
                 { isNotError && this._data && <ScrollingText data={ scrollingTextData } /> }
@@ -249,10 +310,10 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        /**
+        /!**
          * at this stage to get the data from the localStorage or to fetch it from the server and record it to the
          * localStorage
-         */
+         *!/
         this.getAndRenderData(jsonUrl)
             .then(data => {
                 setTimeout(() => {
@@ -264,7 +325,7 @@ export default class App extends Component {
                 this.dispatchAlert("error", e.message)
             });
     }
-}
+}*/
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars
