@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
-//import ScrollingText from "../ScrollingText";
-//import AsideBar from "../AsideBar";
-//import ContentBar from "../ContentBar";
-//import AlertBlock from "../../components/AlertBlock";
+import ScrollingText from "../ScrollingText";
+import AsideBar from "../AsideBar";
+import ContentBar from "../ContentBar";
+import AlertBlock from "../../components/AlertBlock";
 
 import { getAndRenderData, handleData, getAndStore } from "../../utils/services/userService";
 
 const jsonUrl = "./asset/pData/cv.json";
-/*const scrollingText = "To realize the CV App with React, dynamically constructing " +
+const scrollingText = "To realize the CV App with React, dynamically constructing " +
     "the Components from the fetched JSON file, which then to be temporally stored in the localStorage for 24 hours. " +
     "To make git branches of the realisations: using state drilling, using stateless functions on hooks and " +
     "using Redux and Router, which will be merged as the final version. "
-    + "The link to the code is available in the section \"Experience\"... ";*/
+    + "The link to the code is available in the section \"Experience\"... ";
 
 const alertStateDefault = {
     alertType: null,
@@ -21,7 +21,7 @@ const alertStateDefault = {
 
 export default function App() {
     const [dataFilters, setDataFilters] = useState([]);
-    const [data, setData] = useState({});
+    const [stateData, setStateData] = useState({});
     const [alertState, setAlertState] = useState({
         alertType: "loading",       //    could be "loading", "error" or "null"
         alertContent: ["loading"]   //    the array of strings
@@ -35,22 +35,16 @@ export default function App() {
                 const filterArr = handleData(auxData);
 
                 setTimeout(() => {
-                    setData(Object.assign(data, auxData));
+                    setStateData(Object.assign(stateData, auxData));
                     setDataFilters([...filterArr]);
-                    setAlertState({ ...alertStateDefault });
+                    alertClear();
                 }, 1000);
             })
             .catch(e => {
             console.error(e.message, "catching error:");
             //if alertType is already "error" and added new error content, then to concat the content
-            const alertContent = alertState.alertType === "error"
-                ? alertState.alertContent.concat(e.message)
-                : e.message;
 
-            setAlertState({
-                alertType: "error",
-                alertContent
-            });
+            dispatchAlert("error", e.message);
         })
     /*eslint react-hooks/exhaustive-deps:0*/
     //for only componentDidMount effect
@@ -61,14 +55,140 @@ export default function App() {
     });
 
 
-   log(alertState, "alert State inside function App");
-   log(dataFilters, "state filters inside function App:");
-   log(data, "data inside App:");
+    log("rendering inside App");
+
+
+    let dataActive, fullName, photoUrl, asideData, contentData;
+    const isNotError = alertState.alertType !== "error";
+
+    const scrollingTextData = {
+        text: scrollingText,
+        duration: 50000,
+        isFinite: true,
+    };
+
+    if (Object.keys(stateData).length && dataFilters.length) {
+        const filterActive = getFilterActive(dataFilters);
+        const filterNames = getFilterNames(dataFilters);
+        dataActive = getDataActive(stateData, filterActive);
+        fullName = stateData.fullName;
+        photoUrl = stateData.photoUrl;
+
+        asideData = {
+            data: dataActive("aside"),
+            fullName,
+            photoUrl,
+            filterActive,
+            filterNames,
+            setFilterActive,
+        };
+        contentData = {
+            data: dataActive("content"),
+            filterActive
+        }
+    }
+
+    function dispatchAlert(type, ...content) {
+        const alertContent = alertState.alertType === type
+            ? alertState.alertContent.concat(...content)
+            : [...content];
+
+        setAlertState({
+            alertType: type,
+            alertContent
+        });
+    }
+
+    function alertClear() {
+        setAlertState({ ...alertStateDefault });
+    }
+
+    /**
+     * @param {Object[]} dataFilters
+     * @returns {null|string}
+     */
+    function getFilterActive(dataFilters) {
+        if (!dataFilters.length) {
+            return null;
+        }
+        return dataFilters.find(filter => !!filter.isActive).filterName;
+    }
+
+
+    /**
+     *
+     * @param { HTMLElement } target with onClick event
+     */
+    function setFilterActive({ target }) {
+        const filterArr = getFilterNames(dataFilters);
+        const filterNameSet = target.dataset.filter;
+        const filterActive = getFilterActive(dataFilters);
+
+        if (!filterArr.includes(filterNameSet)) {
+            dispatchAlert("error", "no such filter in the App...");
+        } else {
+            if (filterNameSet !== filterActive) {
+                setDataFilters((prevDataFilters) => {
+                    return prevDataFilters.map(filter => {
+                        const isActive = filter.filterName === filterNameSet;
+
+                        return {
+                            filterName: filter.filterName,
+                            isActive
+                        };
+                    });
+                });
+
+                //starting page from the initial position
+                window.scrollTo(0, 0);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param {Object} data
+     * @param {string} filterActive
+     * @returns {null|Function}
+     */
+    function getDataActive(data, filterActive) {
+        if (!Object.keys(data).length) {
+            return null;
+        }
+
+        const dataFiltered = data[filterActive];
+        return (prop) => {
+            if (prop in dataFiltered) {
+                return dataFiltered[prop];
+            }
+            console.error(`property ${ prop } is not found at App.js: getDataActive`);
+            return null;
+        };
+    }
+
+    /**
+     *
+     * @param {Object[]} dataFilters
+     * @returns {null|Array}
+     */
+    function getFilterNames(dataFilters) {
+        if (!dataFilters.length) {
+            return null;
+        }
+        return dataFilters.map(filter => filter.filterName);
+    }
 
     return (
         <>
+            {
+                isNotError
+                && Object.keys(stateData).length
+                && <ScrollingText data={ scrollingTextData } />
+            }
             <div className="totalWrapper">
-                TotalWrapper
+                { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
+                { isNotError && asideData && <AsideBar {...{ asideData }} /> }
+                { isNotError && contentData && <ContentBar {...{ contentData }} /> }
             </div>
         </>
     );
