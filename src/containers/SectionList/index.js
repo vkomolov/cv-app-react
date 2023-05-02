@@ -1,9 +1,20 @@
-import React, { Component, Fragment, createRef } from "react";
+/*eslint no-unused-vars:0*/
+import React, { Component, createRef } from "react";
 import * as PropTypes from "prop-types";
 import { v4 } from "uuid";
 import "./SectionList.scss";
 
+/*export default function SectionListVer({ sectionData }) {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isScrolledShown, setIsScrolledShown] = useState(false);
+
+    const { filterNames, filterActive, setFilterActive } = sectionData;
+
+
+}*/
+
 export default class SectionList extends Component {
+
     constructor(props) {
         super(props);
 
@@ -12,8 +23,10 @@ export default class SectionList extends Component {
             isScrolledShown: false
         };
 
+        //this.filterNames = this.props.sectionData.filterNames;
+        //this.filterActive = this.props.sectionData.filterActive;
+        this.setDataFilters = this.props.sectionData.setDataFilters;
         this.sectionListRef = createRef();
-        this.setFilterActive = this.props.sectionData.setFilterActive;
         this._handleScroll = this._handleScroll.bind(this);
     }
 
@@ -70,11 +83,34 @@ export default class SectionList extends Component {
 
     /**
      *
+     * @param innFilterName
+     * @param filterActive
+     */
+    setFilterActive(innFilterName, filterActive) {
+        if (innFilterName !== filterActive) {
+            this.setDataFilters(prevDataFilters => {
+                return prevDataFilters.map(filter => {
+                    const isActive = filter.filterName === innFilterName;
+                    return {
+                        ...filter,
+                        isActive
+                    };
+                });
+            });
+
+            //starting page from the initial position
+            window.scrollTo(0, 0);
+        }
+    }
+
+    /**
+     *
      * @param { Object } event
      */
     onKeyDownHandler(event) {
         if (event.key === "Enter") {
-            this.setFilterActive(event);
+            const filterName = event.target.dataset.filter;
+            this.setFilterActive(filterName);
         }
     }
 
@@ -94,11 +130,11 @@ export default class SectionList extends Component {
             return (
                 <li
                     className={ specClass }
-                    data-filter={ filter }
                     aria-label={ filter }
+                    data-filter={ filter }
                     role="menuitem"
                     tabIndex="0"
-                    onClick={ this.setFilterActive }
+                    onClick={ () => this.setFilterActive(filter, filterActive) }
                     onKeyDown={ this.onKeyDownHandler }
                     key={v4()}
                 >
@@ -133,14 +169,14 @@ export default class SectionList extends Component {
         );
 
         return (
-            <Fragment>
+            <>
                 { isScrolled
                     && <div className={ styledWrapperOnScroll }>
                         { getSectionList(true) }
                     </div>
                 }
                 { getSectionList(false) }
-            </Fragment>
+            </>
         )
     }
 
@@ -150,6 +186,11 @@ export default class SectionList extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("scroll", this._handleScroll);
+    }
+
+    componentDidUpdate() {
+        log("SectionList update:");
+
     }
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.scss";
 import ScrollingText from "../ScrollingText";
 import AsideBar from "../AsideBar";
@@ -21,21 +21,23 @@ const alertStateDefault = {
 
 export default function App() {
     const [dataFilters, setDataFilters] = useState([]);
-    const [stateData, setStateData] = useState({});
     const [alertState, setAlertState] = useState({
         alertType: "loading",       //    could be "loading", "error" or "null"
         alertContent: ["loading"]   //    the array of strings
     });
+    const dataObj = useRef({});
+    const innData = dataObj.current;
 
     //using componentDidMount Effect for one initial update of the states
     useEffect(() => {
-        log("useEffect didMount...");
+        log("useEffect componentDidMount...");
         getAndRenderData(jsonUrl, getAndStore)
             .then(auxData => {
                 const filterArr = handleData(auxData);
 
                 setTimeout(() => {
-                    setStateData(Object.assign(stateData, auxData));
+                    dataObj.current = Object.assign(dataObj.current, auxData);
+
                     setDataFilters([...filterArr]);
                     alertClear();
                 }, 1000);
@@ -52,27 +54,30 @@ export default function App() {
 
     useEffect(() => {
         log("updating");
-    });
+        log(dataFilters, "dataFilters in useEffect");
+    }, [dataFilters]);
 
 
     log("rendering inside App");
+    log(dataFilters, "dataFilters inside App");
 
 
     let dataActive, fullName, photoUrl, asideData, contentData;
     const isNotError = alertState.alertType !== "error";
-
     const scrollingTextData = {
         text: scrollingText,
         duration: 50000,
         isFinite: true,
     };
 
-    if (Object.keys(stateData).length && dataFilters.length) {
+
+
+    if (Object.keys(innData).length && dataFilters.length) {
         const filterActive = getFilterActive(dataFilters);
         const filterNames = getFilterNames(dataFilters);
-        dataActive = getDataActive(stateData, filterActive);
-        fullName = stateData.fullName;
-        photoUrl = stateData.photoUrl;
+        dataActive = getDataActive(innData, filterActive);
+        fullName = innData.fullName;
+        photoUrl = innData.photoUrl;
 
         asideData = {
             data: dataActive("aside"),
@@ -80,7 +85,7 @@ export default function App() {
             photoUrl,
             filterActive,
             filterNames,
-            setFilterActive,
+            setDataFilters,
         };
         contentData = {
             data: dataActive("content"),
@@ -112,37 +117,6 @@ export default function App() {
             return null;
         }
         return dataFilters.find(filter => !!filter.isActive).filterName;
-    }
-
-
-    /**
-     *
-     * @param { HTMLElement } target with onClick event
-     */
-    function setFilterActive({ target }) {
-        const filterArr = getFilterNames(dataFilters);
-        const filterNameSet = target.dataset.filter;
-        const filterActive = getFilterActive(dataFilters);
-
-        if (!filterArr.includes(filterNameSet)) {
-            dispatchAlert("error", "no such filter in the App...");
-        } else {
-            if (filterNameSet !== filterActive) {
-                setDataFilters((prevDataFilters) => {
-                    return prevDataFilters.map(filter => {
-                        const isActive = filter.filterName === filterNameSet;
-
-                        return {
-                            filterName: filter.filterName,
-                            isActive
-                        };
-                    });
-                });
-
-                //starting page from the initial position
-                window.scrollTo(0, 0);
-            }
-        }
     }
 
     /**
@@ -182,7 +156,7 @@ export default function App() {
         <>
             {
                 isNotError
-                && Object.keys(stateData).length
+                && Object.keys(innData).length
                 && <ScrollingText data={ scrollingTextData } />
             }
             <div className="totalWrapper">
