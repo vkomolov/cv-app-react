@@ -27,7 +27,6 @@ export default function SectionList({ sectionData }) {
             });
 
             //starting page from the initial position
-            //TODO: to useEffect
             window.scrollTo(0, 0);
         }
     };

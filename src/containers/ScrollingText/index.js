@@ -3,11 +3,9 @@ import "./ScrollingText.scss";
 import { initScrollingText } from "../../utils/services/userService";
 import * as PropTypes from "prop-types";
 
-export default function ScrollingText({data}) {
+export default function ScrollingText({ data }) {
     const refContainer = useRef(null);
     const { text, duration, isFinite } = data;
-
-
 
     useEffect(() => {
         const scrollingText = refContainer.current;
