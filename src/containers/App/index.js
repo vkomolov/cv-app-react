@@ -30,7 +30,6 @@ export default function App() {
 
     //using componentDidMount Effect for one initial update of the states
     useEffect(() => {
-        log("useEffect componentDidMount...");
         getAndRenderData(jsonUrl, getAndStore)
             .then(auxData => {
                 const filterArr = handleData(auxData);
