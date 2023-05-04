@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./AsideBar.scss";
 import ImageSectionContainer from "../ImageSectionContainer";
 import AsideContent from "../AsideContent";
-import { AsideContext } from "../App";
+import { useAsideData } from "../../providers/AsideDataProvider";
 
 export default function AsideBar() {
-    const asideData = useContext(AsideContext);
+    const asideData = useAsideData();
      const { fullName } = asideData;
 
     return (

@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./ContentBar.scss";
 import ContentItem from "../ContentItem";
 import reactIcon from "../../asset/img/reactIcon.png";
 import ImageWrapper from "../../components/ImageWrapper";
 import { v4 } from "uuid";
-import { ContentContext } from "../App";
+import { useContentData } from "../../providers/ContentDataProvider";
 
 export default function ContentBar() {
-    const contentData = useContext(ContentContext);
+    const contentData = useContentData();
     const contentBarRef = useRef(null);
     const { filterActive, data } = contentData;
     const { title, details } = data;

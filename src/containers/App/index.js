@@ -1,11 +1,17 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback, createContext } from "react";
+import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import "./App.scss";
 import ScrollingText from "../ScrollingText";
 import AsideBar from "../AsideBar";
 import ContentBar from "../ContentBar";
 import AlertBlock from "../../components/AlertBlock";
-
 import { getAndRenderData, handleData, getAndStore } from "../../utils/services/userService";
+/**
+ * The context Providers were made just for demonstration of its usage... but in this case of app, it is no need
+ * for context creations, because each child component is in need for a part of the data passed in props and further
+ * they pass the rest of the data deeper in the tree of the children...
+ */
+import AsideDataProvider from "../../providers/AsideDataProvider";
+import ContentDataProvider from "../../providers/ContentDataProvider";
 
 const jsonUrl = "./asset/pData/cv.json";
 const scrollingText = "To realize the CV App with React, dynamically constructing " +
@@ -19,21 +25,16 @@ const alertStateDefault = {
     alertContent: []
 };
 
-/**
- * The contexts were made just for demonstration of its usage: in this case of app, no need for context creations,
- * because each child component is in need for a part of the data passed in props and further they pass the rest of
- * the data deeper in the tree of the children...
- * @type {React.Context<null>}
- */
-export const AsideContext = createContext(null);
-export const ContentContext = createContext(null);
-
 export default function App() {
     const [dataFilters, setDataFilters] = useState([]);
     const [alertState, setAlertState] = useState({
         alertType: "loading",       //    could be "loading", "error" or "null"
         alertContent: ["loading"]   //    the array of strings
     });
+
+    /**
+     * we`ll keep the fetched data in useRef reference, without re-rendering...
+     */
     const dataObj = useRef({});
     const innData = dataObj.current;
 
@@ -110,6 +111,11 @@ export default function App() {
         }
     }
 
+    /**
+     *
+     * @param {string} type: "error", or "loading"
+     * @param {Array} content: is the array of text elems, which will be shown in the AlertBlock
+     */
     function dispatchAlert(type, ...content) {
         const alertContent = alertState.alertType === type
             ? alertState.alertContent.concat(...content)
@@ -121,52 +127,11 @@ export default function App() {
         });
     }
 
+    /**
+     * it resets the alert state to default params
+     */
     function alertClear() {
         setAlertState({ ...alertStateDefault });
-    }
-
-    /**
-     * @param {Object[]} dataFilters
-     * @returns {null|string}
-     */
-    function getFilterActive(dataFilters) {
-        if (!dataFilters.length) {
-            return null;
-        }
-        return dataFilters.find(filter => !!filter.isActive).filterName;
-    }
-
-    /**
-     *
-     * @param {Object} data
-     * @param {string} filterActive
-     * @returns {null|Function}
-     */
-    function getDataActive(data, filterActive) {
-        if (!Object.keys(data).length) {
-            return null;
-        }
-
-        const dataFiltered = data[filterActive];
-        return (prop) => {
-            if (prop in dataFiltered) {
-                return dataFiltered[prop];
-            }
-            console.error(`property ${ prop } is not found at App.js: getDataActive`);
-            return null;
-        };
-    }
-
-    /**
-     *
-     * @param {Object[]} dataFilters
-     * @returns {null|Array}
-     */
-    function getFilterNames(dataFilters) {
-        if (!dataFilters.length) {
-            return null;
-        }
-        return dataFilters.map(filter => filter.filterName);
     }
 
     return (
@@ -178,15 +143,59 @@ export default function App() {
             }
             <div className="totalWrapper">
                 { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
-                <AsideContext.Provider value={ asideData } >
+                <AsideDataProvider data={ asideData } >
                     { isNotError && asideData && <AsideBar /> }
-                </AsideContext.Provider>
-                <ContentContext.Provider value={ contentData } >
+                </AsideDataProvider>
+                <ContentDataProvider data={ contentData } >
                     { isNotError && contentData && <ContentBar /> }
-                </ContentContext.Provider>
+                </ContentDataProvider>
             </div>
         </>
     );
+}
+
+/**
+ * @param {Object[]} dataFilters
+ * @returns {null|string}
+ */
+function getFilterActive(dataFilters) {
+    if (!dataFilters.length) {
+        return null;
+    }
+    return dataFilters.find(filter => !!filter.isActive).filterName;
+}
+
+/**
+ *
+ * @param {Object} data
+ * @param {string} filterActive
+ * @returns {null|Function}
+ */
+function getDataActive(data, filterActive) {
+    if (!Object.keys(data).length) {
+        return null;
+    }
+
+    const dataFiltered = data[filterActive];
+    return (prop) => {
+        if (prop in dataFiltered) {
+            return dataFiltered[prop];
+        }
+        console.error(`property ${ prop } is not found at App.js: getDataActive`);
+        return null;
+    };
+}
+
+/**
+ *
+ * @param {Object[]} dataFilters
+ * @returns {null|Array}
+ */
+function getFilterNames(dataFilters) {
+    if (!dataFilters.length) {
+        return null;
+    }
+    return dataFilters.map(filter => filter.filterName);
 }
 
 ///////////////// dev

@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./ImageSectionContainer.scss";
 import ImageWrapper from "../../components/ImageWrapper";
 import SectionList from "../SectionList";
-import { AsideContext } from "../App";
+import { useAsideData } from "../../providers/AsideDataProvider";
 
 export default function ImageSectionContainer() {
-    const asideData = useContext(AsideContext);
+    const asideData = useAsideData();
     const { photoUrl } = asideData;
 
     return (

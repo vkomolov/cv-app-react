@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./AsideContent.scss";
 import AsideSegment from "../AsideSegment";
 import { v4 } from "uuid";
-import { AsideContext } from "../App";
+import { useAsideData } from "../../providers/AsideDataProvider";
 
 export default function AsideContent() {
-    const asideData = useContext(AsideContext);
+    const asideData = useAsideData();
     const { data } = asideData;
 
     /** to filter from possible not array data... **/

@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
 import "./SectionList.scss";
-import { AsideContext } from "../App";
+import { useAsideData } from "../../providers/AsideDataProvider";
 
 export default function SectionList() {
-    const asideData = useContext(AsideContext);
+    const asideData = useAsideData();
 
     const [isScrolled, setIsScrolled] = useState(false);
     const [isScrolledShown, setIsScrolledShown] = useState(false);
