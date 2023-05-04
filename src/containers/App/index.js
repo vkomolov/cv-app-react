@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo, useCallback, createContext } from "react";
 import "./App.scss";
 import ScrollingText from "../ScrollingText";
 import AsideBar from "../AsideBar";
@@ -10,7 +10,7 @@ import { getAndRenderData, handleData, getAndStore } from "../../utils/services/
 const jsonUrl = "./asset/pData/cv.json";
 const scrollingText = "To realize the CV App with React, dynamically constructing " +
     "the Components from the fetched JSON file, which then to be temporally stored in the localStorage for 24 hours. " +
-    "To make git branches of the realisations: using state drilling, using stateless functions on hooks and " +
+    "To make git branches with the realisations: using state and props drilling, using stateless functions on hooks and " +
     "using Redux and Router, which will be merged as the final version. "
     + "The link to the code is available in the section \"Experience\"... ";
 
@@ -18,6 +18,15 @@ const alertStateDefault = {
     alertType: null,
     alertContent: []
 };
+
+/**
+ * The contexts were made just for demonstration of its usage: in this case of app, no need for context creations,
+ * because each child component is in need for a part of the data passed in props and further they pass the rest of
+ * the data deeper in the tree of the children...
+ * @type {React.Context<null>}
+ */
+export const AsideContext = createContext(null);
+export const ContentContext = createContext(null);
 
 export default function App() {
     const [dataFilters, setDataFilters] = useState([]);
@@ -28,7 +37,7 @@ export default function App() {
     const dataObj = useRef({});
     const innData = dataObj.current;
 
-    //using componentDidMount Effect for one initial update of the states
+    //using componentDidMount Effect for one initial update of the state
     useEffect(() => {
         getAndRenderData(jsonUrl, getAndStore)
             .then(auxData => {
@@ -59,9 +68,30 @@ export default function App() {
         isFinite: true,
     };
 
+    /**
+     * useMemo just for demonstration of the hook: in other cases it`s used for performance optimizations
+     * of heavy calculations
+     */
+    const filterActive = useMemo(() => getFilterActive(dataFilters), [dataFilters]);
+    const filterNames = useMemo(() => getFilterNames(dataFilters), [dataFilters]);
+
+    /**
+     * avoiding re-rendering of setFilterActive callBack in consuming child components
+     * in this case we could pass just setDataFilters as a callBack without useCallback hook
+     */
+    const setFilterActive = useCallback((filterChosen) => {
+        return setDataFilters(prevDataFilters => {
+            return prevDataFilters.map(filter => {
+                const isActive = filter.filterName === filterChosen;
+                return {
+                    ...filter,
+                    isActive
+                };
+            });
+        });
+    }, []); //no need for dependencies
+
     if (Object.keys(innData).length && dataFilters.length) {
-        const filterActive = getFilterActive(dataFilters);
-        const filterNames = getFilterNames(dataFilters);
         dataActive = getDataActive(innData, filterActive);
         fullName = innData.fullName;
         photoUrl = innData.photoUrl;
@@ -72,7 +102,7 @@ export default function App() {
             photoUrl,
             filterActive,
             filterNames,
-            setDataFilters,
+            setFilterActive,
         };
         contentData = {
             data: dataActive("content"),
@@ -148,8 +178,12 @@ export default function App() {
             }
             <div className="totalWrapper">
                 { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
-                { isNotError && asideData && <AsideBar {...{ asideData }} /> }
-                { isNotError && contentData && <ContentBar {...{ contentData }} /> }
+                <AsideContext.Provider value={ asideData } >
+                    { isNotError && asideData && <AsideBar /> }
+                </AsideContext.Provider>
+                <ContentContext.Provider value={ contentData } >
+                    { isNotError && contentData && <ContentBar /> }
+                </ContentContext.Provider>
             </div>
         </>
     );

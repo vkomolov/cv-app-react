@@ -1,30 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import * as PropTypes from "prop-types";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
 import "./SectionList.scss";
+import { AsideContext } from "../App";
 
-export default function SectionList({ sectionData }) {
+export default function SectionList() {
+    const asideData = useContext(AsideContext);
+
     const [isScrolled, setIsScrolled] = useState(false);
     const [isScrolledShown, setIsScrolledShown] = useState(false);
     const [filtersVisible, setFiltersVisible] = useState(true);  //filters visible:true/invisible:false
     const sectionListRef = useRef(null);
 
-    const { filterNames, filterActive, setDataFilters } = sectionData;
+    const { filterNames, filterActive, setFilterActive } = asideData;
     const styledWrapperOnScroll = isScrolledShown
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";
 
-    const setFilterActive = (innFilterName) => {
-        if (innFilterName !== filterActive) {
-            setDataFilters(prevDataFilters => {
-                return prevDataFilters.map(filter => {
-                    const isActive = filter.filterName === innFilterName;
-                    return {
-                        ...filter,
-                        isActive
-                    };
-                });
-            });
+    const handleFilter = (chosenFilter) => {
+        if (chosenFilter !== filterActive) {
+            setFilterActive(chosenFilter);
 
             //starting page from the initial position
             window.scrollTo(0, 0);
@@ -45,7 +39,7 @@ export default function SectionList({ sectionData }) {
     const onKeyDownHandler = (event) => {
         if (event.key === "Enter") {
             const filterName = event.target.dataset.filter;
-            setFilterActive(filterName);
+            handleFilter(filterName);
         }
     };
 
@@ -62,7 +56,7 @@ export default function SectionList({ sectionData }) {
                     data-filter={ filter }
                     role="menuitem"
                     tabIndex="0"
-                    onClick={ () => setFilterActive(filter) }
+                    onClick={ () => handleFilter(filter) }
                     onKeyDown={ onKeyDownHandler }
                     key={v4()}
                 >
@@ -123,10 +117,6 @@ export default function SectionList({ sectionData }) {
         </>
     )
 }
-
-SectionList.propTypes = {
-    sectionData: PropTypes.object.isRequired
-};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

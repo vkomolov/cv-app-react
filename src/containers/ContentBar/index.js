@@ -1,12 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import * as PropTypes from "prop-types";
+import React, { useContext, useEffect, useRef } from "react";
 import "./ContentBar.scss";
 import ContentItem from "../ContentItem";
 import reactIcon from "../../asset/img/reactIcon.png";
 import ImageWrapper from "../../components/ImageWrapper";
 import { v4 } from "uuid";
+import { ContentContext } from "../App";
 
-export default function ContentBar({ contentData }) {
+export default function ContentBar() {
+    const contentData = useContext(ContentContext);
     const contentBarRef = useRef(null);
     const { filterActive, data } = contentData;
     const { title, details } = data;
@@ -48,16 +49,6 @@ export default function ContentBar({ contentData }) {
         </main>
     );
 }
-
-ContentBar.propTypes = {
-    contentData: PropTypes.shape({
-        filterActive: PropTypes.string.isRequired,
-        data: PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            details: PropTypes.array.isRequired
-        }),
-    })
-};
 
 
 ///////////////// dev

@@ -1,11 +1,12 @@
-import React from "react";
-import * as PropTypes from "prop-types";
+import React, { useContext } from "react";
 import "./ImageSectionContainer.scss";
 import ImageWrapper from "../../components/ImageWrapper";
 import SectionList from "../SectionList";
+import { AsideContext } from "../App";
 
-export default function ImageSectionContainer({ innData }) {
-    const { photoUrl, ...sectionData } = innData;
+export default function ImageSectionContainer() {
+    const asideData = useContext(AsideContext);
+    const { photoUrl } = asideData;
 
     return (
         <div className="image-section-container" >
@@ -14,14 +15,10 @@ export default function ImageSectionContainer({ innData }) {
                 alt="VKomolov CV"
                 className="photoWrapper"
             />
-            <SectionList {...{ sectionData }} />
+            <SectionList />
         </div>
     );
 }
-
-ImageSectionContainer.propTypes = {
-    innData: PropTypes.object
-};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

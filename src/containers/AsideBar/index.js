@@ -1,31 +1,23 @@
-import React from "react";
-import * as PropTypes from "prop-types";
-
+import React, { useContext } from "react";
 import "./AsideBar.scss";
 import ImageSectionContainer from "../ImageSectionContainer";
 import AsideContent from "../AsideContent";
+import { AsideContext } from "../App";
 
-export default function AsideBar({ asideData }) {
-     const {
-         data,
-         fullName,
-         ...innData
-     } = asideData;
+export default function AsideBar() {
+    const asideData = useContext(AsideContext);
+     const { fullName } = asideData;
 
     return (
         <aside className="asideBar">
             <h1 className="hero-name">
                 { fullName }
             </h1>
-            <ImageSectionContainer {...{ innData }} />
-            <AsideContent {...{ data }} />
+            <ImageSectionContainer />
+            <AsideContent />
         </aside>
     );
 }
-
-AsideBar.propTypes = {
-    asideData: PropTypes.object
-};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars
