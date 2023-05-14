@@ -86,7 +86,7 @@
             },
             {
               "title": "CSS",
-              "details": "85"
+              "details": "90"
             },
             {
               "title": "SCSS",
@@ -118,12 +118,24 @@
           "title": "Frameworks, Libraries...",
           "details": [
             {
-              "title": "React",
+              "title": "JSX",
+              "details": "90"
+            },
+            {
+              "title": "React/classes/lifeCycles",
+              "details": "85"
+            },
+            {
+              "title": "React/functional/hooks",
               "details": "85"
             },
             {
               "title": "Redux",
               "details": "85"
+            },
+            {
+              "title": "Redux Toolkit",
+              "details": "80"
             },
             {
               "title": "Router",
@@ -132,7 +144,28 @@
           ]
         },
         {
-          "title": "IDE, API, etc...",
+          "title": "Linting",
+          "details": [
+            {
+              "title": "JSDoc",
+              "details": "80"
+            },
+            {
+              "title": "PropTypes",
+              "details": "85"
+            },
+            {
+              "title": "ESLint",
+              "details": "80"
+            },
+            {
+              "title": "ARIA",
+              "details": "75"
+            }
+          ]
+        },
+        {
+          "title": "Editors, Bundlers, etc...",
           "details": [
             {
               "title": "PHP Storm, Web Storm",
@@ -140,19 +173,15 @@
             },
             {
               "title": "GIT",
-              "details": "75"
+              "details": "80"
             },
             {
               "title": "Gulp, Webpack",
               "details": "80"
             },
             {
-              "title": "JSDoc, PropTypes, ESLint, ARIA",
-              "details": "85"
-            },
-            {
               "title": "Power Pivot, Power Query, DAX",
-              "details": "87"
+              "details": "90"
             },
             {
               "title": "Photoshop, Illustrator",
