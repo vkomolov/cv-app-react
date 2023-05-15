@@ -6,8 +6,6 @@ export const useContentData = () => useContext(ContentDataContext);
 
 /*eslint react/prop-types:0*/
 export default function ContentDataProvider({ data, children }) {
-    log(typeof children, "typeof children");
-
     return (
         <ContentDataContext.Provider value={ data } >
             { children }

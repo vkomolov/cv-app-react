@@ -6,8 +6,6 @@ export const useAsideData = () => useContext(AsideDataContext);
 
 /*eslint react/prop-types:0*/
 export default function AsideDataProvider({ data, children }) {
-    log(typeof children, "typeof children");
-
     return (
         <AsideDataContext.Provider value={ data } >
             { children }

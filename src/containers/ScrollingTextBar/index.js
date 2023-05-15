@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import "./ScrollingText.scss";
+import "./ScrollingTextBar.scss";
 import { initScrollingText } from "../../utils/services/userService";
 import * as PropTypes from "prop-types";
 
-export default function ScrollingText({ data }) {
+export default function ScrollingTextBar({ data }) {
     const refContainer = useRef(null);
     const { text, duration, isFinite } = data;
 
@@ -27,12 +27,24 @@ export default function ScrollingText({ data }) {
     );
 }
 
-ScrollingText.propTypes = {
+ScrollingTextBar.propTypes = {
     data: PropTypes.shape({
         text: PropTypes.string.isRequired,
         duration: PropTypes.number.isRequired,
         isFinite: PropTypes.bool.isRequired
     })
+};
+
+const scrollingText = "To realize the CV App with React, dynamically constructing " +
+    "the Components from the fetched JSON file, which then to be temporally stored in the localStorage for 24 hours. " +
+    "To make git branches with the realisations: using state and props drilling, using stateless functions on hooks and " +
+    "using Redux and Router, which will be merged as the final version. "
+    + "The link to the code is available in the section \"Experience\"... ";
+
+export const scrollingTextData = {
+    text: scrollingText,
+    duration: 50000,
+    isFinite: true,
 };
 
 ///////////////// dev

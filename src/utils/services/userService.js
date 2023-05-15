@@ -2,62 +2,6 @@
 import { getLocalStorage, setLocalStorage, initAxios } from "./index";
 
 /**
- * @async
- * @param {string} dataPath: url to the source for fetching data
- * @param {function} dataHandle for fetching and storing data
- * @returns {Object} data fetched or taken from the localStore
- */
-export function getAndRenderData(dataPath, dataHandle) {
-    return dataHandle(dataPath, 1, "json")
-        .then(data => {
-            /**
-             * on fetching the data it takes data['photoUrl'] which is {string} and additionally fetches
-             * the blob from this url, then reading by File-Reader it re-sets the value of data['photoUrl'] and
-             * finally returns the updated data
-             */
-            if (data["photoUrl"]) {
-                return dataHandle(data["photoUrl"], 1, "blob")
-                    .then(objUrl => ({
-                        ...data,
-                        photoUrl: objUrl,
-                    }));
-            }
-            return data;
-        })
-}
-
-/**
- * it accumulates the array with the filter objects for the state
- * @param { Object } data
- * @returns {Array}
- */
-export function handleData(data) {
-    if (Object.keys(data).length) {
-        const filterArr = Object.keys(data).reduce((acc, key) => {
-            if (key !== "fullName" && key !== "photoUrl") {
-                const isActive = acc.length === 0;
-                return acc.concat({
-                    filterName: key,
-                    isActive,
-                });
-            }
-            return acc;
-        }, []);
-
-        if (!filterArr.length) {
-            throw new Error("no filters found in given data...");
-        }
-
-        return filterArr;
-
-    }
-    else {
-        throw new Error("no correct data received...");
-    }
-}
-
-/**
- *
  * @param {string} path: url to data to be fetched
  * @param {number} timeLimit: time limits for storing in localStorage (days)
  * @param {string} extension: optional type of the data received from http request
@@ -79,6 +23,93 @@ export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
             return data;
         } )
 };
+
+/**
+ * @description it prepares the data for AsideBar and ContentBar Components
+ * @param {Object} innData: core data, fetched or taken from localStorage
+ * @param {Object} filtersData taken from the state
+ * @param {Object[]} filtersData.dataFilters: the array of filters
+ * @param {function[]} filtersData.filterSetters: the array of functions which set the state dataFilters
+ * @returns {null|{asideData: {Object}, contentData: {Object}}}
+ */
+export function prepareData(innData, filtersData) {
+    if (!innData) {
+        return null;
+    }
+
+    const { dataFilters, filterSetters } = filtersData;
+    const [setFilterActive] = filterSetters;
+
+    /**
+     * useMemo just for demonstration of the hook: in other cases it`s used for performance optimizations
+     * of heavy calculations
+     */
+    const filterActive = getFilterActive(dataFilters);
+    const filterNames = getFilterNames(dataFilters);
+    const getDataActive = getFuncDataActive(innData, filterActive);
+    const fullName = innData.fullName;
+    const photoUrl = innData.photoUrl;
+    const asideData = {
+        data: getDataActive("aside"),
+        fullName,
+        photoUrl,
+        filterActive,
+        filterNames,
+        setFilterActive,
+    };
+    const contentData = {
+        data: getDataActive("content"),
+        filterActive
+    };
+
+    return {
+        asideData,
+        contentData
+    };
+
+
+    /** It returns the active filter name
+     * @param {Object[]} dataFilters: the array of filters
+     * @returns {null|string}
+     */
+    function getFilterActive(dataFilters) {
+        if (!dataFilters.length) {
+            return null;
+        }
+        return dataFilters.find(filter => !!filter.isActive).filterName;
+    }
+
+    /**
+     * @param {Object} data
+     * @param {string} filterActive: the name of the active filter
+     * @returns {null|Function}
+     */
+    function getFuncDataActive(data, filterActive) {
+        if (!Object.keys(data).length) {
+            return null;
+        }
+
+        const dataFiltered = data[filterActive];
+        return (prop) => {
+            if (prop in dataFiltered) {
+                return dataFiltered[prop];
+            }
+            console.error(`property ${ prop } is not found at App.js: getDataActive`);
+            return null;
+        };
+    }
+
+    /**It returns the array of the filters` names
+     * @param {Object[]} dataFilters
+     * @returns {null|Array}
+     */
+    function getFilterNames(dataFilters) {
+        if (!dataFilters.length) {
+            return null;
+        }
+        return dataFilters.map(filter => filter.filterName);
+    }
+}
 
 /**
  * @description it inits the scrolling text, which is wrapped in the parent at fixed position top of the window.
