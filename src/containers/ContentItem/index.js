@@ -130,6 +130,7 @@ export default function ContentItem({ classAux, data }) {
     };
 
     const { remark, ...restHandles } = dataHandles;
+
     const elemsArr = Object.keys(restHandles).reduce((acc, prop) => {
         if (prop in data) {
             return acc.concat(restHandles[prop](data));

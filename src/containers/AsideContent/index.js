@@ -1,14 +1,15 @@
 import React from "react";
-import * as PropTypes from "prop-types";
 import "./AsideContent.scss";
 import AsideSegment from "../AsideSegment";
 import { v4 } from "uuid";
+import { providerContext } from "../../DataProvider";
 
-export default function AsideContent({ data }) {
+export default function AsideContent() {
+    const { asideData } = providerContext;
+    const { data } = asideData();
+
     /** to filter from possible not array data... **/
-    const keysArr = Object.keys(data).filter(key => {
-        return Array.isArray(data[key]);
-    });
+     const keysArr = Object.keys(data).filter(key => Array.isArray(data[key]));
      const asideSegments = keysArr.map(prop => (
          <AsideSegment
              data={ data[prop] }
@@ -22,10 +23,6 @@ export default function AsideContent({ data }) {
         </div>
     );
 }
-
-AsideContent.propTypes = {
-    data: PropTypes.object.isRequired
-};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

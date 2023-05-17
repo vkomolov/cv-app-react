@@ -1,91 +1,49 @@
-import React, { Component, Fragment, createRef } from "react";
-import * as PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
 import "./SectionList.scss";
+import { providerContext } from "../../DataProvider";
 
-export default class SectionList extends Component {
-    constructor(props) {
-        super(props);
+export default function SectionList() {
+    const { asideData } = providerContext;
 
-        this.state = {
-            isScrolled: false,
-            isScrolledShown: false
-        };
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isScrolledShown, setIsScrolledShown] = useState(false);
+    const [filtersVisible, setFiltersVisible] = useState(true);  //filters visible:true/invisible:false
+    const sectionListRef = useRef(null);
 
-        this.sectionListRef = createRef();
-        this.setFilterActive = this.props.sectionData.setFilterActive;
-        this._handleScroll = this._handleScroll.bind(this);
-    }
+    const { filterNames, filterActive, activateFilter } = asideData();
+    const styledWrapperOnScroll = isScrolledShown
+        ? "wrapper-on-scroll scroll-active"
+        : "wrapper-on-scroll";
 
-    /**
-     * it sets the state on scroll event to mount the SectionList on top of the document, still upper the visual area
-     * @param {boolean} bool
-     * @private
-     */
-    _setIsScrolled(bool) {
-        this.setState({
-            isScrolled: bool,
-        });
-    }
+    const handleFilter = (chosenFilter) => {
+        if (chosenFilter !== filterActive) {
+            activateFilter(chosenFilter);
 
-    /**
-     * it sets the state to show the mounted SectionList on top of the document, in the visual area
-     * @param {boolean} bool
-     * @private
-     */
-    _setIsShown(bool) {
-        this.setState({
-            isScrolledShown: bool,
-        });
-    }
+            //starting page from the initial position
+            window.scrollTo(0, 0);
+        }
+    };
 
-    /**
-     * !!! window listener in DOM has its on context, that is why this._handleScroll is bind to this of App
-     * @private
-     */
-    _handleScroll() {
-        const sectionListComponent = this.sectionListRef.current;
-
-        const { isScrolled, isScrolledShown } = this.state;
+    const handleScroll = () => {
+        const sectionListComponent = sectionListRef.current;
         const posTop = sectionListComponent.getBoundingClientRect().top;
 
         if (posTop <= 0) {
-            if (!isScrolled) {
-                this._setIsScrolled(true);
-
-                setTimeout(() => {
-                    this._setIsShown(true);
-                }, 200);
-            }
+            setFiltersVisible(false);
         } else {
-            if (isScrolledShown) {
-                this._setIsShown(false);
-
-                setTimeout(() => {
-                    this._setIsScrolled(false);
-                }, 200);
-            }
+            setFiltersVisible(true);
         }
-    }
+    };
 
-    /**
-     *
-     * @param { Object } event
-     */
-    onKeyDownHandler(event) {
+    const onKeyDownHandler = (event) => {
         if (event.key === "Enter") {
-            this.setFilterActive(event);
+            const filterName = event.target.dataset.filter;
+            handleFilter(filterName);
         }
-    }
+    };
 
-    /**
-     *
-     * @param { array } filterNames (array of filters from props)
-     * @param { string } filterActive (active filter from props)
-     * @returns { Array }
-     * @private
-     */
-    _getSectionsArr(filterNames, filterActive) {
+    const getSectionsArr = () => {
         return filterNames.map(filter => {
             let specClass = filter === filterActive
                 ? "sectionName specClass"
@@ -94,68 +52,71 @@ export default class SectionList extends Component {
             return (
                 <li
                     className={ specClass }
-                    data-filter={ filter }
                     aria-label={ filter }
+                    data-filter={ filter }
                     role="menuitem"
                     tabIndex="0"
-                    onClick={ this.setFilterActive }
-                    onKeyDown={ this.onKeyDownHandler }
+                    onClick={ () => handleFilter(filter) }
+                    onKeyDown={ onKeyDownHandler }
                     key={v4()}
                 >
                     { filter }
                 </li>
             );
         });
-    }
+    };
 
-    render() {
-        const { isScrolled, isScrolledShown } = this.state;
-        const { filterNames, filterActive } = this.props.sectionData;
-        const styledWrapperOnScroll = isScrolledShown
-            ? "wrapper-on-scroll scroll-active"
-            : "wrapper-on-scroll";
+    const getSectionList = (isForScroll = false) => (
+        <ul
+            className="sectionList"
+            role="menu"
+            ref={ !isForScroll ? sectionListRef : null }
+        >
+            {
+                getSectionsArr()
+            }
+        </ul>
+    );
 
-        /**
-         *
-         * @param { boolean } isForScroll: is it for the SectionList which will appear on scroll in fixed position
-         * @returns { element }
-         */
-        const getSectionList = (isForScroll = false) => (
-            <ul
-                className="sectionList"
-                role="menu"
-                ref={ !isForScroll && this.sectionListRef }
-            >
-                {
-                    this._getSectionsArr(filterNames, filterActive)
-                }
-            </ul>
-        );
+    //initiating listener on window.scroll
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
 
-        return (
-            <Fragment>
-                { isScrolled
-                    && <div className={ styledWrapperOnScroll }>
-                        { getSectionList(true) }
-                    </div>
-                }
-                { getSectionList(false) }
-            </Fragment>
-        )
-    }
+        return () => window.removeEventListener("scroll", handleScroll);
+        /*eslint react-hooks/exhaustive-deps:0*/
+        //as componentDidMount
+    }, []);
 
-    componentDidMount() {
-        window.addEventListener("scroll", this._handleScroll);
-    }
+    useEffect(() => {
+        if (!filtersVisible) {
+            if (!isScrolled) {
+                setIsScrolled(true); //setting new state for isScrolled
+                setTimeout(() => {
+                    setIsScrolledShown(true);
+                }, 200);
+            }
+        } else {
+            if (isScrolledShown) {
+                setIsScrolledShown(false);
 
-    componentWillUnmount() {
-        window.removeEventListener("scroll", this._handleScroll);
-    }
+                setTimeout(() => {
+                    setIsScrolled(false);
+                }, 200);
+            }
+        }
+    }, [filtersVisible]);
+
+    return (
+        <>
+            { isScrolled
+            && <div className={ styledWrapperOnScroll }>
+                { getSectionList(true) }
+            </div>
+            }
+            { getSectionList(false) }
+        </>
+    )
 }
-
-SectionList.propTypes = {
-    sectionData: PropTypes.object.isRequired
-};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

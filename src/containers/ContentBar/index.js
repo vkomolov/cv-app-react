@@ -1,86 +1,54 @@
-import React, { Component, createRef } from "react";
-import * as PropTypes from "prop-types";
+import React, { useEffect, useRef } from "react";
 import "./ContentBar.scss";
 import ContentItem from "../ContentItem";
 import reactIcon from "../../asset/img/reactIcon.png";
 import ImageWrapper from "../../components/ImageWrapper";
 import { v4 } from "uuid";
+import { providerContext } from "../../DataProvider";
 
-/**
- * @param { Object } contentData
- * @constructor
- */
-export default class ContentBar extends Component {
-    constructor(props) {
-        super(props);
+export default function ContentBar() {
+    const { contentData } = providerContext;
+    const contentBarRef = useRef(null);
+    const { filterActive, data } = contentData();
+    const { title, details } = data;
+    const specClassName = filterActive === "personal" ? "personal-spec" : null;
+    const contentArr = details.map(data => {
+        const classAux = specClassName && ("contentWrapper" + " " + specClassName) || "contentWrapper";
 
-        this.ref = createRef();
-    }
+        return <ContentItem
+            { ...{ data } }
+            classAux={ classAux }
+            key={ v4() }
+        />
+    });
 
-    render() {
-        const { contentData } = this.props;
-        const { filterActive, data } = contentData;
-        /**
-         * avoiding additional state, this.filterActiveCurrent is used for componentDidUpdate
-         * in order to check if filterActive has changed. If true then to set animation fadeIn
-         */
-        this.filterActiveCurrent = filterActive;
-        const { title, details } = data;
-        const specClassName = filterActive === "personal" ? "personal-spec" : null;
-        const contentArr = details.map(data => {
-            const classAux = specClassName && ("contentWrapper" + " " + specClassName) || "contentWrapper";
+    //appearance of the Component with transition
+    useEffect(() => {
+        const { current } = contentBarRef;
+        current.classList.toggle("fade-in");
 
-            return <ContentItem
-                { ...{ data } }
-                classAux={ classAux }
-                key={ v4() }
+        setTimeout(() => {
+            current.classList.toggle("fade-in");
+        }, 200);
+    });
+
+    return (
+        <main
+            className="contentBar fade-in"
+            ref={ contentBarRef }
+        >
+            <ImageWrapper
+                alt="React icon"
+                imgSrc={ reactIcon }
+                className="reactIconWrapper"
             />
-        });
-
-        return (
-            <main
-                className="contentBar fade-in"
-                ref={ this.ref }
-            >
-                <ImageWrapper
-                    alt="React icon"
-                    imgSrc={ reactIcon }
-                    className="reactIconWrapper"
-                />
-                <h2 className="heading" >
-                    { title }
-                </h2>
-                { contentArr }
-            </main>
-        );
-    }
-
-    /**
-     * @param { Object } contentData from 'prevProps'
-     */
-    componentDidUpdate({ contentData }) {
-        const contentBarHtml = this.ref.current;
-        const prevFilterActive = contentData.filterActive;
-        if (this.filterActiveCurrent !== prevFilterActive) {
-            contentBarHtml.classList.toggle("fade-in");
-
-            setTimeout(() => {
-                contentBarHtml.classList.toggle("fade-in");
-            }, 200);
-        }
-    }
+            <h2 className="heading" >
+                { title }
+            </h2>
+            { contentArr }
+        </main>
+    );
 }
-
-ContentBar.propTypes = {
-    contentData: PropTypes.shape({
-        filterActive: PropTypes.string.isRequired,
-        data: PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            details: PropTypes.array.isRequired
-        }),
-    })
-};
-
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

@@ -14,7 +14,7 @@
 
 @media screen and (max-width: 1024px) {
   #root {
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
 
     .contentWrapper {
       @include flex-box($flex-box-col-left...);
@@ -34,17 +34,17 @@
 
 }*/
 
-@media screen and (max-width: 800px) {
+/*@media screen and (max-width: 800px) {
 
 }
 
 @media screen and (max-width: 782px) {
 
-}
+}*/
 
 @media screen and (max-width: 768px) {
   #root {
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
 
     .totalWrapper {
       @include flex-box($flex-box-col-top...);
@@ -82,30 +82,31 @@
         .heading {
           text-align: center;
         }
+
+        .contentWrapper {
+          padding: 0 2em;
+        }
       }
     }
   }
 
-
-
-
-
-
-
-
 }
 
-@media screen and (max-width: 600px) {
+/*@media screen and (max-width: 600px) {
 }
 
 @media screen and (max-width: 568px) {
-}
+}*/
 
 @media screen and (max-width: 425px) {
+  .contentWrapper {
+    padding: 0 1em !important;
+  }
 }
 
+/*
 @media screen and (max-width: 375px) {
 }
 
 @media screen and (max-width: 320px) {
-}
+}*/

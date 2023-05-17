@@ -1,39 +1,33 @@
-import React, { Component, createRef } from "react";
+import React, { useEffect, useRef } from "react";
 import * as PropTypes from "prop-types";
 import "./GraphItem.scss";
 
-export default class GraphItem extends Component {
-    constructor(props) {
-        super(props);
+export default function GraphItem({ score }) {
+    const innScore = score.trim();
+    const scoreRef = useRef(null);
 
-        this.score = this.props.score.trim();
-        this.ref = createRef();
-    }
-
-    initScore(score="0") {
+    const initScore = (score = "0") => {
         const outScore = parseInt(score);
         return outScore > 0 ? outScore : 0;
-    }
+    };
 
-    render() {
-
-        return (
-            <div className="graphBlock" >
-                <div
-                    className="score"
-                    ref={ this.ref }
-                />
-            </div>
-        );
-    }
-
-    componentDidMount() {
-        const { current } = this.ref;
-
+    useEffect(() => {
+        const { current } = scoreRef;
         setTimeout(() => {
-            current.style.width = this.initScore(this.score) + "%";
+            current.style.width = initScore(innScore) + "%";
         }, 300);
-    }
+        /*eslint react-hooks/exhaustive-deps:0*/
+        //componentDidMount effect
+    }, []);
+
+    return (
+        <div className="graphBlock" >
+            <div
+                className="score"
+                ref={ scoreRef }
+            />
+        </div>
+    );
 }
 
 GraphItem.propTypes = {

@@ -1,9 +1,9 @@
 # App Description
-This cv app is made as a demonstration of rendering the HTML Elements with the content, dynamically rendered 
-from the JSON file, which is requested from the server, while the empty page is on the client side.
+This cv app is made as a demonstration of dynamic creation of certain HTML elements in accordance with the 
+JSON file, fetched from the server or taken from the localStorage.
 ## Task: 
-- To realize the CV App with React, dynamically constructing the HTMLElements from the fetched JSON file, and 
-re-render the HTMLElements on the events, connected to the data or chosen filters;
+- To realize the CV App with React, dynamically rendering the HTMLElements from the fetched JSON file, and 
+reacting on the events, connected to the data change or chosen filters;
 - All the UI elements (lists, paragraphs, filters, etc) should be rendered according to the JSON data;
 - The fetched data should be stored in the localStorage for 24 hours, avoiding repeated http requests to the
 server;
