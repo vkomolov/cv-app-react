@@ -2,11 +2,11 @@ import React from "react";
 import "./ImageSectionContainer.scss";
 import ImageWrapper from "../../components/ImageWrapper";
 import SectionList from "../SectionList";
-import { useAsideData } from "../../providers/AsideDataProvider";
+import { providerContext } from "../../DataProvider";
 
 export default function ImageSectionContainer() {
-    const asideData = useAsideData();
-    const { photoUrl } = asideData;
+    const { asideData } = providerContext;
+    const { photoUrl } = asideData();
 
     return (
         <div className="image-section-container" >

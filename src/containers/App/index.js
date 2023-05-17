@@ -12,8 +12,7 @@ import { prepareData } from "../../utils/services/userService";
  * for context creations, because each child component is in need for a part of the data passed in props and further
  * they pass the rest of the data deeper in the tree of the children...
  */
-import AsideDataProvider from "../../providers/AsideDataProvider";
-import ContentDataProvider from "../../providers/ContentDataProvider";
+import DataProvider from "../../DataProvider";
 
 const jsonUrl = "./asset/pData/cv.json";
 
@@ -26,12 +25,12 @@ export default function App() {
 
     const components = !auxData ? null : (
         <>
-            <AsideDataProvider data={ auxData.asideData } >
+            <DataProvider name="asideData" data={ auxData.asideData } >
                 <AsideBar />
-            </AsideDataProvider>
-            <ContentDataProvider data={ auxData.contentData } >
+            </DataProvider>
+            <DataProvider name="contentData" data={ auxData.contentData } >
                 <ContentBar />
-            </ContentDataProvider>
+            </DataProvider>
         </>
     );
 

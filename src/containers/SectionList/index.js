@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
 import "./SectionList.scss";
-import { useAsideData } from "../../providers/AsideDataProvider";
+import { providerContext } from "../../DataProvider";
 
 export default function SectionList() {
-    const asideData = useAsideData();
+    const { asideData } = providerContext;
 
     const [isScrolled, setIsScrolled] = useState(false);
     const [isScrolledShown, setIsScrolledShown] = useState(false);
     const [filtersVisible, setFiltersVisible] = useState(true);  //filters visible:true/invisible:false
     const sectionListRef = useRef(null);
 
-    const { filterNames, filterActive, setFilterActive } = asideData;
+    const { filterNames, filterActive, setFilterActive } = asideData();
     const styledWrapperOnScroll = isScrolledShown
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";

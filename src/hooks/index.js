@@ -1,7 +1,6 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as PropTypes from "prop-types";
 import { getAndStore } from "../utils/services/userService";
-
 
 const initialAlert = {
     alertType: "loading",       //    could be "loading", "error" or "null"
@@ -166,44 +165,6 @@ useInitData.propTypes = {
     timeLimit: PropTypes.number
 };
 
-/**
- *
- * @param { Object } memoizedData
- * @returns {[function({children: *}): *, function(): null]}
- */
-export function useDataProvider(memoizedData) {
-   const DataContext = createContext(null);
-
-   function DataProvider({ children }) {
-       return (
-           <DataContext.Provider value={memoizedData} >
-               { children }
-           </DataContext.Provider>
-       );
-   }
-
-    DataProvider.propTypes = {
-        children: PropTypes.oneOfType([
-                PropTypes.object,
-                PropTypes.array
-            ]
-        )
-    };
-
-   function useData() {
-       const context = useContext(DataContext);
-       if (!context) {
-           throw new Error("useData must be used within a DataProvider");
-       }
-       return context;
-   }
-
-   return [DataProvider, useData];
-}
-
-useDataProvider.propTypes = {
-    memoizedData: PropTypes.object
-};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

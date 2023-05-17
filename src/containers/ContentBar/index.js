@@ -4,12 +4,12 @@ import ContentItem from "../ContentItem";
 import reactIcon from "../../asset/img/reactIcon.png";
 import ImageWrapper from "../../components/ImageWrapper";
 import { v4 } from "uuid";
-import { useContentData } from "../../providers/ContentDataProvider";
+import { providerContext } from "../../DataProvider";
 
 export default function ContentBar() {
-    const contentData = useContentData();
+    const { contentData } = providerContext;
     const contentBarRef = useRef(null);
-    const { filterActive, data } = contentData;
+    const { filterActive, data } = contentData();
     const { title, details } = data;
     const specClassName = filterActive === "personal" ? "personal-spec" : null;
     const contentArr = details.map(data => {

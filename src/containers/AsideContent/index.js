@@ -2,11 +2,11 @@ import React from "react";
 import "./AsideContent.scss";
 import AsideSegment from "../AsideSegment";
 import { v4 } from "uuid";
-import { useAsideData } from "../../providers/AsideDataProvider";
+import { providerContext } from "../../DataProvider";
 
 export default function AsideContent() {
-    const asideData = useAsideData();
-    const { data } = asideData;
+    const { asideData } = providerContext;
+    const { data } = asideData();
 
     /** to filter from possible not array data... **/
      const keysArr = Object.keys(data).filter(key => Array.isArray(data[key]));
