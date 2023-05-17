@@ -3,7 +3,6 @@ import * as PropTypes from "prop-types";
 import "./ImageWrapper.scss";
 
 /**
- *
  * @param {string} imgSrc - url of the image
  * @param {string} alt - alt parameter for the image
  * @param {string} className - additional className for the wrapper of the image

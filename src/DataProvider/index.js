@@ -22,8 +22,8 @@ DataProvider.propTypes = {
     name: PropTypes.string.isRequired,
     data: PropTypes.object,
     children: PropTypes.oneOfType([
-            PropTypes.object,
-            PropTypes.array
+        PropTypes.object,
+        PropTypes.array
         ]
     )
 };

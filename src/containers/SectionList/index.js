@@ -11,14 +11,14 @@ export default function SectionList() {
     const [filtersVisible, setFiltersVisible] = useState(true);  //filters visible:true/invisible:false
     const sectionListRef = useRef(null);
 
-    const { filterNames, filterActive, setFilterActive } = asideData();
+    const { filterNames, filterActive, activateFilter } = asideData();
     const styledWrapperOnScroll = isScrolledShown
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";
 
     const handleFilter = (chosenFilter) => {
         if (chosenFilter !== filterActive) {
-            setFilterActive(chosenFilter);
+            activateFilter(chosenFilter);
 
             //starting page from the initial position
             window.scrollTo(0, 0);

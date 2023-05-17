@@ -6,7 +6,7 @@ import { providerContext } from "../../DataProvider";
 
 export default function AsideBar() {
     const { asideData } = providerContext;
-     const { fullName } = asideData();
+    const { fullName } = asideData();
 
     return (
         <aside className="asideBar">

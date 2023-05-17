@@ -37,8 +37,8 @@ export function prepareData(innData, filtersData) {
         return null;
     }
 
-    const { dataFilters, filterSetters } = filtersData;
-    const [setFilterActive] = filterSetters;
+    const { dataFilters, filterActions } = filtersData;
+    const { activateFilter } = filterActions;
 
     /**
      * useMemo just for demonstration of the hook: in other cases it`s used for performance optimizations
@@ -55,7 +55,7 @@ export function prepareData(innData, filtersData) {
         photoUrl,
         filterActive,
         filterNames,
-        setFilterActive,
+        activateFilter,
     };
     const contentData = {
         data: getDataActive("content"),

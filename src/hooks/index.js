@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useReducer, useCallback, useEffect, useRef } from "react";
 import * as PropTypes from "prop-types";
 import { getAndStore } from "../utils/services/userService";
+import filterReducer from "../reducers/FilterReducer";
+import alertReducer from "../reducers/AlertReducer";
+import { setAlertLoading, setAlertError, setAlertClear } from "../reducers/AlertReducer/actions";
+import { setDataFilters, setFilterActive } from "../reducers/FilterReducer/actions";
 
 const initialAlert = {
     alertType: "loading",       //    could be "loading", "error" or "null"
     alertContent: ["loading"]   //    the array of strings
-};
-const alertStateDefault = {
-    alertType: null,
-    alertContent: []
 };
 
 /**
@@ -21,33 +21,17 @@ const alertStateDefault = {
  * @return {null | Object}
  */
 export function useInitData(path, extension="json", imitateDelay=1000, timeLimit=1) {
-    const [dataFilters, setDataFilters] = useState([]);
-    const [alertState, setAlertState] = useState(initialAlert);
+    const [dataFilters, filterAction] = useReducer(filterReducer, [], undefined);
+    const [alertState, alertAction] = useReducer(alertReducer, initialAlert, undefined);
     const dataRef = useRef(null);
-
-    /**
-     * @param {string} type: "error", or "loading"
-     * @param {Array} content: is the array of text elems, which will be shown in the AlertBlock
-     */
-    const dispatchAlert = useCallback((type, ...content) => {
-        const alertContent = alertState.alertType === type
-            ? alertState.alertContent.concat(...content)
-            : [...content];
-
-        setAlertState({
-            alertType: type,
-            alertContent
-        });
-        //disabling dependencies with 'type' and dynamic array 'content'
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    const dispatchLoading = useCallback(message => {
+        alertAction(setAlertLoading(message));
     }, []);
-
-
-    /**
-     * it resets the alert state to default params
-     */
-    const alertClear = useCallback(() => {
-        setAlertState({ ...alertStateDefault });
+    const dispatchError = useCallback(message => {
+        alertAction(setAlertError(message));
+    }, []);
+    const dispatchAlertClear = useCallback(() => {
+        alertAction(setAlertClear());
     }, []);
 
     /**
@@ -78,21 +62,11 @@ export function useInitData(path, extension="json", imitateDelay=1000, timeLimit
             throw new Error("no correct data received...");
         }
     }, []);
-
-    /**
-     * it changes the state of dataFilters, by changing the bool of the property 'isActive'
-     * @param {string} filterChosen
-     */
-    const setFilterActive = useCallback(filterChosen => {
-        return setDataFilters(prevDataFilters => {
-            return prevDataFilters.map(filter => {
-                const isActive = filter.filterName === filterChosen;
-                return {
-                    ...filter,
-                    isActive
-                };
-            });
-        });
+    const activateFilter = useCallback(filterChosen => {
+        filterAction(setFilterActive(filterChosen));
+    }, []);
+    const setFilters = useCallback(filterArr => {
+        filterAction(setDataFilters(filterArr));
     }, []);
 
     useEffect(() => {
@@ -129,27 +103,32 @@ export function useInitData(path, extension="json", imitateDelay=1000, timeLimit
                 setTimeout(() => {
                     dataRef.current = data;
                     const filterArr = handleData(data);
-                    setDataFilters([...filterArr]);
-                    alertClear();
+                    setFilters(filterArr);
+                    dispatchAlertClear();
                 }, imitateDelay);
             })
             .catch(e => {
                 if (isCanceled) return;
-
                 console.error(e.message);
-                dispatchAlert("error", e.message)
+                dispatchError(e.message);
             });
 
         return cleanup;
-    }, [path, extension, imitateDelay, timeLimit, alertClear, dispatchAlert, handleData]);
+    }, [path, extension, imitateDelay, timeLimit, dispatchAlertClear, dispatchError, handleData, setFilters]);
 
     const alertData = {
         alertState,
-        alertSetters: [dispatchAlert, alertClear],
+        alertActions: {
+            dispatchLoading,
+            dispatchError,
+            dispatchAlertClear
+        },
     };
     const filtersData = {
         dataFilters,
-        filterSetters: [setFilterActive]
+        filterActions: {
+            activateFilter
+        }
     };
 
     return {

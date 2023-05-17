@@ -18,7 +18,6 @@ const jsonUrl = "./asset/pData/cv.json";
 
 export default function App() {
     const { innData, alertData, filtersData } = useInitData(jsonUrl);
-    //const { alertState, alertSetters } = alertData;
     const { alertState } = alertData;
     const isNotError = alertState.alertType !== "error";
     const auxData = prepareData(innData, filtersData);
