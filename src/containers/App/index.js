@@ -7,13 +7,6 @@ import AlertBlock from "../../components/AlertBlock";
 import { useInnData } from "../../hooks";
 import { prepareData } from "../../utils/services/userService";
 
-/**
- * The context Providers were made just for demonstration of its usage... but in this case of app, it is no need
- * for context creations, because each child component is in need for a part of the data passed in props and further
- * they pass the rest of the data deeper in the tree of the children...
- */
-import DataProvider from "../../DataProvider";
-
 const jsonUrl = "./asset/pData/cv.json";
 
 export default function App() {
@@ -24,8 +17,8 @@ export default function App() {
 
     const components = !auxData ? null : (
         <>
-            <AsideBar data={ auxData.asideData } />
-            <ContentBar data={ auxData.contentData }/>
+            <AsideBar withData={ auxData.asideData } />
+            <ContentBar withData={ auxData.contentData }/>
         </>
     );
 

@@ -4,12 +4,11 @@ import ContentItem from "../ContentItem";
 import reactIcon from "../../asset/img/reactIcon.png";
 import ImageWrapper from "../../components/ImageWrapper";
 import { v4 } from "uuid";
-import { providerContext } from "../../DataProvider";
+import * as PropTypes from "prop-types";
 
-export default function ContentBar() {
-    const { contentData } = providerContext;
+export default function ContentBar({ withData }) {
     const contentBarRef = useRef(null);
-    const { filterActive, data } = contentData();
+    const { filterActive, data } = withData;
     const { title, details } = data;
     const specClassName = filterActive === "personal" ? "personal-spec" : null;
     const contentArr = details.map(data => {
@@ -49,6 +48,16 @@ export default function ContentBar() {
         </main>
     );
 }
+
+ContentBar.propTypes = {
+    withData: PropTypes.shape({
+        filterActive: PropTypes.string.isRequired,
+        data: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            details: PropTypes.array.isRequired
+        }),
+    })
+};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

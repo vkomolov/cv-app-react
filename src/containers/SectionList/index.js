@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import * as PropTypes from "prop-types";
 import { v4 } from "uuid";
 import "./SectionList.scss";
-import { providerContext } from "../../DataProvider";
 
-export default function SectionList() {
-    const { asideData } = providerContext;
-
+export default function SectionList({ sectionData }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isScrolledShown, setIsScrolledShown] = useState(false);
     const [filtersVisible, setFiltersVisible] = useState(true);  //filters visible:true/invisible:false
     const sectionListRef = useRef(null);
 
-    const { filterNames, filterActive, activateFilter } = asideData();
+    const { filterNames, filterActive, activateFilter } = sectionData;
     const styledWrapperOnScroll = isScrolledShown
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";
@@ -117,6 +115,10 @@ export default function SectionList() {
         </>
     )
 }
+
+SectionList.propTypes = {
+    sectionData: PropTypes.object.isRequired
+};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars
