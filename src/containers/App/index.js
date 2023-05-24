@@ -4,7 +4,7 @@ import ScrollingTextBar, { scrollingTextData } from "../ScrollingTextBar";
 import AsideBar from "../AsideBar";
 import ContentBar from "../ContentBar";
 import AlertBlock from "../../components/AlertBlock";
-import { useInitData } from "../../hooks";
+import { useInnData } from "../../hooks";
 import { prepareData } from "../../utils/services/userService";
 
 /**
@@ -17,19 +17,15 @@ import DataProvider from "../../DataProvider";
 const jsonUrl = "./asset/pData/cv.json";
 
 export default function App() {
-    const { innData, alertData, filtersData } = useInitData(jsonUrl);
+    const { innData, alertData, filtersData } = useInnData(jsonUrl);
     const { alertState } = alertData;
     const isNotError = alertState.alertType !== "error";
     const auxData = prepareData(innData, filtersData);
 
     const components = !auxData ? null : (
         <>
-            <DataProvider name="asideData" data={ auxData.asideData } >
-                <AsideBar />
-            </DataProvider>
-            <DataProvider name="contentData" data={ auxData.contentData } >
-                <ContentBar />
-            </DataProvider>
+            <AsideBar data={ auxData.asideData } />
+            <ContentBar data={ auxData.contentData }/>
         </>
     );
 

@@ -2,11 +2,9 @@ import React from "react";
 import "./AsideBar.scss";
 import ImageSectionContainer from "../ImageSectionContainer";
 import AsideContent from "../AsideContent";
-import { providerContext } from "../../DataProvider";
 
-export default function AsideBar() {
-    const { asideData } = providerContext;
-    const { fullName } = asideData();
+export default function AsideBar({ data }) {
+    const { fullName, restData } = data;
 
     return (
         <aside className="asideBar">
