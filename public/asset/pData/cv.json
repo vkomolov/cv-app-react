@@ -82,11 +82,11 @@
           "details": [
             {
               "title": "HTML",
-              "details": "90"
+              "details": "85"
             },
             {
               "title": "CSS",
-              "details": "90"
+              "details": "85"
             },
             {
               "title": "SCSS",
@@ -134,12 +134,16 @@
               "details": "85"
             },
             {
+              "title": "Redux Saga",
+              "details": "75"
+            },
+            {
               "title": "Redux Toolkit",
-              "details": "80"
+              "details": "70"
             },
             {
               "title": "Router",
-              "details": "85"
+              "details": "80"
             }
           ]
         },
@@ -173,7 +177,7 @@
             },
             {
               "title": "GIT",
-              "details": "80"
+              "details": "75"
             },
             {
               "title": "Gulp, Webpack",
@@ -248,16 +252,20 @@
         },
         {
           "remark": "Git:",
-          "subheading": "Some samples of the code:",
+          "subheading": "Code realisations:",
           "comments": "links: ",
           "a": [
             {
-              "title": "CV on JS, rendered from fetched JSON",
+              "title": "CV on native JS, rendered from fetched JSON",
               "path": "https://github.com/vkomolov/cv-app-js"
             },
             {
-              "title": "CV on React, rendered from fetched JSON",
-              "path": "https://github.com/vkomolov/cv-app-react"
+              "title": "CV on React, realisation with classes",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/classVer"
+            },
+            {
+              "title": "CV on React, functional realisation with hooks",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/hookVer"
             },
             {
               "title": "PostIt Application on React",
@@ -286,19 +294,19 @@
           "subheading": "REALISATION",
           "a": [
             {
-              "title": "CV Application on React",
+              "title": "CV Application with React",
               "path": "https://vkomolov-cv-react.pages.dev/"
             },
             {
-              "title": "CV Application on vanilla JS",
+              "title": "CV Application with native JS",
               "path": "https://vkomolov-cv-js.pages.dev/"
             },
             {
-              "title": "Filtering data on React (Demo)",
+              "title": "Filtering data with React (Demo)",
               "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
             },
             {
-              "title": "PostIt Application on React (Demo)",
+              "title": "PostIt Application with React (Demo)",
               "path": "https://vkomolov.github.io/post-it/"
             },
             {
@@ -374,11 +382,12 @@
           "subheading": "Advanced",
           "li": [
             "Testings, Test-driven development (TDD)",
-            "Next.js, TypeScript",
-            "Node.js, Headless CMS on Node.js: Strapi",
+            "Node.js, Next.js, TypeScript",
+            "Headless CMS on Node.js: Strapi",
+            "Angular, React Native",
             "Joomla, WordPress",
             "GraphQL, MongoDB",
-            "SEO for Headless CMS, React \u0026 Apps frontend-rendered",
+            "SEO for Headless CMS, React \u0026 Single-Page Apps",
             "Payment APIs"
           ]
         },
