@@ -1,3 +1,25 @@
 # https://www.robotstxt.org/robotstxt.html
+#no directives Disallow at all means no valid robots.txt
+#///
+#Example for indexing all resources
+#User-agent: *
+#Disallow:
+#///
+#Example for disallowing indexing all resources
+#User-agent: *
+#Disallow: /
+#///
+#Example for limiting folders
+#User-agent: *
+#Disallow: /images/
+#Disallow: /innData/
+#///
+#Example disallowing googlebot to index particular files
+#User-agent: googlebot
+#Disallow: useless.htm
+#///
+#not permitted multiple folders in one line:
+#Disallow: /css/ /cgi-bin/ /images/
+#avoid DOS format. Write in UNIX format. Upload to server in ASCII
 User-agent: *
-Disallow:
+Disallow: /
