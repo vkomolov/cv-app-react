@@ -268,6 +268,10 @@
               "path": "https://github.com/vkomolov/cv-app-react/tree/hookVer"
             },
             {
+              "title": "CV on React, functional realisation with redux thunk",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/reduxVer"
+            },
+            {
               "title": "PostIt Application on React",
               "path": "https://github.com/vkomolov/post-it"
             },
