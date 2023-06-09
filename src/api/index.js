@@ -25,9 +25,9 @@ export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
 };
 
 /**
- *
- * @param data
- * @returns {Array}
+ * it takes the property names of the given object and returns the array of the filters
+ * @param {Object} data: the given object with the property names: "personal", "experience", "education"
+ * @returns {Object[]}
  */
 export function getFilters(data) {
     if (Object.keys(data).length) {

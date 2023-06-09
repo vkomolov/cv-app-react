@@ -1,7 +1,5 @@
-//import { useCallback, useEffect, useRef } from "react";
-//import * as PropTypes from "prop-types";
+import { useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAlertError } from "../store/reducers/AlertReducer/actions";
 import { setFilterActive } from "../store/reducers/FilterReducer/actions";
 
 export function useInnData() {
@@ -9,14 +7,15 @@ export function useInnData() {
     const alertState = useSelector(state => state.alertState);
     const filtersState = useSelector(state => state.filterState);
     const { auxData, filters } = filtersState;
-    const activateFilter = (filterName) => {
-        dispatch(setFilterActive(filterName));
-    };
-    const initError = (...content) => {
-        dispatch(setAlertError(...content));
-    };
 
-    const innData = prepareData(auxData, filters, activateFilter, initError);
+    const activateFilter = useCallback(filterName => {
+        dispatch(setFilterActive(filterName));
+    }, [dispatch]);
+
+    //memoized data avoiding state changes except filtersState...
+    const innData = useMemo(() => prepareData(auxData, filters, activateFilter),
+        [auxData, filters, activateFilter]
+    );
 
     return {
         innData,
@@ -24,7 +23,7 @@ export function useInnData() {
     };
 }
 
-function prepareData(auxData, filters, activateFilter, initError) {
+function prepareData(auxData, filters, activateFilter) {
     if (!auxData) {
         return null;
     }
@@ -55,14 +54,14 @@ function prepareData(auxData, filters, activateFilter, initError) {
 
 
     /** It returns the active filter name
-     * @param {Object[]} dataFilters: the array of filters
+     * @param {Object[]} filters: the array of filters
      * @returns {null|string}
      */
-    function getFilterActive(dataFilters) {
-        if (!dataFilters.length) {
+    function getFilterActive(filters) {
+        if (!filters.length) {
             return null;
         }
-        return dataFilters.find(filter => !!filter.isActive).filterName;
+        return filters.find(filter => !!filter.isActive).filterName;
     }
 
     /**
@@ -81,9 +80,6 @@ function prepareData(auxData, filters, activateFilter, initError) {
                 return dataFiltered[prop];
             }
             console.error(`property ${ prop } is not found in given data at hooks/index.js: prepareData: getFuncDataActive`);
-            initError(`property ${ prop } is not found in the given data`,
-                "stack: hooks/index.js: prepareData: getFuncDataActive"
-                );
             return null;
         };
     }
@@ -99,13 +95,6 @@ function prepareData(auxData, filters, activateFilter, initError) {
         return dataFilters.map(filter => filter.filterName);
     }
 }
-
-/*useInnData.propTypes = {
-    path: PropTypes.string.isRequired,
-    extension: PropTypes.string,
-    imitateDelay: PropTypes.number,
-    timeLimit: PropTypes.number
-};*/
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

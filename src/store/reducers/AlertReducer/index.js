@@ -5,7 +5,12 @@ const alertStateDefault = {
     alertContent: []
 };
 
-const alertReducer = (initialState = alertStateDefault, { type, payload }) => {
+const alertInitial = {
+    alertType: "loading",
+    alertContent: ["loading"]
+};
+
+const alertReducer = (initialState = alertInitial, { type, payload }) => {
     const loadingAndErrorHandle = () => {
         if (initialState.alertType === type) {
             return {

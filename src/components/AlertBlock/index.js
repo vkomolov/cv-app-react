@@ -7,7 +7,7 @@ import loadingIcon from "../../asset/img/loadingIcon.svg";
 
 export default function AlertBlock({ alertState }) {
     const { alertType, alertContent } = alertState;
-    const classNameOut = alertType === "error" ? "alert-error" : "alert-loading";
+    const classNameOut = alertType === "ALERT_ERROR" ? "alert-error" : "alert-loading";
 
     let contentArr = [];
     if (alertContent.length) {

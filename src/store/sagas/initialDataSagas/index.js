@@ -2,7 +2,6 @@ import { call } from "redux-saga/effects";
 import { getAndStore } from "../../../api";
 
 export function* getInitialData(jsonUrl) {
-    log("getInitialData:");
     const innData = yield call(getAndStore, jsonUrl, 1, "json");
 
     if (innData["photoUrl"]) {

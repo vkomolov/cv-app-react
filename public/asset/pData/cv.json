@@ -268,8 +268,12 @@
               "path": "https://github.com/vkomolov/cv-app-react/tree/hookVer"
             },
             {
-              "title": "CV on React, functional realisation with redux thunk",
+              "title": "CV on React, functional realisation with redux/thunk",
               "path": "https://github.com/vkomolov/cv-app-react/tree/reduxVer"
+            },
+            {
+              "title": "CV on React, functional realisation with redux-saga",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/reduxSaga"
             },
             {
               "title": "PostIt Application on React",
@@ -298,7 +302,7 @@
           "subheading": "REALISATION",
           "a": [
             {
-              "title": "CV Application with React",
+              "title": "CV Application with React/Redux-Saga/Router",
               "path": "https://vkomolov-cv-react.pages.dev/"
             },
             {
@@ -382,20 +386,6 @@
       "title": "Education",
       "details": [
         {
-          "remark": "TODO",
-          "subheading": "Advanced",
-          "li": [
-            "Testings, Test-driven development (TDD)",
-            "Node.js, Next.js, TypeScript",
-            "Headless CMS on Node.js: Strapi",
-            "Angular, React Native",
-            "Joomla, WordPress",
-            "GraphQL, MongoDB",
-            "SEO for Headless CMS, React \u0026 Single-Page Apps",
-            "Payment APIs"
-          ]
-        },
-        {
           "remark": "Nov 2017 - Apr 2018",
           "subheading": "PHP Academy ( Deutsche-It-Schule )",
           "li": [
@@ -417,6 +407,20 @@
           "li": [
             "Management",
             "Bachelor Degree with excellence"
+          ]
+        },
+        {
+          "remark": "TODO",
+          "subheading": "TODO Advanced",
+          "li": [
+            "Testings, Test-driven development (TDD)",
+            "Node.js, Next.js, TypeScript",
+            "Headless CMS on Node.js: Strapi",
+            "Angular, React Native",
+            "Joomla, WordPress",
+            "GraphQL, MongoDB",
+            "SEO for Headless CMS, React \u0026 Single-Page Apps",
+            "Payment APIs"
           ]
         },
         {

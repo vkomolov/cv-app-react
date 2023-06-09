@@ -10,13 +10,8 @@ server;
 - To renew the LocalStorage, if the creation date of the LocalStorage is more than 24 hours; 
 - To set the LocalStorage with the image, fetched from the JSON data url and read with FileReader;
 - If the fetched JSON data contains refs on pdf files to be downloaded, then to create downloadable <a> links 
-with href to the fetched pdf files; <br>
-- Assuming that the data, received from the server, has a wide and deep structure, besides, after loading, it will be 
-stored in the localStorage and will not change, it is necessary to avoid saving the received data directly to the state 
-or redux store.
-<br>The state or redux store should have only the data which is subject to change during the App rendering.
-<br>At the same time to avoid multiple turns to the localStorage during the App renderings and events.
-<br>The App should initially fetch the data or take it from the localStorage only once at didMount stage.
+with href to the fetched pdf files;
+- The App should initially fetch the data or take it from the localStorage only once at didMount stage.
 - The link to the code is available in the section "Experience";
 - Finally, bundled in the App container, it will be appended to the '#root' DOM Element of the initial empty page;
 - No hardcoded names and elements UI;
