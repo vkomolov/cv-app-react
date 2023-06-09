@@ -14,7 +14,6 @@ export default function GraphItem({ score }) {
     const outScoreWidth = initScore(innScore) + "%";
 
     useEffect(() => {
-        log(innScore, "innScore");
         const { current } = scoreRef;
         setTimeout(() => {
             current.style.width = outScoreWidth;

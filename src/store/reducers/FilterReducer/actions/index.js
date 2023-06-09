@@ -1,8 +1,10 @@
 import filterConstants from "../constants";
 
 /**
- * @param {Object[]} data: the array of objects (Filters with properties: {string} filterName and {boolean} isActive)
- * @returns {{payload: Array, type: string}}
+ * @param {Object} data:
+ * @param {Object[]} data.filters: the array of objects (Filters with properties: {string} filterName and {boolean} isActive)
+ * @param {Object} data.auxData: fetched or taken from the localStorage
+ * @returns {{payload: Object, type: string}}
  */
 export const setDataFilters = data => ({
     type: filterConstants.SET_DATA_FILTERS,

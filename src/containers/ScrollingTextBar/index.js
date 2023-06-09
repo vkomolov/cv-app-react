@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./ScrollingTextBar.scss";
-import { initScrollingText } from "../../utils/services/userService";
+import { initScrollingText } from "../../api";
 import * as PropTypes from "prop-types";
 
 export default function ScrollingTextBar({ data }) {

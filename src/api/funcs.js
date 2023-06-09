@@ -100,84 +100,6 @@ export function initAxios(url, ext = "json", inDataParams = null) {
 }
 //  catch will be taken outer
 
-/**@description It prepares the params and returns fetch with the params, depending on the arguments:
- * - if the second argument 'ext' is Object, then to use method 'POST" with the key 'body' in params and the
- * following object as the value; !the data must NOT be already jSON.stringified
- * - if the second optional argument is String, then to use method 'GET' with the headers: {'Content-Type': value}
- * value - expecting type 'json' (by default), 'blob'...
- * - if the third optional argument 'innDataParams' is Object then to append it to params for the fetch request;
- * @param {string} url of the data source
- * @param {(Object|string)} [ext='json'] can be data for post method or string with the expecting 'responseType'
- * @param {Object} [inDataParams] - optional params for the request is null by default
- * @example initFetch('someUrl', {someKey: someValue}, {credentials: 'include', mode: 'cors'}) : POST request and params
- * @example initFetch('someUrl', 'blob') - GET request with responseType = 'blob'
- * */
-export function initFetch(url, ext = "json", inDataParams = null) {
-    let getOrPostKey, getOrPostValue, method, paramsOut, myHeaders;
-
-    //eliminating possible 'null' of ext for typeof limitations on null...
-    if (ext && typeof ext === "object") {
-        getOrPostKey = "body";
-        getOrPostValue = JSON.stringify(ext);
-        method = "POST";
-    } else {
-        myHeaders = new Headers({
-            "Content-Type": ext
-        });
-        getOrPostKey = "headers";
-        getOrPostValue = myHeaders;
-        method = "GET";
-    }
-
-    paramsOut = {
-        method,
-        [getOrPostKey]: getOrPostValue,
-    };
-
-    //  if additional params are given, then to append them to 'params';
-    if (inDataParams && typeof inDataParams === "object") {
-        //paramsOut = {...paramsOut, ...inDataParams};
-        paramsOut = Object.assign(paramsOut, inDataParams);
-    }
-
-    return fetch(url, paramsOut)
-        .then(status)
-        .then(handle);
-
-    /**
-     * it checks for the response status
-     * @param {Object} response
-     * @returns {Promise} resolve or reject
-     */
-    function status( response ) {
-        //  log(response, "response in fetch:");
-
-        if ( response.ok ) {
-            return Promise.resolve( response );
-        } else {
-            return Promise.reject(new Error( response.statusText ));
-        }
-    }
-
-    /**
-     * it handles the response with the account to the 'Content-Type'
-     * @param {Object} response
-     * @returns {*}
-     */
-    function handle( response ) {
-        if ( response.headers.get("Content-Type").includes("application/json") ) {
-            return response.json();
-        }
-        else if ( response.headers.get("Content-Type").includes("text/html") ) {
-            return response.text();
-        }
-        else if (response.headers.get("Content-Type").includes("image/jpeg")) {
-            //return URL.createObjectURL(response.blob());
-            return response.blob().then(blob => readFileAsDataUrl(blob));
-        }
-    }
-}
-
 /**@description it utilizes FileReader methods to read the file / blob as DataURL;
  * @async
  * @param {blob} file Blob or File
@@ -211,34 +133,4 @@ export function dateFormat(date, delimiter) {
  * */
 export function numFormat(num, decimal) {
     return Math.round(num * decimal)/decimal;
-}
-
-/**
- * it receives the DOM elements, measure the heights of them and makes all the elements to be of the same height;
- * @param {...Object} elemsArr of the HTMLElements
- */
-export function equalCols(...elemsArr) {   //for making DOM elems` height to be equal. Put them in array elemsArr
-                                           //adaptive styles for the screen with less or equal 875px
-    if (window.innerWidth <= 875) {
-        return;
-    }
-    let highestCal = 0;
-
-    for (let i = 0; i < elemsArr.length; i++) {
-        /**resetting the heights of the elements to 'auto' after rerendering the elements**/
-        elemsArr[i].style.height = "auto";
-
-        if (elemsArr[i].offsetHeight > highestCal) {
-            highestCal = elemsArr[i].offsetHeight;
-        }
-    }
-    for (let i = 0; i < elemsArr.length; i++) {
-        elemsArr[i].style.height = highestCal + "px";
-    }
-}
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
 }

@@ -1,26 +1,31 @@
 import filterConstants from "./constants";
 
-const initialState = [];
+const initialState = {
+    filters: [],
+    auxData: null,
+};
 
 const filterReducer = (state = initialState, { type, payload }) => {
-    const filtersState = [...state];
-
     const typesObj = {
-        [filterConstants.SET_DATA_FILTERS]: () => ([
+        [filterConstants.SET_DATA_FILTERS]: () => ({
             ...payload
-        ]),
+        }),
         [filterConstants.SET_FILTER_ACTIVE]: () => {
-            return filtersState.map(filter => {
+            const filters = state.filters.map(filter => {
                 const isActive = filter.filterName === payload;
                 return {
                     ...filter,
                     isActive
                 };
             });
+            return {
+                auxData: state.auxData,
+                filters
+            };
         },
     };
 
-    return (type in typesObj) ? typesObj[type]() : filtersState;
+    return (type in typesObj) ? typesObj[type]() : state;
 
 };
 

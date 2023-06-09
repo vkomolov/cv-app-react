@@ -5,27 +5,25 @@ import AsideBar from "../AsideBar";
 import ContentBar from "../ContentBar";
 import AlertBlock from "../../components/AlertBlock";
 import { useInnData } from "../../hooks";
-import { prepareData } from "../../utils/services/userService";
 
-const jsonUrl = "./asset/pData/cv.json";
 
 export default function App() {
-    const { innData, alertData, filtersData } = useInnData(jsonUrl);
-    const { alertState } = alertData;
-    const isNotError = alertState.alertType !== "error";
-    const auxData = prepareData(innData, filtersData);
+    const { innData, alertState } = useInnData();
 
-    const components = !auxData ? null : (
+    const isNotError = alertState.alertType !== "error";
+
+
+    const components = !innData ? null : (
         <>
-            <AsideBar withData={ auxData.asideData } />
-            <ContentBar withData={ auxData.contentData }/>
+            <AsideBar withData={ innData.asideData } />
+            <ContentBar withData={ innData.contentData }/>
         </>
     );
 
     return (
         <>
             {
-                isNotError && auxData && <ScrollingTextBar data={ scrollingTextData } />
+                isNotError && innData && <ScrollingTextBar data={ scrollingTextData } />
             }
             <div className="totalWrapper">
                 { alertState.alertType && <AlertBlock { ...{ alertState } } /> }
