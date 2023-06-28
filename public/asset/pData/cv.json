@@ -94,11 +94,11 @@
             },
             {
               "title": "Styled-Components",
-              "details": "80"
+              "details": "75"
             },
             {
               "title": "Module Styling",
-              "details": "85"
+              "details": "80"
             },
             {
               "title": "Javascript",
@@ -135,15 +135,15 @@
             },
             {
               "title": "Redux Saga",
-              "details": "75"
-            },
-            {
-              "title": "Redux Toolkit",
               "details": "70"
             },
             {
+              "title": "Redux Toolkit",
+              "details": "60"
+            },
+            {
               "title": "Router",
-              "details": "80"
+              "details": "75"
             }
           ]
         },
@@ -419,7 +419,7 @@
             "Angular, React Native",
             "Joomla, WordPress",
             "GraphQL, MongoDB",
-            "SEO for Headless CMS, React \u0026 Single-Page Apps",
+            "SEO for Headless CMS plus Next.js \u0026 Single-Page Apps",
             "Payment APIs"
           ]
         },

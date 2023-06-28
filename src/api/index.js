@@ -63,6 +63,7 @@ export function getFilters(data) {
  */
 export const initScrollingText = (elem, duration, isInfinite = false) => {
     let startTime = null;
+    let requestId = null; //request animation identificator
     const textWrapper = elem.parentElement;
     const distanceGap = 10;
     const initialLeft = textWrapper.offsetWidth + distanceGap + "px";
@@ -78,7 +79,7 @@ export const initScrollingText = (elem, duration, isInfinite = false) => {
         textWrapper.append(elem);
     };
 
-    requestAnimationFrame(function measure(time) {
+    requestId = requestAnimationFrame(function measure(time) {
         if (!startTime) {
             startTime = time;
         }
@@ -93,15 +94,51 @@ export const initScrollingText = (elem, duration, isInfinite = false) => {
         elem.style.left = (initialLeftNum - shift) + "px";
 
         if (progress < 1) {
-            requestAnimationFrame(measure);
+            //new animation after previous animation is fulfilled
+            requestId = requestAnimationFrame(measure);
         } else {
             //if fulfilled, then to replace the scrolling element to the initial not visible position
             //only in case of isInfinite === true
             if (isInfinite) {
                 refreshTextPos();
                 startTime = null;
-                requestAnimationFrame(measure);
+                requestId = requestAnimationFrame(measure);
+            } else {
+                cancelAnimationFrame(requestId);
+                requestId = null;
             }
         }
     });
 };
+
+/**
+ * @param {HTMLElement} htmlElement to animate opacity from 0 to 1
+ * @param {number} duration of the animation
+ * @returns {function(): void}
+ */
+export function initOpacityAnimation(htmlElement, duration) {
+    let animeStart = null;
+    htmlElement.style.opacity = "0";
+
+    let reqId = requestAnimationFrame(function anime(timeStamp){
+        if (!animeStart) animeStart = timeStamp;
+        let progress = (timeStamp - animeStart) / duration;
+        if (progress > 1) progress = 1;
+
+        htmlElement.style.opacity = `${ progress }`;
+
+        if (progress < 1) {
+            reqId = requestAnimationFrame(anime);
+        } else {
+            cancelAnimationFrame(reqId);
+        }
+    });
+
+    return () => cancelAnimationFrame(reqId);
+}
+
+///////////////// dev
+// eslint-disable-next-line no-unused-vars
+function log(it, comments="value: ") {
+    console.log(comments, it);
+}

@@ -1,4 +1,4 @@
-import { call, put, delay } from "redux-saga/effects";
+import { call, put, delay, fork } from "redux-saga/effects";
 import { getInitialData } from "./initialDataSagas";
 import { setAlertClear, setAlertError } from "../reducers/AlertReducer/actions";
 import { setDataFilters } from "../reducers/FilterReducer/actions";
@@ -24,7 +24,7 @@ export function* loadInitialData(delays=1000) {
 }
 
 export default function* rootSaga() {
-    yield call(loadInitialData, 1000);
+    yield fork(loadInitialData, 1000);
 }
 
 

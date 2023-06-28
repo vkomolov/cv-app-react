@@ -1,6 +1,7 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setFilterActive } from "../store/reducers/FilterReducer/actions";
+import { initOpacityAnimation } from "../api";
 
 export function useInnData() {
     const dispatch = useDispatch(); //constant ref to function for use in useCallBack dependencies (ESLint requires)
@@ -95,6 +96,25 @@ function prepareData(auxData, filters, activateFilter) {
         return dataFilters.map(filter => filter.filterName);
     }
 }
+
+/**
+ * It animates the opacity of the HTMLElement from 0 to 1
+ * @param {number} duration of the animation
+ * @returns {React.MutableRefObject<null>}
+ */
+export const useOpacityTransition = (duration = 1000) => {
+    const ref = useRef(null);
+
+    //to change styles before display refreshing
+    useLayoutEffect(() => {
+        const htmlElement = ref.current;
+        const cancelOpacityAnimation = initOpacityAnimation(htmlElement, duration);
+
+        return () => cancelOpacityAnimation();
+    });
+
+    return ref;
+};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

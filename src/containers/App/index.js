@@ -10,8 +10,6 @@ import { useInnData } from "../../hooks";
 export default function App() {
     const { innData, alertState } = useInnData();
     const isNotError = alertState.alertType !== "ALERT_ERROR";
-    log(isNotError, "isNotError: ");
-
 
     const components = !innData ? null : (
         <>
