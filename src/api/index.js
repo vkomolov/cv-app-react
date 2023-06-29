@@ -25,21 +25,18 @@ export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
 };
 
 /**
- * it takes the property names of the given object and returns the array of the filters
+ * it takes the property names of the given object and returns the array of the property names except given is args
  * @param {Object} data: the given object with the property names: "personal", "experience", "education"
- * @returns {Object[]}
+ * @param {String[]} exceptions: the array of properties to be excluded from reducing...
+ * @returns {String[]} the array of the properties to be filtered by...
  */
-export function getFilters(data) {
+export function getFilters(data, exceptions=[]) {
     if (Object.keys(data).length) {
         const filterArr = Object.keys(data).reduce((acc, key) => {
-            if (key !== "fullName" && key !== "photoUrl") {
-                const isActive = acc.length === 0;
-                return acc.concat({
-                    filterName: key,
-                    isActive,
-                });
+            if (exceptions.includes(key)) {
+                return acc;
             }
-            return acc;
+            return acc.concat(key);
         }, []);
 
         if (!filterArr.length) {
@@ -50,6 +47,62 @@ export function getFilters(data) {
     }
     else {
         throw new Error("no correct data received...");
+    }
+}
+
+
+/**
+ * it prepares separate data for AsideData and ContentData Components
+ * @param {Object} auxData: the fetched data, which will be used with account to the its chosen property
+ * @param {String} filter: active chosen filter which must be the property of the object to take its value
+ * @returns {null|{asideData: {Object}, contentData: {Object}}}
+ */
+export function prepareData(auxData, filter) {
+    if (!auxData || !filter) {
+        return null;
+    }
+
+    const filterActive = filter;
+    const filterNames = getFilters(auxData, ["fullName", "photoUrl"]);
+    const getDataActive = getFuncDataActive(auxData, filterActive);
+
+    const fullName = auxData.fullName;
+    const photoUrl = auxData.photoUrl;
+    const asideData = {
+        data: getDataActive("aside"),
+        fullName,
+        photoUrl,
+        filterActive,
+        filterNames,
+    };
+    const contentData = {
+        data: getDataActive("content"),
+        filterActive
+    };
+
+    return {
+        asideData,
+        contentData
+    };
+
+    /**
+     * @param {Object} data
+     * @param {string} filterActive: the name of the active filter
+     * @returns {null|Function}
+     */
+    function getFuncDataActive(data, filterActive) {
+        if (!data || !Object.keys(data).length || !(filterActive in data)) {
+            return null;
+        }
+
+        const dataFiltered = data[filterActive];
+        return (prop) => {
+            if (prop in dataFiltered) {
+                return dataFiltered[prop];
+            }
+            console.error(`property ${ prop } is not found in given data at hooks/index.js: prepareData: getFuncDataActive`);
+            return null;
+        };
     }
 }
 

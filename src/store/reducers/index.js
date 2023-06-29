@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import alertReducer from "./AlertReducer";
-import filterReducer from "./FilterReducer";
+import dataReducer from "./DataReducer";
 
 const rootReducer = combineReducers({
     alertState: alertReducer,
-    filterState: filterReducer
+    dataState: dataReducer
 });
 
 export default rootReducer;

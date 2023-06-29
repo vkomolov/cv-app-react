@@ -1,101 +1,55 @@
 import { useCallback, useMemo, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setFilterActive } from "../store/reducers/FilterReducer/actions";
-import { initOpacityAnimation } from "../api";
+import { setAlertLoading, setAlertError, setAlertClear } from "../store/reducers/AlertReducer/actions";
+import { initOpacityAnimation, prepareData } from "../api";
+import { useParams } from "react-router-dom";
 
-export function useInnData() {
-    const dispatch = useDispatch(); //constant ref to function for use in useCallBack dependencies (ESLint requires)
+/**
+ * Custom Hook which returns the state of the alert in redux reducer and the following actions
+ * @returns {{initAlertClear: *, initAlertError: *, alertState: {Object}, initAlertLoading: *}}
+ */
+export function useAlertData() {
+    const dispatch = useDispatch();
     const alertState = useSelector(state => state.alertState);
-    const filtersState = useSelector(state => state.filterState);
-    const { auxData, filters } = filtersState;
-
-    const activateFilter = useCallback(filterName => {
-        dispatch(setFilterActive(filterName));
+    const initAlertLoading = useCallback((...textContent) => {
+        dispatch(setAlertLoading(...textContent));
+    }, [dispatch]);
+    const initAlertError = useCallback((...textContent) => {
+        dispatch(setAlertError(...textContent));
+    }, [dispatch]);
+    const initAlertClear = useCallback(() => {
+        dispatch(setAlertClear());
     }, [dispatch]);
 
+
+    return {
+        alertState,
+        initAlertLoading,
+        initAlertError,
+        initAlertClear
+    };
+}
+
+/**
+ * Custom Hook which takes the property from "/:filter" and prepares the data for AsideBar and ContentBar Components...
+ * @returns {{innData: *}}
+ */
+export function useInnData() {
+    const { filter } = useParams();
+    const dataState = useSelector(state => state.dataState);
+    const { auxData } = dataState;
+
     //memoized data avoiding state changes except filtersState...
-    const innData = useMemo(() => prepareData(auxData, filters, activateFilter),
-        [auxData, filters, activateFilter]
+    const innData = useMemo(() => prepareData(auxData, filter),
+        [auxData, filter]
     );
 
     return {
-        innData,
-        alertState
+        innData
     };
 }
 
-function prepareData(auxData, filters, activateFilter) {
-    if (!auxData) {
-        return null;
-    }
 
-    const filterActive = getFilterActive(filters);
-    const filterNames = getFilterNames(filters);
-    const getDataActive = getFuncDataActive(auxData, filterActive);
-
-    const fullName = auxData.fullName;
-    const photoUrl = auxData.photoUrl;
-    const asideData = {
-        data: getDataActive("aside"),
-        fullName,
-        photoUrl,
-        filterActive,
-        filterNames,
-        activateFilter,
-    };
-    const contentData = {
-        data: getDataActive("content"),
-        filterActive
-    };
-
-    return {
-        asideData,
-        contentData
-    };
-
-
-    /** It returns the active filter name
-     * @param {Object[]} filters: the array of filters
-     * @returns {null|string}
-     */
-    function getFilterActive(filters) {
-        if (!filters.length) {
-            return null;
-        }
-        return filters.find(filter => !!filter.isActive).filterName;
-    }
-
-    /**
-     * @param {Object} data
-     * @param {string} filterActive: the name of the active filter
-     * @returns {null|Function}
-     */
-    function getFuncDataActive(data, filterActive) {
-        if (!Object.keys(data).length) {
-            return null;
-        }
-
-        const dataFiltered = data[filterActive];
-        return (prop) => {
-            if (prop in dataFiltered) {
-                return dataFiltered[prop];
-            }
-            console.error(`property ${ prop } is not found in given data at hooks/index.js: prepareData: getFuncDataActive`);
-            return null;
-        };
-    }
-
-    /**It returns the array of the filters` names
-     * @param {Object[]} dataFilters
-     * @returns {null|Array}
-     */
-    function getFilterNames(dataFilters) {
-        if (!dataFilters.length) {
-            return null;
-        }
-        return dataFilters.map(filter => filter.filterName);
-    }
-}
 
 /**
  * It animates the opacity of the HTMLElement from 0 to 1

@@ -1,21 +1,17 @@
-import { call, put, delay, fork } from "redux-saga/effects";
+import { call, put, delay } from "redux-saga/effects";
 import { getInitialData } from "./initialDataSagas";
-import { setAlertClear, setAlertError } from "../reducers/AlertReducer/actions";
-import { setDataFilters } from "../reducers/FilterReducer/actions";
-import { getFilters } from "../../api";
-
+import { setAlertClear, setAlertError, setAlertLoading } from "../reducers/AlertReducer/actions";
+import { setData } from "../reducers/DataReducer/actions";
 const jsonUrl = "./asset/pData/cv.json";
 
 export function* loadInitialData(delays=1000) {
     try {
+        yield put(setAlertLoading("Loading"));
         const auxData = yield call(getInitialData, jsonUrl);
-        const filters = getFilters(auxData);
         yield delay(delays);
+        yield put(setData(auxData));
+        //removing alert loading
         yield put(setAlertClear());
-        yield put(setDataFilters({
-            auxData,
-            filters
-        }));
 
     } catch (e) {
         yield put(setAlertError(e.message));
@@ -24,7 +20,8 @@ export function* loadInitialData(delays=1000) {
 }
 
 export default function* rootSaga() {
-    yield fork(loadInitialData, 1000);
+    //blocking effect for getting initial data
+    yield call(loadInitialData, 1000);
 }
 
 

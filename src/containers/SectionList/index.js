@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 import * as PropTypes from "prop-types";
 import { v4 } from "uuid";
 import "./SectionList.scss";
@@ -9,19 +10,19 @@ export default function SectionList({ sectionData }) {
     const [filtersVisible, setFiltersVisible] = useState(true);  //filters visible:true/invisible:false
     const sectionListRef = useRef(null);
 
-    const { filterNames, filterActive, activateFilter } = sectionData;
+    const { filterNames, filterActive } = sectionData;
     const styledWrapperOnScroll = isScrolledShown
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";
 
-    const handleFilter = (chosenFilter) => {
+/*    const handleFilter = (chosenFilter) => {
         if (chosenFilter !== filterActive) {
             activateFilter(chosenFilter);
 
             //starting page from the initial position
             window.scrollTo(0, 0);
         }
-    };
+    };*/
 
     const handleScroll = () => {
         const sectionListComponent = sectionListRef.current;
@@ -34,12 +35,12 @@ export default function SectionList({ sectionData }) {
         }
     };
 
-    const onKeyDownHandler = (event) => {
+/*    const onKeyDownHandler = (event) => {
         if (event.key === "Enter") {
             const filterName = event.target.dataset.filter;
             handleFilter(filterName);
         }
-    };
+    };*/
 
     const getSectionsArr = () => {
         return filterNames.map(filter => {
@@ -48,32 +49,33 @@ export default function SectionList({ sectionData }) {
                 : "sectionName toBeHovered";
 
             return (
-                <li
+                <NavLink to={ `/${ filter }` }
                     className={ specClass }
                     aria-label={ filter }
                     data-filter={ filter }
-                    role="menuitem"
+                    /*role="link"*/
                     tabIndex="0"
-                    onClick={ () => handleFilter(filter) }
-                    onKeyDown={ onKeyDownHandler }
+/*                    onClick={ () => handleFilter(filter) }
+                    onKeyDown={ onKeyDownHandler }*/
                     key={v4()}
                 >
                     { filter }
-                </li>
+                </NavLink>
             );
         });
     };
 
     const getSectionList = (isForScroll = false) => (
-        <ul
-            className="sectionList"
-            role="menu"
+        <nav
+            className="nav-list"
+            role="navigation"
+            aria-label="filter service"
             ref={ !isForScroll ? sectionListRef : null }
         >
             {
                 getSectionsArr()
             }
-        </ul>
+        </nav>
     );
 
     //initiating listener on window.scroll
