@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as PropTypes from "prop-types";
 import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 import "./SectionList.scss";
 
 export default function SectionList({ sectionData }) {
-    const [isScrolled, setIsScrolled] = useState(false);
+    log("SectionList rendering...");
+
+    const navigate = useNavigate();
     const [isScrolledShown, setIsScrolledShown] = useState(false);
-    const [filtersVisible, setFiltersVisible] = useState(true);  //filters visible:true/invisible:false
+    log(isScrolledShown, "isScrolledShown...");
     const sectionListRef = useRef(null);
 
     const { filterNames, filterActive } = sectionData;
@@ -15,32 +17,32 @@ export default function SectionList({ sectionData }) {
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";
 
-/*    const handleFilter = (chosenFilter) => {
+    const handleFilter = (chosenFilter) => {
         if (chosenFilter !== filterActive) {
-            activateFilter(chosenFilter);
+            //navigating to the following url;
+            navigate(`/${ chosenFilter }`);
 
             //starting page from the initial position
             window.scrollTo(0, 0);
         }
-    };*/
-
-    const handleScroll = () => {
-        const sectionListComponent = sectionListRef.current;
-        const posTop = sectionListComponent.getBoundingClientRect().top;
-
-        if (posTop <= 0) {
-            setFiltersVisible(false);
-        } else {
-            setFiltersVisible(true);
-        }
     };
 
-/*    const onKeyDownHandler = (event) => {
+    const handleScroll = useCallback(() => {
+        if (sectionListRef) {
+            const sectionListComponent = sectionListRef.current;
+            const posTop = sectionListComponent.getBoundingClientRect().top;
+            const isScrolled = posTop <= 0;
+            //setting the state with the same value will be ignored
+            setIsScrolledShown(isScrolled);
+        }
+    },[]);
+
+    const onKeyDownHandler = (event) => {
         if (event.key === "Enter") {
             const filterName = event.target.dataset.filter;
             handleFilter(filterName);
         }
-    };*/
+    };
 
     const getSectionsArr = () => {
         return filterNames.map(filter => {
@@ -49,36 +51,36 @@ export default function SectionList({ sectionData }) {
                 : "sectionName toBeHovered";
 
             return (
-                <NavLink to={ `/${ filter }` }
+                <li
                     className={ specClass }
-                    aria-label={ filter }
+                    aria-label={ `navigation to /${ filter }` }
+                    /*for onKeyDownHandler*/
                     data-filter={ filter }
-                    /*role="link"*/
+                    role="menuitem"
                     tabIndex="0"
-/*                    onClick={ () => handleFilter(filter) }
-                    onKeyDown={ onKeyDownHandler }*/
+                    onClick={ () => handleFilter(filter) }
+                    onKeyDown={ onKeyDownHandler }
                     key={v4()}
                 >
                     { filter }
-                </NavLink>
+                </li>
             );
         });
     };
 
     const getSectionList = (isForScroll = false) => (
-        <nav
-            className="nav-list"
-            role="navigation"
-            aria-label="filter service"
+        <ul
+            className="sectionList"
+            role="menu"
             ref={ !isForScroll ? sectionListRef : null }
         >
             {
                 getSectionsArr()
             }
-        </nav>
+        </ul>
     );
 
-    //initiating listener on window.scroll
+    //initiating listener of scrolling on window.scroll
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
 
@@ -87,32 +89,11 @@ export default function SectionList({ sectionData }) {
         //as componentDidMount
     }, []);
 
-    useEffect(() => {
-        if (!filtersVisible) {
-            if (!isScrolled) {
-                setIsScrolled(true); //setting new state for isScrolled
-                setTimeout(() => {
-                    setIsScrolledShown(true);
-                }, 200);
-            }
-        } else {
-            if (isScrolledShown) {
-                setIsScrolledShown(false);
-
-                setTimeout(() => {
-                    setIsScrolled(false);
-                }, 200);
-            }
-        }
-    }, [filtersVisible]);
-
     return (
         <>
-            { isScrolled
-            && <div className={ styledWrapperOnScroll }>
+            <div className={ styledWrapperOnScroll }>
                 { getSectionList(true) }
             </div>
-            }
             { getSectionList(false) }
         </>
     )

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import "./Layout.scss";
 import AlertBlock from "../../components/AlertBlock";
 import ScrollingTextBar, { scrollingTextData } from "../../containers/ScrollingTextBar";
@@ -9,8 +9,7 @@ export default function Layout() {
     const navigate = useNavigate();
     const isRoot = useMatch("/");
 
-    //using useLayoutEffect for navigation to another rout before the display renders
-    useLayoutEffect(() => {
+    useEffect(() => {
         //if initial url "/" then to navigate to the default "/personal"
         if(isRoot) navigate("/personal", { replace: true });
 

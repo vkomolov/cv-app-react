@@ -37,8 +37,8 @@ ScrollingTextBar.propTypes = {
 
 const scrollingText = "To realize the CV app with React, dynamically constructing " +
     "the Components from the fetched JSON file, which then to be temporally stored in the localStorage for 24 hours. " +
-    "To make git branches with the realisations: class components, using state and props drilling, stateless functions " +
-    "on hooks and using Redux-saga which will be merged as the final version. "
+    "To make git branches with the realisations: class components, using state and props drilling; stateless functions " +
+    "on hooks; using Redux-saga; using React-router which will be merged as the final version. "
     + "The link to the code is available in the section \"Experience\"... ";
 
 export const scrollingTextData = {

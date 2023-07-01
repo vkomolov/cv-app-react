@@ -256,24 +256,28 @@
           "comments": "links: ",
           "a": [
             {
-              "title": "CV on native JS, rendered from fetched JSON",
+              "title": "CV on native JS, rendered from the fetched JSON",
               "path": "https://github.com/vkomolov/cv-app-js"
             },
             {
-              "title": "CV on React, realisation with classes",
+              "title": "CV on React, realisation with classes and props drilling",
               "path": "https://github.com/vkomolov/cv-app-react/tree/classVer"
             },
             {
-              "title": "CV on React, functional realisation with hooks",
+              "title": "CV on React, functional with hooks",
               "path": "https://github.com/vkomolov/cv-app-react/tree/hookVer"
             },
             {
-              "title": "CV on React, functional realisation with redux/thunk",
+              "title": "CV on React, functional with hooks, redux/thunk",
               "path": "https://github.com/vkomolov/cv-app-react/tree/reduxVer"
             },
             {
-              "title": "CV on React, functional realisation with redux-saga",
+              "title": "CV on React, functional with hooks, redux, redux-saga",
               "path": "https://github.com/vkomolov/cv-app-react/tree/reduxSaga"
+            },
+            {
+              "title": "CV on React, functional with hooks, redux, redux-saga, react-router",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/routerVer"
             },
             {
               "title": "PostIt Application on React",
@@ -302,7 +306,7 @@
           "subheading": "REALISATION",
           "a": [
             {
-              "title": "CV Application with React/Redux-Saga/Router",
+              "title": "CV Application with React/Redux/Redux-Saga/Router",
               "path": "https://vkomolov-cv-react.pages.dev/"
             },
             {
