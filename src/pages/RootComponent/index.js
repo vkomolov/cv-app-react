@@ -4,9 +4,7 @@ import ContentBar from "../../containers/ContentBar";
 import { useInnData } from "../../hooks";
 
 const RootComponent = () => {
-    log("RootComponent rendering...");
     const { innData } = useInnData();
-
 
     return !innData ? null : (
         <>

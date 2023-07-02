@@ -5,11 +5,8 @@ import { useNavigate } from "react-router-dom";
 import "./SectionList.scss";
 
 export default function SectionList({ sectionData }) {
-    log("SectionList rendering...");
-
     const navigate = useNavigate();
     const [isScrolledShown, setIsScrolledShown] = useState(false);
-    log(isScrolledShown, "isScrolledShown...");
     const sectionListRef = useRef(null);
 
     const { filterNames, filterActive } = sectionData;

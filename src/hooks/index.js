@@ -50,7 +50,6 @@ export function useInnData() {
 }
 
 
-
 /**
  * It animates the opacity of the HTMLElement from 0 to 1
  * @param {number} duration of the animation

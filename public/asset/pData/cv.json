@@ -134,15 +134,11 @@
               "details": "85"
             },
             {
-              "title": "Redux Saga",
+              "title": "Redux-Saga",
               "details": "70"
             },
             {
-              "title": "Redux Toolkit",
-              "details": "60"
-            },
-            {
-              "title": "Router",
+              "title": "React-Router",
               "details": "75"
             }
           ]
@@ -224,7 +220,7 @@
           "subheading": "Outsource",
           "comments": "FullStack Dev, design, copywriting, translating",
           "li": [
-            "Stack: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, PHP, MySql;",
+            "Developing webSites and apps: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, PHP, MySql;",
             "Creating catalogs, tech-lists with a unique design and content (ua, ru, en);",
             "Copywriting, translating (ua, ru, en);"
           ]
@@ -232,7 +228,7 @@
         {
           "remark": "1997 - till Apr 2022",
           "subheading": "Non IT / partial IT Experience",
-          "comments": "Sales \u0026 Marketing management, data analysis \u0026 in B2B",
+          "comments": "Sales \u0026 Marketing management, data analysis in B2B",
           "li": [
             "Analysis of Business and Marketing data, statistics, benchmarking;",
             "Product \u0026 Distribution Management;",
@@ -252,7 +248,7 @@
         },
         {
           "remark": "Git:",
-          "subheading": "Code realisations:",
+          "subheading": "CODE REALISATIONS:",
           "comments": "links: ",
           "a": [
             {
@@ -303,7 +299,7 @@
         },
         {
           "remark": "Some:",
-          "subheading": "REALISATION",
+          "subheading": "VISUAL REALISATIONS",
           "a": [
             {
               "title": "CV Application with React/Redux/Redux-Saga/Router",
@@ -342,7 +338,7 @@
         },
         {
           "title": "Power Pivot, Power Querry, DAX",
-          "details": "self-study"
+          "details": "Corporate Courses"
         },
         {
           "title": "Data structuring and analysis",
@@ -361,11 +357,7 @@
           "details": "self-study"
         },
         {
-          "title": "Customer Focus Selling",
-          "details": "Corporate Courses"
-        },
-        {
-          "title": "Lean Six Sigma",
+          "title": "Customer Focus Negotiations",
           "details": "Corporate Courses"
         },
         {
@@ -373,11 +365,15 @@
           "details": "Corporate Courses"
         },
         {
-          "title": "Negotiations",
-          "details": "Corporate Courses"
+          "title": "Project Management",
+          "details": "self-study"
         },
         {
           "title": "Time Management",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Lean Six Sigma",
           "details": "Corporate Courses"
         },
         {
@@ -420,11 +416,11 @@
             "Testings, Test-driven development (TDD)",
             "Node.js, Next.js, TypeScript",
             "Headless CMS on Node.js: Strapi",
-            "Angular, React Native",
-            "Joomla, WordPress",
             "GraphQL, MongoDB",
             "SEO for Headless CMS plus Next.js \u0026 Single-Page Apps",
-            "Payment APIs"
+            "Payment APIs",
+            "Angular, React Native",
+            "Joomla, WordPress"
           ]
         },
         {
