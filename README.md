@@ -15,13 +15,13 @@ with href to the fetched pdf files;
 - To implement redux for the alert state with types: "error" and "loading";
 - To implement redux for the operations with the data, fetched from the server or the LocalStorage;
 - To implement redux-saga and redux for the operations with the async fetching data;
+- To implement routing the app by using react-router: when clicking on the necessary filter, the app should be rendered
+with the according route, showing the following data;
 - Finally, bundled in the App container, it will be appended to the '#root' DOM Element of the initial empty page;
 - No hardcoded names and elements UI;
 - The initial render of the App is empty with the only 'loading' icon;
 - To make adoptive html on desktop and mobile screens;
 - To imitate the loading time, showing the loading icon, when fetching the data;
-- To implement routing the app by using react-router: when clicking on the necessary filter, the app should be rendered
-with the according route, showing the following data;
 - On choosing the filter, the components must be re-rendered with the new data;
 - To visually demonstrate the level of knowledge and skills with the indicating bar from 0 to 100%;
 - On scrolling the page down, the filter`s bar must emerge on the top of the page in the fixed position 
