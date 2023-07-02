@@ -1,149 +1,73 @@
-import { useReducer, useCallback, useEffect, useRef } from "react";
-import * as PropTypes from "prop-types";
-import { getAndStore } from "../utils/services/userService";
-import filterReducer from "../reducers/FilterReducer";
-import alertReducer from "../reducers/AlertReducer";
-import { setAlertLoading, setAlertError, setAlertClear } from "../reducers/AlertReducer/actions";
-import { setDataFilters, setFilterActive } from "../reducers/FilterReducer/actions";
-
-const initialAlert = {
-    alertType: "loading",       //    could be "loading", "error" or "null"
-    alertContent: ["loading"]   //    the array of strings
-};
+import { useCallback, useMemo, useRef, useLayoutEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setAlertLoading, setAlertError, setAlertClear } from "../store/reducers/AlertReducer/actions";
+import { initOpacityAnimation, prepareData } from "../api";
+import { useParams } from "react-router-dom";
 
 /**
- * @description it gets the data fetched or taken from localStorage, then creates the states for the filters and
- * alerts, then returns the fetched data, states and the setters of the states...
- * @param {string} path: url to data to be fetched
- * @param {string} extension: optional type of the data received from http request
- * @param {number} imitateDelay: optional for imitating delays in fetching process
- * @param {number} timeLimit: time limits for storing in localStorage (days)
- * @return {null | Object}
+ * Custom Hook which returns the state of the alert in redux reducer and the following actions
+ * @returns {{initAlertClear: *, initAlertError: *, alertState: {Object}, initAlertLoading: *}}
  */
-export function useInitData(path, extension="json", imitateDelay=1000, timeLimit=1) {
-    const [dataFilters, filterAction] = useReducer(filterReducer, [], undefined);
-    const [alertState, alertAction] = useReducer(alertReducer, initialAlert, undefined);
-    const dataRef = useRef(null);
-    const dispatchLoading = useCallback(message => {
-        alertAction(setAlertLoading(message));
-    }, []);
-    const dispatchError = useCallback(message => {
-        alertAction(setAlertError(message));
-    }, []);
-    const dispatchAlertClear = useCallback(() => {
-        alertAction(setAlertClear());
-    }, []);
+export function useAlertData() {
+    const dispatch = useDispatch();
+    const alertState = useSelector(state => state.alertState);
+    const initAlertLoading = useCallback((...textContent) => {
+        dispatch(setAlertLoading(...textContent));
+    }, [dispatch]);
+    const initAlertError = useCallback((...textContent) => {
+        dispatch(setAlertError(...textContent));
+    }, [dispatch]);
+    const initAlertClear = useCallback(() => {
+        dispatch(setAlertClear());
+    }, [dispatch]);
 
-    /**
-     * it makes the array of the filters from the given data
-     * @param { Object } data
-     * @returns {Object[]} array of filters with properties: 'filterName', "isActive'
-     */
-    const handleData = useCallback(data => {
-        if (Object.keys(data).length) {
-            const filterArr = Object.keys(data).reduce((acc, key) => {
-                if (key !== "fullName" && key !== "photoUrl") {
-                    const isActive = acc.length === 0;
-                    return acc.concat({
-                        filterName: key,
-                        isActive,
-                    });
-                }
-                return acc;
-            }, []);
-
-            if (!filterArr.length) {
-                throw new Error("no filters found in given data...");
-            }
-
-            return filterArr;
-        }
-        else {
-            throw new Error("no correct data received...");
-        }
-    }, []);
-    const activateFilter = useCallback(filterChosen => {
-        filterAction(setFilterActive(filterChosen));
-    }, []);
-    const setFilters = useCallback(filterArr => {
-        filterAction(setDataFilters(filterArr));
-    }, []);
-
-    useEffect(() => {
-        let isCanceled = false;
-        const cleanup = () => {
-            isCanceled = true;
-            return undefined;
-        };
-
-        getAndStore(path, timeLimit, extension)
-            .then(data => {
-                if (isCanceled) return;
-                /**
-                 * on fetching the data it takes data['photoUrl'] which is {string} and additionally fetches
-                 * the blob from this url, then reading by File-Reader it re-sets the value of data['photoUrl'] and
-                 * finally returns the updated data
-                 */
-                if (data["photoUrl"]) {
-                    return getAndStore(data["photoUrl"], 1, "blob")
-                        .then(objUrl => {
-                            if (isCanceled) return;
-
-                            return {
-                                ...data,
-                                photoUrl: objUrl,
-                            };
-                        });
-                }
-                return data;
-            })
-            .then(data => {
-                if (isCanceled) return;
-
-                setTimeout(() => {
-                    dataRef.current = data;
-                    const filterArr = handleData(data);
-                    setFilters(filterArr);
-                    dispatchAlertClear();
-                }, imitateDelay);
-            })
-            .catch(e => {
-                if (isCanceled) return;
-                console.error(e.message);
-                dispatchError(e.message);
-            });
-
-        return cleanup;
-    }, [path, extension, imitateDelay, timeLimit, dispatchAlertClear, dispatchError, handleData, setFilters]);
-
-    const alertData = {
-        alertState,
-        alertActions: {
-            dispatchLoading,
-            dispatchError,
-            dispatchAlertClear
-        },
-    };
-    const filtersData = {
-        dataFilters,
-        filterActions: {
-            activateFilter
-        }
-    };
 
     return {
-        innData: dataRef.current,
-        alertData,
-        filtersData
+        alertState,
+        initAlertLoading,
+        initAlertError,
+        initAlertClear
     };
 }
-useInitData.propTypes = {
-    path: PropTypes.string.isRequired,
-    extension: PropTypes.string,
-    imitateDelay: PropTypes.number,
-    timeLimit: PropTypes.number
-};
 
+/**
+ * Custom Hook which takes the property from "/:filter" and prepares the data for AsideBar and ContentBar Components...
+ * @returns {{innData: *}}
+ */
+export function useInnData() {
+    const { filter } = useParams();
+    const dataState = useSelector(state => state.dataState);
+    const { auxData } = dataState;
+
+    //memoized data avoiding state changes except filtersState...
+    const innData = useMemo(() => prepareData(auxData, filter),
+        [auxData, filter]
+    );
+
+    return {
+        innData
+    };
+}
+
+
+/**
+ * It animates the opacity of the HTMLElement from 0 to 1
+ * @param {number} duration of the animation
+ * @returns {React.MutableRefObject<null>}
+ */
+export const useOpacityTransition = (duration = 1000) => {
+    const ref = useRef(null);
+
+    //to change styles before display refreshing
+    useLayoutEffect(() => {
+        const htmlElement = ref.current;
+        const cancelOpacityAnimation = initOpacityAnimation(htmlElement, duration);
+
+        return () => cancelOpacityAnimation();
+    });
+
+    return ref;
+};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

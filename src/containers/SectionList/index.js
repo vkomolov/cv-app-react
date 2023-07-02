@@ -1,40 +1,38 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import * as PropTypes from "prop-types";
 import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 import "./SectionList.scss";
-import { providerContext } from "../../DataProvider";
 
-export default function SectionList() {
-    const { asideData } = providerContext;
-
-    const [isScrolled, setIsScrolled] = useState(false);
+export default function SectionList({ sectionData }) {
+    const navigate = useNavigate();
     const [isScrolledShown, setIsScrolledShown] = useState(false);
-    const [filtersVisible, setFiltersVisible] = useState(true);  //filters visible:true/invisible:false
     const sectionListRef = useRef(null);
 
-    const { filterNames, filterActive, activateFilter } = asideData();
+    const { filterNames, filterActive } = sectionData;
     const styledWrapperOnScroll = isScrolledShown
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";
 
     const handleFilter = (chosenFilter) => {
         if (chosenFilter !== filterActive) {
-            activateFilter(chosenFilter);
+            //navigating to the following url;
+            navigate(`/${ chosenFilter }`);
 
             //starting page from the initial position
             window.scrollTo(0, 0);
         }
     };
 
-    const handleScroll = () => {
-        const sectionListComponent = sectionListRef.current;
-        const posTop = sectionListComponent.getBoundingClientRect().top;
-
-        if (posTop <= 0) {
-            setFiltersVisible(false);
-        } else {
-            setFiltersVisible(true);
+    const handleScroll = useCallback(() => {
+        if (sectionListRef) {
+            const sectionListComponent = sectionListRef.current;
+            const posTop = sectionListComponent.getBoundingClientRect().top;
+            const isScrolled = posTop <= 0;
+            //setting the state with the same value will be ignored
+            setIsScrolledShown(isScrolled);
         }
-    };
+    },[]);
 
     const onKeyDownHandler = (event) => {
         if (event.key === "Enter") {
@@ -52,7 +50,8 @@ export default function SectionList() {
             return (
                 <li
                     className={ specClass }
-                    aria-label={ filter }
+                    aria-label={ `navigation to /${ filter }` }
+                    /*for onKeyDownHandler*/
                     data-filter={ filter }
                     role="menuitem"
                     tabIndex="0"
@@ -78,7 +77,7 @@ export default function SectionList() {
         </ul>
     );
 
-    //initiating listener on window.scroll
+    //initiating listener of scrolling on window.scroll
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
 
@@ -87,36 +86,19 @@ export default function SectionList() {
         //as componentDidMount
     }, []);
 
-    useEffect(() => {
-        if (!filtersVisible) {
-            if (!isScrolled) {
-                setIsScrolled(true); //setting new state for isScrolled
-                setTimeout(() => {
-                    setIsScrolledShown(true);
-                }, 200);
-            }
-        } else {
-            if (isScrolledShown) {
-                setIsScrolledShown(false);
-
-                setTimeout(() => {
-                    setIsScrolled(false);
-                }, 200);
-            }
-        }
-    }, [filtersVisible]);
-
     return (
         <>
-            { isScrolled
-            && <div className={ styledWrapperOnScroll }>
+            <div className={ styledWrapperOnScroll }>
                 { getSectionList(true) }
             </div>
-            }
             { getSectionList(false) }
         </>
     )
 }
+
+SectionList.propTypes = {
+    sectionData: PropTypes.object.isRequired
+};
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

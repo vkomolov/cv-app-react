@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./ScrollingTextBar.scss";
-import { initScrollingText } from "../../utils/services/userService";
+import { initScrollingText } from "../../api";
 import * as PropTypes from "prop-types";
 
 export default function ScrollingTextBar({ data }) {
@@ -35,10 +35,10 @@ ScrollingTextBar.propTypes = {
     })
 };
 
-const scrollingText = "To realize the CV App with React, dynamically constructing " +
+const scrollingText = "To realize the CV app with React, dynamically constructing " +
     "the Components from the fetched JSON file, which then to be temporally stored in the localStorage for 24 hours. " +
-    "To make git branches with the realisations: using state and props drilling, using stateless functions on hooks and " +
-    "using Redux and Router, which will be merged as the final version. "
+    "To make git branches with the realisations: class components, using state and props drilling; stateless functions " +
+    "on hooks; using Redux-saga; using React-router which will be merged as the final version. "
     + "The link to the code is available in the section \"Experience\"... ";
 
 export const scrollingTextData = {

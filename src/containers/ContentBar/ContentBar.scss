@@ -10,12 +10,6 @@
   padding-left: 1.8em;
   padding-bottom: 2em;
 
-  opacity: 0;
-
-  &.fade-in {
-    animation: fadeIn 0.5s linear forwards;
-  }
-
   .heading {
     letter-spacing: 0.13em;
     background: linear-gradient(90deg, $white, $foxy);
