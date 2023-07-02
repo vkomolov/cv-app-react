@@ -11,8 +11,10 @@ server;
 - To set the LocalStorage with the image, fetched from the JSON data url and read with FileReader;
 - If the fetched JSON data contains refs on pdf files to be downloaded, then to create downloadable <a> links 
 with href to the fetched pdf files;
-- The App should initially fetch the data or take it from the localStorage only once at didMount stage.
-- The link to the code is available in the section "Experience";
+- The App should initially fetch the data or take it from the localStorage once at didMount stage.
+- To implement redux for the alert state with types: "error" and "loading";
+- To implement redux for the operations with the data, fetched from the server or the LocalStorage;
+- To implement redux-saga and redux for the operations with the async fetching data;
 - Finally, bundled in the App container, it will be appended to the '#root' DOM Element of the initial empty page;
 - No hardcoded names and elements UI;
 - The initial render of the App is empty with the only 'loading' icon;
@@ -24,6 +26,7 @@ with href to the fetched pdf files;
 in order to be accessible in the scrolled page;
 - On re-rendering the data to scroll up the page to zero position;
 - To make animation of the scrolling text on the top of the page;
+- The link to the code is available in the section "Experience";
 ______________________
 
 ## Getting Started with Create React App
