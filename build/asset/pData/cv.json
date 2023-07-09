@@ -308,18 +308,6 @@
             {
               "title": "CV Application with native JS",
               "path": "https://vkomolov-cv-js.pages.dev/"
-            },
-            {
-              "title": "Filtering data with React (Demo)",
-              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
-            },
-            {
-              "title": "PostIt Application with React (Demo)",
-              "path": "https://vkomolov.github.io/post-it/"
-            },
-            {
-              "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
-              "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
             }
           ]
         }
@@ -414,9 +402,9 @@
           "subheading": "TODO Advanced",
           "li": [
             "Testings, Test-driven development (TDD)",
-            "Node.js, Next.js, TypeScript",
+            "Node.js, Next.js, Express, TypeScript",
             "Headless CMS on Node.js: Strapi",
-            "GraphQL, MongoDB",
+            "GraphQL, MongoDB, PostgreSQL",
             "SEO for Headless CMS plus Next.js \u0026 Single-Page Apps",
             "Payment APIs",
             "Angular, React Native",
