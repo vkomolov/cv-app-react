@@ -23,6 +23,7 @@
   .remarkCol {
     box-sizing: border-box;
     padding-bottom: 0.5em;
+    padding-right: 1em;
     width: #{$remarkColWidth};
 
     .remark {

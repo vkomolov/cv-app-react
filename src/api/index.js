@@ -1,5 +1,4 @@
-///api
-import { getLocalStorage, setLocalStorage, initAxios } from "./funcs";
+import { getLocalForage, setLocalForage, initAxios } from "./funcs";
 
 /**
  * @param {string} path: url to data to be fetched
@@ -10,18 +9,21 @@ import { getLocalStorage, setLocalStorage, initAxios } from "./funcs";
 export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
     const dataName = path.split("/").slice(-1)[0];
 
-    let localData = getLocalStorage( dataName, timeLimit );
+    let localData = await getLocalForage( dataName, timeLimit );
     if ( localData ) { //it returns obj or false
-        //log(localData, "getting data at local storage: ");
         return localData.data;
     }
 
-    return await initAxios(path, extension)
-        .then( data => {
-            setLocalStorage( dataName, data );
-            //log(data, "data after setting localStorage:");
-            return data;
-        } )
+    const config = {};
+    if (extension === "blob") {
+        config.responseType = "blob";
+    }
+
+    return await initAxios(path, config)
+        .then( async data => {
+            const storedData = await setLocalForage( dataName, data );
+            return storedData.data;
+        } );
 };
 
 /**
@@ -50,7 +52,6 @@ export function getFilters(data, exceptions=[]) {
     }
 }
 
-
 /**
  * it prepares separate data for AsideData and ContentData Components
  * @param {Object} auxData: the fetched data, which will be used with account to the its chosen property
@@ -58,6 +59,7 @@ export function getFilters(data, exceptions=[]) {
  * @returns {null|{asideData: {Object}, contentData: {Object}}}
  */
 export function prepareData(auxData, filter) {
+
     if (!auxData || !filter) {
         return null;
     }
@@ -105,7 +107,6 @@ export function prepareData(auxData, filter) {
         };
     }
 }
-
 
 /**
  * @description it inits the scrolling text, which is wrapped in the parent at fixed position top of the window.
