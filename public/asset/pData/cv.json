@@ -140,6 +140,10 @@
             {
               "title": "React-Router",
               "details": "75"
+            },
+            {
+              "title": "Redux-Toolkit",
+              "details": "75"
             }
           ]
         },
@@ -268,12 +272,8 @@
               "path": "https://github.com/vkomolov/cv-app-react/tree/reduxVer"
             },
             {
-              "title": "CV on React, functional with hooks, redux, redux-saga",
-              "path": "https://github.com/vkomolov/cv-app-react/tree/reduxSaga"
-            },
-            {
-              "title": "CV on React, functional with hooks, redux, redux-saga, react-router",
-              "path": "https://github.com/vkomolov/cv-app-react/tree/routerVer"
+              "title": "CV on React, functional with hooks, redux-toolkit, redux-saga, react-router",
+              "path": "https://github.com/vkomolov/cv-app-react"
             },
             {
               "title": "PostIt Application on React",
@@ -290,10 +290,6 @@
             {
               "title": "Filtering data on React",
               "path": "https://github.com/vkomolov/React_Filter_ModuleWork"
-            },
-            {
-              "title": "Product Catalog AdobeIndesign (Copywriting, Design)",
-              "path": "https://github.com/vkomolov/AdobeIndesign-Catalog"
             }
           ]
         },
@@ -302,24 +298,12 @@
           "subheading": "VISUAL REALISATIONS",
           "a": [
             {
-              "title": "CV Application with React/Redux/Redux-Saga/Router",
+              "title": "CV Application with React/Redux-Toolkit/Redux-Saga/Router",
               "path": "https://vkomolov-cv-react.pages.dev/"
             },
             {
               "title": "CV Application with native JS",
               "path": "https://vkomolov-cv-js.pages.dev/"
-            },
-            {
-              "title": "Filtering data with React (Demo)",
-              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
-            },
-            {
-              "title": "PostIt Application with React (Demo)",
-              "path": "https://vkomolov.github.io/post-it/"
-            },
-            {
-              "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
-              "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
             }
           ]
         }
@@ -414,9 +398,9 @@
           "subheading": "TODO Advanced",
           "li": [
             "Testings, Test-driven development (TDD)",
-            "Node.js, Next.js, TypeScript",
+            "Node.js, Express, Next.js, TypeScript",
+            "PostgreSQL, GraphQL, MongoDB",
             "Headless CMS on Node.js: Strapi",
-            "GraphQL, MongoDB",
             "SEO for Headless CMS plus Next.js \u0026 Single-Page Apps",
             "Payment APIs",
             "Angular, React Native",
@@ -429,7 +413,7 @@
           "file": [
             {
               "title": "English CV download:",
-              "path": "asset/pData/VKomolov_Eng22_CV_JS.pdf"
+              "path": "asset/pData/VKomolov_Eng23_CV_JS.pdf"
             }
           ]
         }

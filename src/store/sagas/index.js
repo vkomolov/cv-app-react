@@ -11,7 +11,8 @@ export function* loadInitialData(delays=1000) {
         const auxData = yield call(getInitialData, jsonUrl);
         //const endTime = performance.now();
         //log(endTime - startTime, "time: ");
-        //initial load: avg 1050ms, load from storage: avg 260ms
+        //blob saved to localforage then URL.createObjUrl takes it:  initial load: avg 1050ms, from storage: avg 260ms
+        //FileReader reads blob and saves to localforage: initial load: avg 1220ms, from storage: avg 311ms
 
         yield delay(delays);
         yield put(setData(auxData));

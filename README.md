@@ -8,7 +8,14 @@ reacting on the events, connected to the data change or chosen filters;
 - The fetched data should be stored in the localStorage for 24 hours, avoiding repeated http requests to the
 server;
 - To renew the LocalStorage, if the creation date of the LocalStorage is more than 24 hours; 
-- To set the LocalStorage with the image, fetched from the JSON data url and read with FileReader;
+- To save the fetched image to the LocalStorage. As LocalStorage can save only string type of data, to utilize the 
+FileReader which creates the string type from the image. To measure the performance of converting the image data.
+- To utilize the localForage as the alternative for saving different types of data. To save the blob of the image to the
+localForage and to use the traditional realisation of processing blobs with URL.createObjUrl. 
+To measure the performance of converting the image data.
+- Using the substitution of url directly into <img src="" > is the most optimal, as the browser knows how to do it
+very efficiently. Nevertheless, to choose the most optimal variant for downloading the image itself, saving it to the 
+offline local storage, for its further retrieval and substitution into <img src="" >.
 - If the fetched JSON data contains refs on pdf files to be downloaded, then to create downloadable <a> links 
 with href to the fetched pdf files;
 - The App should initially fetch the data or take it from the localStorage once at didMount stage.
@@ -26,7 +33,7 @@ with the according route, showing the following data;
 - To visually demonstrate the level of knowledge and skills with the indicating bar from 0 to 100%;
 - On scrolling the page down, the filter`s bar must emerge on the top of the page in the fixed position 
 in order to be accessible in the scrolled page;
-- On re-rendering the data to scroll up the page to zero position;
+- On re-rendering the data, to scroll up the page to zero position;
 - To make animation of the scrolling text on the top of the page;
 - The link to the code is available in the section "Experience";
 ______________________
