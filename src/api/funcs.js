@@ -1,5 +1,48 @@
 ///node_modules
 import axios  from "axios";
+import localforage from "localforage";
+
+/**
+ * @description It gets async localForage by name, validating by the time limit in days;
+ * If the time limit is expired, then to return false;
+ * If the LocalForage does not exist then to return false;
+ * Else to return data;
+ * @async
+ * @param { string } name of the LocalStorage data;
+ * @param { number } [timeLimit=1]: number of days;
+ * @returns { object | boolean } the data, stored in the LocalStorage... or false,
+ * if its not found or expired by time
+ * */
+export async function getLocalForage(name, timeLimit=1) {
+    const storage = await localforage.getItem( name );
+
+    log(storage, "storage from localforage: ");
+
+    if (storage) {
+        const creationDate = storage.creationDate;
+        const currentDate = Date.now();
+        if (((currentDate - creationDate)/1000/60/60/24) > timeLimit) {
+            return false;
+        }
+        return storage;
+    }
+    return false;
+}
+
+/**@description it receives the data and update it with the current Date
+ * and sets the localForage;
+ * @async
+ * @param {string} name The name of the LocalStorage to be set
+ * @param {Object} data which is fetched
+ * */
+export async function setLocalForage(name="localData", data) {
+    const dataWithDate = {
+        data,
+        creationDate: Date.now()
+    };
+
+    return await localforage.setItem(name, dataWithDate);
+}
 
 /**
  * It gets the LocalStorage by name, validating by the time limit in days;
@@ -8,15 +51,16 @@ import axios  from "axios";
  * Else to return the data;
  * @param { string } name of the LocalStorage data;
  * @param { number } [timeLimit=1]: number of days;
- * @returns { object | boolean } the data, stored in the LocalStorage... or false, if its not found or expired by time
+ * @returns { object | boolean } the data, stored in the LocalStorage...
+ * or false, if its not found or expired by time
  * */
 export function getLocalStorage( name, timeLimit=1 ) {
     const storage = localStorage.getItem( name );
     let innData;
     if ( storage ) {
         innData = JSON.parse( storage );
-        const creationDate = new Date(innData.creationDate);
-        const currentDate = new Date();
+        const creationDate = innData.creationDate;
+        const currentDate = Date.now();
         if (((currentDate - creationDate)/1000/60/60/24) > timeLimit) {
             return false;
         }
@@ -35,70 +79,38 @@ export function setLocalStorage( name="localData", data ) {
 
     const dataWithDate = {
         data,
-        creationDate: new Date()
+        creationDate: Date.now()
     };
     localStorage.setItem(name, JSON.stringify( dataWithDate ));
 }
 
-/**@description It prepares the params and returns axios with the params, depending on the arguments:
- * - if the second argument 'ext' is Object, then to use method 'POST" with the key 'data' in params and the
- * following object as the value;
- * - if the second optional argument is String, then to use method 'GET' with the key 'responseType' and the following
- * expecting value;
- * - if the third optional argument 'innDataParams' is Object then to append it to params for axios;
- * @param {string} url of the data source
- * @param {(Object|string)} [ext='json'] can be data for post method or string with the expecting 'responseType'
- * @param {Object} [inDataParams] - optional params for the request is null by default
- * @example initAxios('someUrl', {someObject: values}, {id: 'someId'}) : POST request with the object and params
- * @example initAxios('someUrl', 'blob') - GET request with responseType = 'blob'
- * */
-export function initAxios(url, ext = "json", inDataParams = null) {
-    let getOrPostKey, getOrPostValue, method, paramsOut;
-
-    //eliminating possible 'null' of ext
-    if (ext && typeof ext === "object") {
-        getOrPostKey = "data";
-        getOrPostValue = ext;
-        method = "POST";
-    } else {
-        getOrPostKey = "responseType";
-        getOrPostValue = ext;
-        method = "GET";
-    }
-
-    paramsOut = {
-        url,
-        method,
-        [getOrPostKey]: getOrPostValue,
-    };
-
-    //if additional params are given, then to append them to 'params';
-    if (inDataParams && typeof inDataParams === "object") {
-        paramsOut.params = inDataParams;
-    }
-
-    return axios(paramsOut)
-    /**
-     * @function for processing the response fetched
-     * @param {Object} resp
-     * @param {Object} [resp.data] - if GET request, it receives 'data' property;
-     * @returns {Promise} if responseType === blob, then to use FileReader by the inner func: {@link readFileAsDataUrl}
-     * (URL.createObjectURL lives till window is closed, and is worthless in LocalStorage)...
-     * else to return resp.data on GET request or resp on POST request;
-     */
-        .then(resp => {
-            //if it is method GET and 'responseType' property exists...
-            if (paramsOut.responseType) {
-                if (paramsOut.responseType === "blob") {
-                    //return URL.createObjectURL(resp.data); //it is alive till window closes...
-                    return readFileAsDataUrl(resp.data);
-                }
-                return resp.data;
-            }
-            return resp;
+export async function initAxios(url, config={}) {
+    try {
+        //if Object.keys(config).length === 0 then axios will use the default method: "get" with responseType: "json"
+        const resp = await axios({
+            url,
+            ...config,
         });
+
+        if (config.responseType && config.responseType === "blob") {
+            return await readFileAsDataUrl(resp.data);
+        }
+        return resp.data;
+
+    } catch (error) {
+        if (error.response) {
+            console.error("The request was made and the server responded with a status code out of the range of 2xx",
+                error.response);
+            throw error;
+        } else if (error.request) {
+            console.error("The request was made but no response was received", error.request);
+            throw error;
+        } else {
+            console.error("Something happened in setting up the request that triggered an Error", error.stack);
+            throw error;
+        }
+    }
 }
-//  catch will be taken outer
 
 /**@description it utilizes FileReader methods to read the file / blob as DataURL;
  * @async
@@ -106,11 +118,16 @@ export function initAxios(url, ext = "json", inDataParams = null) {
  * @returns {string} base64 encoded URL format
  * */
 async function readFileAsDataUrl( file ) {
-    return await new Promise( resolve => {
+    return new Promise( (resolve, reject) => {
         let fileReader = new FileReader();
-        fileReader.onload = event => resolve(event.target.result);
+        fileReader.onloadend = event => resolve(event.target.result);
+        fileReader.onerror = error => reject(error);
 
-        return fileReader.readAsDataURL(file);
+        const res = fileReader.readAsDataURL(file);
+
+        log(res, "image in readAsDataUrl:");
+
+        return res;
     });
 }
 
@@ -133,4 +150,10 @@ export function dateFormat(date, delimiter) {
  * */
 export function numFormat(num, decimal) {
     return Math.round(num * decimal)/decimal;
+}
+
+///////////////// dev
+// eslint-disable-next-line no-unused-vars
+function log(it, comments="value: ") {
+    console.log(comments, it);
 }
