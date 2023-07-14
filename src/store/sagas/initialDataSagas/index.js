@@ -4,19 +4,13 @@ import { getAndStore } from "../../../api";
 export function* getInitialData(jsonUrl) {
     const innData = yield call(getAndStore, jsonUrl, 1);
 
-    log(innData, "innData from getInitialData: ");
-
     if (innData["photoUrl"]) {
-        const objUrlData = yield call(getAndStore, innData["photoUrl"], 1, "blob");
-
-        log(objUrlData, "objUrlData from getInitialData: ");
-        if (objUrlData) {
-            Object.assign(innData, { photoUrl: objUrlData })
+        const blobData = yield call(getAndStore, innData["photoUrl"], 1, "blob");
+        if (blobData) {
+            const objUrl = URL.createObjectURL(blobData);
+            Object.assign(innData, { photoUrl: objUrl })
         }
-
     }
-
-    log(innData, "final innData from getInitialData: ");
 
     return innData;
 }

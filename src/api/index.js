@@ -1,4 +1,3 @@
-///api
 import { getLocalForage, setLocalForage, initAxios } from "./funcs";
 
 /**
@@ -12,7 +11,6 @@ export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
 
     let localData = await getLocalForage( dataName, timeLimit );
     if ( localData ) { //it returns obj or false
-        log(localData, "localData from getLocalForage: ");
         return localData.data;
     }
 
@@ -23,11 +21,7 @@ export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
 
     return await initAxios(path, config)
         .then( async data => {
-
-            log(data, "data from initAxios:");
-
             const storedData = await setLocalForage( dataName, data );
-            log(storedData.data, "stored data in setLocalForage");
             return storedData.data;
         } );
 };
@@ -65,8 +59,6 @@ export function getFilters(data, exceptions=[]) {
  * @returns {null|{asideData: {Object}, contentData: {Object}}}
  */
 export function prepareData(auxData, filter) {
-
-    log(auxData, "auxData: ");
 
     if (!auxData || !filter) {
         return null;

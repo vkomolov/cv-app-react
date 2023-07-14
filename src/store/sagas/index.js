@@ -7,7 +7,12 @@ const jsonUrl = "./asset/pData/cv.json";
 export function* loadInitialData(delays=1000) {
     try {
         yield put(setAlertLoading("Loading"));
+        //const startTime = performance.now();
         const auxData = yield call(getInitialData, jsonUrl);
+        //const endTime = performance.now();
+        //log(endTime - startTime, "time: ");
+        //initial load: avg 1050ms, load from storage: avg 260ms
+
         yield delay(delays);
         yield put(setData(auxData));
         //removing alert loading

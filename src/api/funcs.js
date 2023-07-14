@@ -16,8 +16,6 @@ import localforage from "localforage";
 export async function getLocalForage(name, timeLimit=1) {
     const storage = await localforage.getItem( name );
 
-    log(storage, "storage from localforage: ");
-
     if (storage) {
         const creationDate = storage.creationDate;
         const currentDate = Date.now();
@@ -92,9 +90,6 @@ export async function initAxios(url, config={}) {
             ...config,
         });
 
-        if (config.responseType && config.responseType === "blob") {
-            return await readFileAsDataUrl(resp.data);
-        }
         return resp.data;
 
     } catch (error) {
@@ -110,25 +105,6 @@ export async function initAxios(url, config={}) {
             throw error;
         }
     }
-}
-
-/**@description it utilizes FileReader methods to read the file / blob as DataURL;
- * @async
- * @param {blob} file Blob or File
- * @returns {string} base64 encoded URL format
- * */
-async function readFileAsDataUrl( file ) {
-    return new Promise( (resolve, reject) => {
-        let fileReader = new FileReader();
-        fileReader.onloadend = event => resolve(event.target.result);
-        fileReader.onerror = error => reject(error);
-
-        const res = fileReader.readAsDataURL(file);
-
-        log(res, "image in readAsDataUrl:");
-
-        return res;
-    });
 }
 
 /**@description Converts the Date format to yyyy-mm-dd String
