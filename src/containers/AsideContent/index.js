@@ -2,7 +2,7 @@ import React from "react";
 import * as PropTypes from "prop-types";
 import "./AsideContent.scss";
 import AsideSegment from "../AsideSegment";
-import { v4 } from "uuid";
+import { nanoid } from "@reduxjs/toolkit";
 
 
 export default function AsideContent({ data }) {
@@ -11,7 +11,7 @@ export default function AsideContent({ data }) {
      const asideSegments = keysArr.map(prop => (
          <AsideSegment
              data={ data[prop] }
-             key={ v4() }
+             key={ nanoid() }
          />
      ));
 

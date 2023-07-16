@@ -4,7 +4,7 @@ import ContentItem from "../ContentItem";
 import reactIcon from "../../asset/img/reactIcon.png";
 import ImageWrapper from "../../components/ImageWrapper";
 import { useOpacityTransition } from "../../hooks";
-import { v4 } from "uuid";
+import { nanoid } from "@reduxjs/toolkit";
 import * as PropTypes from "prop-types";
 
 export default function ContentBar({ withData }) {
@@ -18,7 +18,7 @@ export default function ContentBar({ withData }) {
         return <ContentItem
             { ...{ data } }
             classAux={ classAux }
-            key={ v4() }
+            key={ nanoid() }
         />
     });
 

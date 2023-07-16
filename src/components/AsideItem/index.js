@@ -2,7 +2,7 @@ import React from "react";
 import * as PropTypes from "prop-types";
 import "./AsideItem.scss";
 import GraphSection from "../GraphSection";
-import { v4 } from "uuid";
+import { nanoid } from "@reduxjs/toolkit";
 
 export default function AsideItem({ data }) {
     const { title, details } = data;
@@ -22,7 +22,7 @@ export default function AsideItem({ data }) {
             content = details.map(graphData => (
                 <GraphSection
                     data={ graphData }
-                    key={ v4() }
+                    key={ nanoid() }
                 />
             ));
         }

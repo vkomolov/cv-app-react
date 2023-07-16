@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import * as PropTypes from "prop-types";
-import { v4 } from "uuid";
+import { nanoid } from "@reduxjs/toolkit";
 
 import "./AlertBlock.scss";
 import loadingIcon from "../../asset/img/loadingIcon.svg";
@@ -17,7 +17,7 @@ export default function AlertBlock({ alertState }) {
         let contentArr = [];
         if (alertContent.length) {
             contentArr = alertContent.map(text => (
-                <span className={ classNameOut } key={v4()} >
+                <span className={ classNameOut } key={nanoid()} >
                     { text }
                 </span>
             ));

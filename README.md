@@ -1,5 +1,5 @@
 # App Description
-This cv app is made as a demonstration of dynamic creation of certain HTML elements in accordance with the 
+This cv app is made as a demonstration of dynamic creation of HTML elements and routing in accordance with the 
 JSON file, fetched from the server or taken from the localStorage.
 ## Task: 
 - To realize the CV App with React, dynamically rendering the HTMLElements from the fetched JSON file, and 
@@ -9,27 +9,28 @@ reacting on the events, connected to the data change or chosen filters;
 server;
 - To renew the LocalStorage, if the creation date of the LocalStorage is more than 24 hours; 
 - To save the fetched image to the LocalStorage. As LocalStorage can save only string type of data, to utilize the 
-FileReader which creates the string type from the image. To measure the performance of converting the image data.
+FileReader, which creates the string type from the image. To measure the performance of converting the image data.
 - To utilize the localForage as the alternative for saving different types of data. To save the blob of the image to the
 localForage and to use the traditional realisation of processing blobs with URL.createObjUrl. 
 To measure the performance of converting the image data.
 - Using the substitution of url directly into <img src="" > is the most optimal, as the browser knows how to do it
-very efficiently. Nevertheless, to choose the most optimal variant for downloading the image itself, saving it to the 
-offline local storage, for its further retrieval and substitution into <img src="" >.
+very efficiently. Nevertheless, for the case, to choose the most optimal variant of saving the image itself to the
+local store, for its further retrieval and substitution into <img src="" >.
 - If the fetched JSON data contains refs on pdf files to be downloaded, then to create downloadable <a> links 
 with href to the fetched pdf files;
 - The App should initially fetch the data or take it from the localStorage once at didMount stage.
 - To implement redux for the alert state with types: "error" and "loading";
 - To implement redux for the operations with the data, fetched from the server or the LocalStorage;
-- To implement redux-saga and redux for the operations with the async fetching data;
+- To implement redux-saga for the operations with the async fetching data;
 - To implement routing the app by using react-router: when clicking on the necessary filter, the app should be rendered
 with the according route, showing the following data;
+- The routes of the app should be created dynamically, according the the json, fetched. No hardcoding route names...
 - Finally, bundled in the App container, it will be appended to the '#root' DOM Element of the initial empty page;
 - No hardcoded names and elements UI;
 - The initial render of the App is empty with the only 'loading' icon;
 - To make adoptive html on desktop and mobile screens;
 - To imitate the loading time, showing the loading icon, when fetching the data;
-- On choosing the filter, the components must be re-rendered with the new data;
+- On choosing the filter, the components must be re-rendered with the new data and the corresponding route;
 - To visually demonstrate the level of knowledge and skills with the indicating bar from 0 to 100%;
 - On scrolling the page down, the filter`s bar must emerge on the top of the page in the fixed position 
 in order to be accessible in the scrolled page;

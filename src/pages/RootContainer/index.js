@@ -3,7 +3,8 @@ import AsideBar from "../../containers/AsideBar";
 import ContentBar from "../../containers/ContentBar";
 import { useInnData } from "../../hooks";
 
-const RootComponent = () => {
+const RootContainer = () => {
+
     const { innData } = useInnData();
 
     return !innData ? null : (
@@ -14,7 +15,7 @@ const RootComponent = () => {
     );
 };
 
-export default RootComponent;
+export default RootContainer;
 
 ///////////////// dev
 // eslint-disable-next-line no-unused-vars

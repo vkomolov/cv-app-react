@@ -1,14 +1,14 @@
 import React from "react";
 import * as PropTypes from "prop-types";
 import "./ContentItem.scss";
-import { v4 } from "uuid";
+import { nanoid } from "@reduxjs/toolkit";
 
 export default function ContentItem({ classAux, data }) {
     const dataHandles = {
         subheading: ( data ) => {
             return (
                 <h3
-                    key={ v4() }
+                    key={ nanoid() }
                 >
                     {data["subheading"]}
                 </h3>
@@ -17,7 +17,7 @@ export default function ContentItem({ classAux, data }) {
         comments: ( data ) => {
             return (
                 <h4
-                    key={ v4() }
+                    key={ nanoid() }
                 >
                     {data["comments"]}
                 </h4>
@@ -26,7 +26,7 @@ export default function ContentItem({ classAux, data }) {
         p: ( data ) => {
             if (Array.isArray(data["p"])) {
                 return data["p"].map(text => (
-                    <p key={ v4() }>
+                    <p key={ nanoid() }>
                         { text }
                     </p>
                 ));
@@ -42,7 +42,7 @@ export default function ContentItem({ classAux, data }) {
                      */
                     return (
                         <li
-                            key={ v4() }
+                            key={ nanoid() }
                         >
                             <a
                                 href={ path }
@@ -60,7 +60,7 @@ export default function ContentItem({ classAux, data }) {
 
                 return (
                     <ul
-                        key={ v4() }
+                        key={ nanoid() }
                     >
                         { linkArr }
                     </ul>
@@ -71,7 +71,7 @@ export default function ContentItem({ classAux, data }) {
             if (Array.isArray(data["li"])) {
                 const liArr = data["li"].map(listItem => (
                     <li
-                        key={ v4() }
+                        key={ nanoid() }
                     >
                         { listItem }
                     </li>
@@ -79,7 +79,7 @@ export default function ContentItem({ classAux, data }) {
 
                 return (
                     <ul
-                        key={ v4() }
+                        key={ nanoid() }
                     >
                         { liArr }
                     </ul>
@@ -94,7 +94,7 @@ export default function ContentItem({ classAux, data }) {
 
                     return (
                         <li
-                            key={ v4() }
+                            key={ nanoid() }
                         >
                             <a
                                 href={ path }
@@ -111,7 +111,7 @@ export default function ContentItem({ classAux, data }) {
 
                 return (
                     <ul
-                        key={ v4() }
+                        key={ nanoid() }
                     >
                         { linkArr }
                     </ul>

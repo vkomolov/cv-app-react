@@ -2,13 +2,13 @@ import React from "react";
 import * as PropTypes from "prop-types";
 import "./AsideSegment.scss";
 import AsideItem from "../../components/AsideItem";
-import { v4 } from "uuid";
+import { nanoid } from "@reduxjs/toolkit";
 
 export default function AsideSegment({ data }) {
     const asideItems = data.map(dataItem => (
         <AsideItem
             data={ dataItem }
-            key={ v4() }
+            key={ nanoid() }
         />
     ));
 

@@ -71,14 +71,14 @@ export function prepareData(auxData, filter) {
     const fullName = auxData.fullName;
     const photoUrl = auxData.photoUrl;
     const asideData = {
-        data: getDataActive("aside"),
+        data: getDataActive ? getDataActive("aside") : null,
         fullName,
         photoUrl,
         filterActive,
         filterNames,
     };
     const contentData = {
-        data: getDataActive("content"),
+        data: getDataActive ? getDataActive("content") : null,
         filterActive
     };
 
