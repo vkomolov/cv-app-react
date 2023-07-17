@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setAlertLoading, setAlertError, setAlertClear } from "../store/reducers/AlertReducer/actions";
-import { initOpacityAnimation, prepareData } from "../api";
-import { useParams } from "react-router-dom";
+import { getFilters, initOpacityAnimation, prepareData } from "../api";
+import { useMatch, useParams } from "react-router-dom";
 
 /**
  * Custom Hook which returns the state of the alert in redux reducer and the following actions
@@ -31,17 +31,37 @@ export function useAlertData() {
 }
 
 /**
- * Custom Hook which takes the property from "/:filter" and prepares the data for AsideBar and ContentBar Components...
- * @returns {{innData: *}}
+ * @returns {{auxData: Object|null, filter: string|undefined, filters: Array, isRootRoute: Boolean}}
  */
-export function useInnData() {
+export function useRoutesData() {
+    const isRootRoute = useMatch("/");
     const { filter } = useParams();
     const dataState = useSelector(state => state.dataState);
     const { auxData } = dataState;
 
+    return useMemo(() => {
+        const filters = getFilters(auxData, ["fullName", "photoUrl"]);
+
+        return {
+            auxData,
+            filters,
+            filter,
+            isRootRoute: !!isRootRoute
+        }
+    }, [ isRootRoute, filter, auxData ]);
+}
+
+/**
+ *
+ * @param {null|Object} auxData
+ * @param {Array} filters
+ * @param {string|undefined} filter
+ * @returns {{innData: Object|null}}
+ */
+export function useInnData(auxData, filters, filter) {
     //memoized data avoiding state changes except filtersState...
-    const innData = useMemo(() => prepareData(auxData, filter),
-        [auxData, filter]
+    const innData = useMemo(() => prepareData(auxData, filters, filter),
+        [auxData, filters, filter]
     );
 
     return {

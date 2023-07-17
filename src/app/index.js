@@ -4,9 +4,7 @@ import Layout from "../pages/Layout";
 import RootContainer from "../pages/RootContainer";
 import NotFoundPage from "../pages/NotFountPage";
 
-
 export default function App() {
-
     return (
         <Routes>
             <Route path="/" element={ <Layout /> } >

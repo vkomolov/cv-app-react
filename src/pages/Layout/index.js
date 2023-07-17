@@ -2,18 +2,17 @@ import React, { useEffect } from "react";
 import "./Layout.scss";
 import AlertBlock from "../../components/AlertBlock";
 import ScrollingTextBar, { scrollingTextData } from "../../containers/ScrollingTextBar";
-import { Outlet, useNavigate, useMatch } from "react-router-dom";
-import { useAlertData } from "../../hooks";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAlertData, useRoutesData } from "../../hooks";
 
 export default function Layout() {
     const navigate = useNavigate();
-    const isRoot = useMatch("/");
+    const { isRootRoute, filters } = useRoutesData();
 
     useEffect(() => {
-        //if initial url "/" then to navigate to the default "/personal"
-        if(isRoot) navigate("/personal", { replace: true });
-
-    }, [isRoot, navigate]);
+        //if initial url "/" and the data is fetched with the filters then to navigate to the default filters[0]
+        if(isRootRoute && filters.length) navigate(`/${ filters[0] }`, { replace: true });
+    }, [isRootRoute, filters, navigate]);
 
     const { alertState } = useAlertData();
 

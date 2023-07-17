@@ -33,52 +33,49 @@ export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
  * @returns {String[]} the array of the properties to be filtered by...
  */
 export function getFilters(data, exceptions=[]) {
-    if (Object.keys(data).length) {
-        const filterArr = Object.keys(data).reduce((acc, key) => {
-            if (exceptions.includes(key)) {
-                return acc;
-            }
-            return acc.concat(key);
-        }, []);
+    if (!data || !Object.keys(data).length) {
+        return [];
+    }
 
-        if (!filterArr.length) {
-            throw new Error("no filters found in given data...");
+    return Object.keys(data).reduce((acc, key) => {
+        if (exceptions.includes(key)) {
+            return acc;
         }
-
-        return filterArr;
-    }
-    else {
-        throw new Error("no correct data received...");
-    }
+        return acc.concat(key);
+    }, []);
 }
 
 /**
- * it prepares separate data for AsideData and ContentData Components
- * @param {Object} auxData: the fetched data, which will be used with account to the its chosen property
- * @param {String} filter: active chosen filter which must be the property of the object to take its value
- * @returns {null|{asideData: {Object}, contentData: {Object}}}
+ *
+ * @param {null|Object} auxData
+ * @param {Array} filterNames
+ * @param {string} filterActive
+ * @returns {null|{asideData: Object, contentData: Object}}
  */
-export function prepareData(auxData, filter) {
+export function prepareData(auxData, filterNames, filterActive) {
 
-    if (!auxData || !filter) {
+    if (!auxData || !filterActive || !filterNames.length || !filterNames.includes(filterActive)) {
         return null;
     }
 
-    const filterActive = filter;
-    const filterNames = getFilters(auxData, ["fullName", "photoUrl"]);
     const getDataActive = getFuncDataActive(auxData, filterActive);
+    if (!getDataActive) {
+        console.error(`Could not retrieve data by filter ${ filterActive }`);
+        return null;
+    }
 
-    const fullName = auxData.fullName;
-    const photoUrl = auxData.photoUrl;
+    const fullName = auxData?.fullName || null;
+    const photoUrl = auxData?.photoUrl || null;
+
     const asideData = {
-        data: getDataActive ? getDataActive("aside") : null,
+        data: getDataActive("aside"),
         fullName,
         photoUrl,
         filterActive,
         filterNames,
     };
     const contentData = {
-        data: getDataActive ? getDataActive("content") : null,
+        data: getDataActive("content"),
         filterActive
     };
 

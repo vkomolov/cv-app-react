@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AsideBar from "../../containers/AsideBar";
 import ContentBar from "../../containers/ContentBar";
-import { useInnData } from "../../hooks";
+import { useInnData, useRoutesData } from "../../hooks";
+import { useNavigate } from "react-router-dom";
 
 const RootContainer = () => {
+    const { auxData, filters, filter } = useRoutesData();
+    const navigate = useNavigate();
 
-    const { innData } = useInnData();
+    useEffect(() => {
+        //if the initial filter in params is not correct then to navigate to the default filters[0]
+        if (filter && filters.length) {
+            if (!filters.includes(filter)) {
+                navigate(`/${ filters[0] }`, { replace: true });
+            }
+        }
+    }, [filters, filter, navigate]);
+
+    const { innData } = useInnData(auxData, filters, filter);
 
     return !innData ? null : (
         <>
