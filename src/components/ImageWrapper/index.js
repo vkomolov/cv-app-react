@@ -12,7 +12,7 @@ import "./ImageWrapper.scss";
  * @constructor
  */
 export default function ImageWrapper({ imgSrc, alt, className, params, children }) {
-    const classNameOut= className && className.length
+    const classNameOut= className?.length
         ? `imageWrapper ${className}`
         : "imageWrapper";
     let inlineStyle = null;
@@ -21,6 +21,12 @@ export default function ImageWrapper({ imgSrc, alt, className, params, children 
             ...params
         }
     }
+
+    const childrenWrapped = children?.length ? (
+        <div className="image-info">
+            { children }
+        </div>
+    ) : null;
 
     return (
         <div
@@ -31,7 +37,7 @@ export default function ImageWrapper({ imgSrc, alt, className, params, children 
                 src={ imgSrc }
                 alt={ alt }
             />
-            {children && children}
+            { childrenWrapped }
         </div>
     );
 };
@@ -41,7 +47,7 @@ ImageWrapper.propTypes = {
     alt: PropTypes.string.isRequired,
     className: PropTypes.string,
     params: PropTypes.object,
-    children: PropTypes.object
+    children: PropTypes.array
 };
 
 ///////////////// dev

@@ -12,7 +12,7 @@ const RootContainer = () => {
         //if the initial filter in params is not correct then to navigate to the default filters[0]
         if (filter && filters.length) {
             if (!filters.includes(filter)) {
-                navigate(`/${ filters[0] }`, { replace: true });
+                navigate("/404", { replace: true });
             }
         }
     }, [filters, filter, navigate]);

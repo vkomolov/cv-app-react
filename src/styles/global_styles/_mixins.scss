@@ -15,7 +15,7 @@ $flex-box-col-center: column, center, center;
   align-items: $align;
 }
 
-@mixin transition($property: all, $time: 0.3s) {
+@mixin transition($property: all, $time: 0.2s) {
   transition: $property $time ease-in-out;
 }
 
@@ -26,12 +26,12 @@ $flex-box-col-center: column, center, center;
   }
 }
 
-@mixin text-shadow($dim, $shadow) {
-  text-shadow: $dim $dim $shadow rgba(0,0,0,0.8);
+@mixin text-shadow($dim, $shadow, $color:rgba(0,0,0,0.8)) {
+  text-shadow: $dim $dim $shadow $color;
 }
 
-@mixin box-shadow($dim, $shadow) {
-  box-shadow: $dim $dim $shadow rgba(0,0,0,0.8);
+@mixin box-shadow($dim, $shadow, $color:rgba(0,0,0,0.8)) {
+  box-shadow: $dim $dim $shadow $color;
 }
 
 @mixin scroll-init($width, $thumbColor, $trackColor) {

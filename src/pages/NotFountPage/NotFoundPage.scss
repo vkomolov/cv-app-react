@@ -2,3 +2,101 @@
 @import "../../styles/global_styles/_mixins";
 @import "../../styles/global_styles/_animations";
 
+
+
+.full-page-wrapper {
+  width: 100%;
+  height: calc(100vh - 1.5em);
+  @include flex-box($flex-box-row-center...);
+  align-items: stretch;
+
+  .aside-container {
+    flex-basis: 50%;
+    flex-grow: 1;
+    padding: 0.8em;
+    background-color: $blue;
+    color: $white;
+    @include flex-box($flex-box-col-center...);
+
+    .sign-404 {
+      display: block;
+      @include init-font(10em, 700);
+
+      text-shadow: 0 2px 2px rgba(230, 230, 230, 1),
+      0 3px 0 rgba(190, 190, 190, 1),
+      0 4px 0 rgba(180,180,180, 1),
+      0 5px 0 rgba(170, 170, 170, 1),
+      0 7px 2px rgba(150, 150, 150, 1),
+      0 6px 1px rgba(255,255,255,.1),
+      0 0 5px rgba(255,255,255,.1),
+      0 1px 3px rgba(255,255,255,.3),
+      0 3px 5px rgba(255,255,255,.2),
+      0 5px 10px rgba(255,255,255,.25),
+      0 10px 10px rgba(255,255,255,.2),
+      0 20px 20px rgba(255,255,255,.15);
+    }
+
+    .heading-404 {
+      @include init-font(2em, 600);
+      letter-spacing: 0.02em;
+      margin-top: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .text-404 {
+      width: 11em;
+      @include init-font(1.5em, 400);
+    }
+
+    .link-to-main {
+      position: relative;
+      text-decoration: none;
+      padding: 0.6em;
+      margin: 2em 1em;
+      border-radius: 0.5em;
+      background-color: $foxy;
+      @include init-font(1.5em, 600);
+
+      &:before {
+        display: block;
+        position: absolute;
+        top: -0.3em;
+        left: -0.3em;
+        width: 107%;
+        height: 130%;
+        content: "";
+        border-radius: 0.5em;
+        @include transition();
+      }
+
+      &:hover:before {
+        box-shadow: inset -0.2em -0.2em 0.3em $white, inset 0.2em 0.2em 0.3em $white;
+      }
+
+    }
+
+  }
+
+  .image-bar {
+    padding: 0.8em;
+    flex-basis: 50%;
+    flex-grow: 1;
+    @include flex-box($flex-box-row-center...);
+    border: 1px dotted red;
+
+    .img-container {
+      max-width: 30em;
+
+      .photo-heading {
+        @include init-font(1.5em, 600);
+      }
+
+      .mail-to {
+        @include init-font(1.2em, 400);
+      }
+    }
+
+
+  }
+
+}

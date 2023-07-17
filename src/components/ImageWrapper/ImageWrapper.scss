@@ -3,10 +3,26 @@
 @import "../../styles/global_styles/_animations";
 
 .imageWrapper {
+  position: relative;
+  width: 100%;
+
+  //for possible  styles of the wrapper with height: to keep the image aligned centralized
   @include flex-box($flex-box-row-center...);
-  width: fit-content;
+
 
   img {
     width: 100%;
+  }
+
+  .image-info {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 0.8em 0.5em;
+    background-color: rgba(255, 255, 255, 0.7);
+
+    @include flex-box($flex-box-row-center...);
+    gap: 1em;
   }
 }

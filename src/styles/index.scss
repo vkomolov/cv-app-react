@@ -32,6 +32,7 @@ body:before {
 #root {
   position: relative; //for the alert block in absolute position
   max-width: $maxWidth;
+  min-width: $minWidth;
   margin: 0 auto;
   padding: 1.5em 0.5em;
 
