@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import alertReducer from "./AlertReducer";
-import dataReducer from "./DataReducer";
+import alertReducer from "./AlertSlice";
+import dataReducer from "./DataSlice";
 
 const rootReducer = combineReducers({
     alertState: alertReducer,
