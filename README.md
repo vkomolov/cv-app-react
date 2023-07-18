@@ -25,6 +25,7 @@ with href to the fetched pdf files;
 - To implement routing the app by using react-router: when clicking on the necessary filter, the app should be rendered
 with the according route, showing the following data;
 - The routes of the app should be created dynamically, according the the json, fetched. No hardcoding route names...
+- To create the page "404" for incorrect requests;
 - Finally, bundled in the App container, it will be appended to the '#root' DOM Element of the initial empty page;
 - No hardcoded names and elements UI;
 - The initial render of the App is empty with the only 'loading' icon;

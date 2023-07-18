@@ -1,12 +1,12 @@
 import { call, put, delay } from "redux-saga/effects";
 import { getInitialData } from "./initialDataSagas";
-import { setAlertClear, setAlertError, setAlertLoading } from "../reducers/AlertReducer/actions";
-import { setData } from "../reducers/DataReducer/actions";
+import { alertLoading, alertError, alertClear } from "../features/AlertSlice";
+import { setData } from "../features/DataSlice";
 const jsonUrl = "./asset/pData/cv.json";
 
 export function* loadInitialData(delays=1000) {
     try {
-        yield put(setAlertLoading("Loading"));
+        yield put(alertLoading("Loading"));
         //const startTime = performance.now();
         const auxData = yield call(getInitialData, jsonUrl);
         //const endTime = performance.now();
@@ -17,10 +17,10 @@ export function* loadInitialData(delays=1000) {
         yield delay(delays);
         yield put(setData(auxData));
         //removing alert loading
-        yield put(setAlertClear());
+        yield put(alertClear());
 
     } catch (e) {
-        yield put(setAlertError(e.message));
+        yield put(alertError(e.message));
         console.error(e.stack);
     }
 }

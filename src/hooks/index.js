@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAlertLoading, setAlertError, setAlertClear } from "../store/reducers/AlertReducer/actions";
+import { alertError, alertClear, alertLoading } from "../store/features/AlertSlice";
 import { getFilters, initOpacityAnimation, prepareData } from "../api";
 import { useMatch, useParams } from "react-router-dom";
 
@@ -12,13 +12,13 @@ export function useAlertData() {
     const dispatch = useDispatch();
     const alertState = useSelector(state => state.alertState);
     const initAlertLoading = useCallback((...textContent) => {
-        dispatch(setAlertLoading(...textContent));
+        dispatch(alertLoading(...textContent));
     }, [dispatch]);
     const initAlertError = useCallback((...textContent) => {
-        dispatch(setAlertError(...textContent));
+        dispatch(alertError(...textContent));
     }, [dispatch]);
     const initAlertClear = useCallback(() => {
-        dispatch(setAlertClear());
+        dispatch(alertClear());
     }, [dispatch]);
 
 
