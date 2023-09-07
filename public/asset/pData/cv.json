@@ -304,6 +304,10 @@
             {
               "title": "CV Application with native JS",
               "path": "https://vkomolov-cv-js.pages.dev/"
+            },
+            {
+              "title": "POST-IT App with React/Redux-Toolkit/Redux-Saga/Router",
+              "path": "https://post-it-dvc.pages.dev/"
             }
           ]
         }

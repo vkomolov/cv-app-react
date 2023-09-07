@@ -8,7 +8,7 @@ import loadingIcon from "../../asset/img/loadingIcon.svg";
 export default function AlertBlock({ alertState }) {
     const { alertType, alertContent } = alertState;
 
-    const alertElement = useMemo(() => {
+    return useMemo(() => {
         if (!alertType) return null;
 
         //only two options for now
@@ -36,8 +36,6 @@ export default function AlertBlock({ alertState }) {
             </div>
         );
     }, [alertType, alertContent]);
-
-    return alertElement;
 }
 
 AlertBlock.propTypes = {
