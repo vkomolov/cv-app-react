@@ -111,6 +111,10 @@
             {
               "title": "MySql",
               "details": "85"
+            }, 
+            {
+              "title": "MongoDB",
+              "details": "80"
             }
           ]
         },
@@ -180,7 +184,7 @@
               "details": "75"
             },
             {
-              "title": "Gulp, Webpack",
+              "title": "Gulp, Webpack, Vite",
               "details": "75"
             },
             {
@@ -272,6 +276,10 @@
               "path": "https://github.com/vkomolov/cv-app-react/tree/reduxVer"
             },
             {
+              "title": "CV on React, functional with hooks, redux, redux-saga",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/reduxSaga"
+            },
+            {
               "title": "CV on React, functional with hooks, redux-toolkit, redux-saga, react-router",
               "path": "https://github.com/vkomolov/cv-app-react"
             },
@@ -280,16 +288,12 @@
               "path": "https://github.com/vkomolov/post-it"
             },
             {
-              "title": "Bundling pack on Gulp-4 (SCSS, JS, Browserify, Babelify, image optimizing, etc...) ",
-              "path": "https://github.com/vkomolov/Gulp4_Scss_JS-Browserify_Babelify"
+              "title": "The Telegram bot on node-telegram-bot-api",
+              "path": "https://github.com/vkomolov/telegram-bot-articles"
             },
             {
               "title": "Cart Realisation on Gulp-4 (SCSS, JS)",
               "path": "https://github.com/vkomolov/cartForm_Gulp4_SCSS_ES2015"
-            },
-            {
-              "title": "Filtering data on React",
-              "path": "https://github.com/vkomolov/React_Filter_ModuleWork"
             }
           ]
         },
