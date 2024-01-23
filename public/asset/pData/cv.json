@@ -62,8 +62,8 @@
             "Dear Sirs,",
             "I have worked in the sales \u0026 marketing management, structuring, operating \u0026 analyzing the business and market data, for more than 15 years.",
             "Gaining a wealth of knowledge and skills in the management and data analysis, I combined them with my natural inclination to programming: creating something from the idea and the algorithm of its realisation...",
-            "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of responsibility and functionality to the elementary operations and processes.",
-            "The same SOLID principles of the object-oriented programming lay on the thoroughly constructed business management",
+            "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of the responsibility and functionality to the elementary operations and processes.",
+            "The same SOLID principles lay on the thoroughly constructed business management",
             "It happens that some apps suffer not only adaptability, but also their imbalance in programming, using \u0027big\u0027 for the \u0027little\u0027: overloaded with many libraries for a couple of simple methods...",
             "Achieving the most efficiency with smallest cost - is a worth challenge...",
             "Knowing the rules is the vital goal, but to overcome the rules is a thorny and educational path, which bears creativity, originality and natural beauty.",
@@ -97,24 +97,28 @@
               "details": "75"
             },
             {
-              "title": "Module Styling",
+              "title": "CSS Modules",
               "details": "80"
             },
             {
               "title": "Javascript",
               "details": "85"
             },
+			{
+              "title": "Typescript",
+              "details": "70"
+            },
             {
               "title": "PHP",
-              "details": "75"
+              "details": "70"
             },
             {
               "title": "MySql",
-              "details": "85"
+              "details": "75"
             }, 
             {
               "title": "MongoDB",
-              "details": "80"
+              "details": "75"
             }
           ]
         },
@@ -228,7 +232,8 @@
           "subheading": "Outsource",
           "comments": "FullStack Dev, design, copywriting, translating",
           "li": [
-            "Developing webSites and apps: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, PHP, MySql;",
+            "Developing webSites and apps: HTML5, CSS3 (SCSS/CSS Modules), JS, React/Redux/Router, MySql/MongoDB;",
+			"Telegram Bots on Node.js (node-telegram-bot-api);",
             "Creating catalogs, tech-lists with a unique design and content (ua, ru, en);",
             "Copywriting, translating (ua, ru, en);"
           ]
@@ -406,13 +411,13 @@
           "subheading": "TODO Advanced",
           "li": [
             "Testings, Test-driven development (TDD)",
-            "Node.js, Express, Next.js, TypeScript",
+            "Advanced: Node.js, Express, Next.js, Vue.js",
             "PostgreSQL, GraphQL, MongoDB",
             "Headless CMS on Node.js: Strapi",
             "SEO for Headless CMS plus Next.js \u0026 Single-Page Apps",
             "Payment APIs",
-            "Angular, React Native",
-            "Joomla, WordPress"
+            "React Native",
+            "AI Integration, Machine Learning"
           ]
         },
         {
@@ -421,7 +426,7 @@
           "file": [
             {
               "title": "English CV download:",
-              "path": "asset/pData/VKomolov_Eng23_CV_JS.pdf"
+              "path": "asset/pData/VKomolov_Eng24_CV_JS.pdf"
             }
           ]
         }
