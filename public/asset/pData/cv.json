@@ -62,8 +62,8 @@
             "Dear Sirs,",
             "I have worked in the sales \u0026 marketing management, structuring, operating \u0026 analyzing the business and market data, for more than 15 years.",
             "Gaining a wealth of knowledge and skills in the management and data analysis, I combined them with my natural inclination to programming: creating something from the idea and the algorithm of its realisation...",
-            "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of responsibility and functionality to the elementary operations and processes.",
-            "The same SOLID principles of the object-oriented programming lay on the thoroughly constructed business management",
+            "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of the responsibility and functionality to the elementary operations and processes.",
+            "The same SOLID principles lay on the thoroughly constructed business management",
             "It happens that some apps suffer not only adaptability, but also their imbalance in programming, using \u0027big\u0027 for the \u0027little\u0027: overloaded with many libraries for a couple of simple methods...",
             "Achieving the most efficiency with smallest cost - is a worth challenge...",
             "Knowing the rules is the vital goal, but to overcome the rules is a thorny and educational path, which bears creativity, originality and natural beauty.",
@@ -97,20 +97,28 @@
               "details": "75"
             },
             {
-              "title": "Module Styling",
+              "title": "CSS Modules",
               "details": "80"
             },
             {
               "title": "Javascript",
               "details": "85"
             },
+			{
+              "title": "Typescript",
+              "details": "70"
+            },
             {
               "title": "PHP",
-              "details": "75"
+              "details": "70"
             },
             {
               "title": "MySql",
-              "details": "85"
+              "details": "75"
+            }, 
+            {
+              "title": "MongoDB",
+              "details": "75"
             }
           ]
         },
@@ -139,6 +147,10 @@
             },
             {
               "title": "React-Router",
+              "details": "75"
+            },
+            {
+              "title": "Redux-Toolkit",
               "details": "75"
             }
           ]
@@ -176,7 +188,7 @@
               "details": "75"
             },
             {
-              "title": "Gulp, Webpack",
+              "title": "Gulp, Webpack, Vite",
               "details": "75"
             },
             {
@@ -220,7 +232,8 @@
           "subheading": "Outsource",
           "comments": "FullStack Dev, design, copywriting, translating",
           "li": [
-            "Developing webSites and apps: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, PHP, MySql;",
+            "Developing webSites and apps: HTML5, CSS3 (SCSS/CSS Modules), JS, React/Redux/Router, MySql/MongoDB;",
+			"Telegram Bots on Node.js (node-telegram-bot-api);",
             "Creating catalogs, tech-lists with a unique design and content (ua, ru, en);",
             "Copywriting, translating (ua, ru, en);"
           ]
@@ -272,28 +285,20 @@
               "path": "https://github.com/vkomolov/cv-app-react/tree/reduxSaga"
             },
             {
-              "title": "CV on React, functional with hooks, redux, redux-saga, react-router",
-              "path": "https://github.com/vkomolov/cv-app-react/tree/routerVer"
+              "title": "CV on React, functional with hooks, redux-toolkit, redux-saga, react-router",
+              "path": "https://github.com/vkomolov/cv-app-react"
             },
             {
               "title": "PostIt Application on React",
               "path": "https://github.com/vkomolov/post-it"
             },
             {
-              "title": "Bundling pack on Gulp-4 (SCSS, JS, Browserify, Babelify, image optimizing, etc...) ",
-              "path": "https://github.com/vkomolov/Gulp4_Scss_JS-Browserify_Babelify"
+              "title": "The Telegram bot on node-telegram-bot-api",
+              "path": "https://github.com/vkomolov/telegram-bot-articles"
             },
             {
               "title": "Cart Realisation on Gulp-4 (SCSS, JS)",
               "path": "https://github.com/vkomolov/cartForm_Gulp4_SCSS_ES2015"
-            },
-            {
-              "title": "Filtering data on React",
-              "path": "https://github.com/vkomolov/React_Filter_ModuleWork"
-            },
-            {
-              "title": "Product Catalog AdobeIndesign (Copywriting, Design)",
-              "path": "https://github.com/vkomolov/AdobeIndesign-Catalog"
             }
           ]
         },
@@ -302,7 +307,7 @@
           "subheading": "VISUAL REALISATIONS",
           "a": [
             {
-              "title": "CV Application with React/Redux/Redux-Saga/Router",
+              "title": "CV Application with React/Redux-Toolkit/Redux-Saga/Router",
               "path": "https://vkomolov-cv-react.pages.dev/"
             },
             {
@@ -310,16 +315,8 @@
               "path": "https://vkomolov-cv-js.pages.dev/"
             },
             {
-              "title": "Filtering data with React (Demo)",
-              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
-            },
-            {
-              "title": "PostIt Application with React (Demo)",
-              "path": "https://vkomolov.github.io/post-it/"
-            },
-            {
-              "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
-              "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
+              "title": "POST-IT App with React/Redux-Toolkit/Redux-Saga/Router",
+              "path": "https://post-it-dvc.pages.dev/"
             }
           ]
         }
@@ -414,13 +411,13 @@
           "subheading": "TODO Advanced",
           "li": [
             "Testings, Test-driven development (TDD)",
-            "Node.js, Next.js, TypeScript",
+            "Advanced: Node.js, Express, Next.js, Vue.js",
+            "PostgreSQL, GraphQL, MongoDB",
             "Headless CMS on Node.js: Strapi",
-            "GraphQL, MongoDB",
             "SEO for Headless CMS plus Next.js \u0026 Single-Page Apps",
             "Payment APIs",
-            "Angular, React Native",
-            "Joomla, WordPress"
+            "React Native",
+            "AI Integration, Machine Learning"
           ]
         },
         {
@@ -429,7 +426,7 @@
           "file": [
             {
               "title": "English CV download:",
-              "path": "asset/pData/VKomolov_Eng22_CV_JS.pdf"
+              "path": "asset/pData/VKomolov_Eng24_CV_JS.pdf"
             }
           ]
         }
