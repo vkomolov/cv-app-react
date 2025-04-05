@@ -61,7 +61,7 @@ export default class App extends Component {
     }
 
     /**@function
-     * @param {string} type: 'error', 'loading'... to be scaled
+     * @param {string} type : 'error', 'loading'... to be scaled
      * @param {...string} content
      * @example
      * dispatchAlert("error", "text" | Error.message());
