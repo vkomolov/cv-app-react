@@ -1,5 +1,5 @@
-@import "mixins";
-@import "variables";
+@use "mixins" as mix;
+@use "variables" as *;
 
 ///////EXTENDS///////
 
@@ -7,18 +7,18 @@
   min-width: 50px;
   border: none;
   padding: 5px;
-  @include box-shadow(2px, 3px);
+  @include mix.box-shadow(2px, 3px);
   transition: all .08s ease-in-out;
   cursor: pointer;
 
   &:hover {
     transform: scale(1.1);
-    @include box-shadow(3px, 5px);
+    @include mix.box-shadow(3px, 5px);
   }
 
   &:active {
     transform: scale(1);
-    @include box-shadow(2px, 3px);
+    @include mix.box-shadow(2px, 3px);
   }
 }
 
@@ -26,6 +26,6 @@
   color: $foxy;
   margin-bottom: 0.5em;
 
-  @include init-font(1em, 700);
-  @include text-shadow(0.08em, 0.1em);
+  @include mix.init-font(1em, 700);
+  @include mix.text-shadow(0.08em, 0.1em);
 }

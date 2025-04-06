@@ -1,9 +1,4 @@
-@import "./global_styles/reset";
-@import './global_styles/_variables.scss';
-@import './global_styles/_mixins.scss';
-@import './global_styles/_fonts.scss';
-@import './global_styles/_media.scss';
-
+@use "./global_styles/root" as root;
 
 /////// STYLES ///////
 
@@ -11,10 +6,10 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $greyLight;
+  background-color: root.$greyLight;
 
   /**** user-select: none; *****/
-  @include transition();
+  @include root.transition();
 }
 /*************TOP BORDER BODY****************/
 body:before {
@@ -25,13 +20,13 @@ body:before {
   width: 100%;
   height: 10px;
   z-index: 100;
-  @include box-shadow(0, 10px);
+  @include root.box-shadow(0, 10px);
 }
 /*****************END TOP BORDER BODY************/
 
 #root {
   position: relative; //for the alert block in absolute position
-  max-width: $maxWidth;
+  max-width: root.$maxWidth;
   margin: 0 auto;
   padding: 1.5em 0.5em;
 

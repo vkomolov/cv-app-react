@@ -1,5 +1,5 @@
-@import './_variables.scss';
-@import './_mixins.scss';
+@use "./variables" as *;
+@use "./mixins" as mix;
 
 /*@media screen and (max-width: 1920px) {
 }
@@ -17,7 +17,7 @@
     font-size: 0.8rem !important;
 
     .contentWrapper {
-      @include flex-box($flex-box-col-left...);
+      @include mix.flex-box(column, center, flex-start);
 
       .remarkCol {
         width: initial !important;
@@ -47,7 +47,7 @@
     font-size: 0.75rem !important;
 
     .totalWrapper {
-      @include flex-box($flex-box-col-top...);
+      @include mix.flex-box(column, flex-start, center);
       align-items: flex-start !important;
 
       .asideBar {
@@ -55,7 +55,7 @@
         height: fit-content !important;
         min-height: unset !important;
 
-        @include flex-box($flex-box-row-top...);
+        @include mix.flex-box(row, center, flex-start);
 
         .hero-name {
           margin-bottom: 1em;
