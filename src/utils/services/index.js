@@ -7,7 +7,7 @@ import axios  from "axios";
  * If the LocalStorage does not exist then to return false;
  * Else to return the data;
  * @param { string } name of the LocalStorage data;
- * @param { number } [timeLimit=1]: number of days;
+ * @param { number } [timeLimit=1] : number of days;
  * @returns { object | boolean } the data, stored in the LocalStorage... or false, if its not found or expired by time
  * */
 export function getLocalStorage( name, timeLimit=1 ) {
@@ -205,9 +205,9 @@ export function dateFormat(date, delimiter) {
 }
 
 /**@description: Rounds the Number to the necessary precision
- * @param: {number} num number to be rounded
- * @param: {number} decimal Number of decimals (100 - (2 decimals), 1000 (3 decimals) etc..
- * @returns: {number} Number rounded with necessary precision
+ * @param {number} num number to be rounded
+ * @param {number} decimal Number of decimals (100 - (2 decimals), 1000 (3 decimals) etc..
+ * @returns {number} Number rounded with necessary precision
  * */
 export function numFormat(num, decimal) {
     return Math.round(num * decimal)/decimal;
@@ -235,10 +235,4 @@ export function equalCols(...elemsArr) {   //for making DOM elems` height to be 
     for (let i = 0; i < elemsArr.length; i++) {
         elemsArr[i].style.height = highestCal + "px";
     }
-}
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
 }

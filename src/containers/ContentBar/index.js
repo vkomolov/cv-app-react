@@ -49,9 +49,3 @@ export default function ContentBar() {
         </main>
     );
 }
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

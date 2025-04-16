@@ -22,9 +22,3 @@ export default function AsideSegment({ data }) {
 AsideSegment.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

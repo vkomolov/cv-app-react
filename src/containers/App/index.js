@@ -17,8 +17,7 @@ import DataProvider from "../../DataProvider";
 const jsonUrl = "./asset/pData/cv.json";
 
 export default function App() {
-    const { innData, alertData, filtersData } = useInitData(jsonUrl);
-    const { alertState } = alertData;
+    const { innData, alertState, filtersData } = useInitData(jsonUrl);
     const isNotError = alertState.alertType !== "error";
     const auxData = prepareData(innData, filtersData);
 
@@ -44,10 +43,4 @@ export default function App() {
             </div>
         </>
     );
-}
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
 }

@@ -152,9 +152,3 @@ ContentItem.propTypes = {
     data: PropTypes.object.isRequired,
     classAux: PropTypes.string.isRequired
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

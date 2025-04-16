@@ -1,7 +1,7 @@
 import filterConstants from "../constants";
 
 /**
- * @param {Object[]} data: the array of objects (Filters with properties: {string} filterName and {boolean} isActive)
+ * @param {Object[]} data : the array of objects (Filters with properties: {string} filterName and {boolean} isActive)
  * @returns {{payload: Array, type: string}}
  */
 export const setDataFilters = data => ({
@@ -10,7 +10,7 @@ export const setDataFilters = data => ({
 });
 
 /**
- * @param {string} filterName: the property of the {Object} filter
+ * @param {string} filterName : the property of the {Object} filter
  * @returns {{payload: string, type: string}}
  */
 export const setFilterActive = filterName => ({

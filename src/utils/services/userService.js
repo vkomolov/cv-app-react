@@ -2,9 +2,9 @@
 import { getLocalStorage, setLocalStorage, initAxios } from "./index";
 
 /**
- * @param {string} path: url to data to be fetched
- * @param {number} timeLimit: time limits for storing in localStorage (days)
- * @param {string} extension: optional type of the data received from http request
+ * @param {string} path : url to data to be fetched
+ * @param {number} timeLimit : time limits for storing in localStorage (days)
+ * @param {string} extension : optional type of the data received from http request
  * @returns {Promise} of the fetched data. Catch will be used outside
  */
 export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
@@ -26,10 +26,10 @@ export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
 
 /**
  * @description it prepares the data for AsideBar and ContentBar Components
- * @param {Object} innData: core data, fetched or taken from localStorage
+ * @param {Object} innData : core data, fetched or taken from localStorage
  * @param {Object} filtersData taken from the state
- * @param {Object[]} filtersData.dataFilters: the array of filters
- * @param {function[]} filtersData.filterSetters: the array of functions which set the state dataFilters
+ * @param {Object[]} filtersData.dataFilters : the array of filters
+ * @param {function[]} filtersData.filterSetters : the array of functions which set the state dataFilters
  * @returns {null|{asideData: {Object}, contentData: {Object}}}
  */
 export function prepareData(innData, filtersData) {
@@ -69,7 +69,7 @@ export function prepareData(innData, filtersData) {
 
 
     /** It returns the active filter name
-     * @param {Object[]} dataFilters: the array of filters
+     * @param {Object[]} dataFilters : the array of filters
      * @returns {null|string}
      */
     function getFilterActive(dataFilters) {
@@ -81,7 +81,7 @@ export function prepareData(innData, filtersData) {
 
     /**
      * @param {Object} data
-     * @param {string} filterActive: the name of the active filter
+     * @param {string} filterActive : the name of the active filter
      * @returns {null|Function}
      */
     function getFuncDataActive(data, filterActive) {
@@ -113,10 +113,10 @@ export function prepareData(innData, filtersData) {
 
 /**
  * @description it inits the scrolling text, which is wrapped in the parent at fixed position top of the window.
- * @param {HTMLElement} elem: with text should have its own wrapper, parentElement in DOM,
+ * @param {HTMLElement} elem : with text should have its own wrapper, parentElement in DOM,
  * for elem is positioned to its wrapper
  * @param {number} duration in milliseconds for scrolling all the text through the length of its wrapper
- * @param {boolean} isInfinite: if true, the text starts scrolling infinitely
+ * @param {boolean} isInfinite : if true, the text starts scrolling infinitely
  */
 export const initScrollingText = (elem, duration, isInfinite = false) => {
     let startTime = null;
@@ -162,9 +162,3 @@ export const initScrollingText = (elem, duration, isInfinite = false) => {
         }
     });
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}
