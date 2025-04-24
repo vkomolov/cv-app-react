@@ -1,6 +1,6 @@
 {
   "fullName": "Vadim Komolov",
-  "photoUrl": "asset/img/vk.webp",
+  "photoUrl": "asset/img/vk.jpeg",
   "personal": {
     "aside": {
       "details": [
@@ -94,14 +94,14 @@
             },
             {
               "title": "Styled-Components",
-              "details": "80"
+              "details": "75"
             },
             {
               "title": "CSS Modules",
               "details": "80"
             },
             {
-              "title": "JS ES6",
+              "title": "Javascript",
               "details": "85"
             },
 			{
@@ -177,27 +177,23 @@
           ]
         },
         {
-          "title": "DVCS, Bundlers, etc...",
+          "title": "Editors, Bundlers, etc...",
           "details": [
+            {
+              "title": "PHP Storm, Web Storm",
+              "details": "90"
+            },
             {
               "title": "GIT",
               "details": "75"
             },
             {
-              "title": "Gulp (custom plugins)",
-              "details": "85"
-            },
-			{
-              "title": "Webpack",
+              "title": "Gulp, Webpack, Vite",
               "details": "75"
             },
             {
               "title": "Power Pivot, Power Query, DAX",
               "details": "90"
-            },
-			{
-              "title": "Figma",
-              "details": "75"
             },
             {
               "title": "Photoshop, Illustrator",
@@ -299,10 +295,6 @@
             {
               "title": "The Telegram bot on node-telegram-bot-api",
               "path": "https://github.com/vkomolov/telegram-bot-articles"
-            },
-			{
-              "title": "Gulp-5 Basic Front-End Package with custom plugins",
-              "path": "https://github.com/vkomolov/Gulp5_Starting_Kit"
             },
             {
               "title": "Cart Realisation on Gulp-4 (SCSS, JS)",

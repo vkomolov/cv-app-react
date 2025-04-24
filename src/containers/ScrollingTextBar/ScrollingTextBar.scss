@@ -1,6 +1,4 @@
-@import '../../styles/global_styles/variables';
-@import '../../styles/global_styles/mixins';
-@import '../../styles/global_styles/animations';
+@use "../../styles/global_styles/root" as root;
 
 #scrolling-text-wrapper {
   position: absolute;
@@ -9,10 +7,10 @@
   width: calc(100% - 1em);
   height: 1.5em;
   margin: 0 0.5em;
-  background-color: $white;
+  background-color: root.$white;
   overflow: hidden;
 
-  @include transition('left', 5s);
+  @include root.transition('left', 5s);
 
   .scrolling-text {
     margin: 0;
@@ -21,7 +19,7 @@
     //left: 100%;
     //left: will be assigned for scrolling text from the right side of the parent to the left
     width: max-content;
-    color: $violet;
+    color: root.$violet;
     font: {
       size: 1em;
       weight: 700;
