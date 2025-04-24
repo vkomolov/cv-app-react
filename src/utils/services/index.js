@@ -31,8 +31,6 @@ export function getLocalStorage( name, timeLimit=1 ) {
  * @param {Object} data which is fetched
  * */
 export function setLocalStorage( name="localData", data ) {
-    //log(data, "setting localStorage Data");
-
     const dataWithDate = {
         data,
         creationDate: new Date()
@@ -101,8 +99,8 @@ export function initAxios(url, ext = "json", inDataParams = null) {
 //  catch will be taken outer
 
 /**@description It prepares the params and returns fetch with the params, depending on the arguments:
- * - if the second argument 'ext' is Object, then to use method 'POST" with the key 'body' in params and the
- * following object as the value; !the data must NOT be already jSON.stringified
+ * - if the second argument 'ext' is Object, then to use method 'POST' with the key 'body' in params and the
+ * following object as the value; !the data must NOT be already jSON stringified
  * - if the second optional argument is String, then to use method 'GET' with the headers: {'Content-Type': value}
  * value - expecting type 'json' (by default), 'blob'...
  * - if the third optional argument 'innDataParams' is Object then to append it to params for the fetch request;
@@ -150,8 +148,6 @@ export function initFetch(url, ext = "json", inDataParams = null) {
      * @returns {Promise} resolve or reject
      */
     function status( response ) {
-        //  log(response, "response in fetch:");
-
         if ( response.ok ) {
             return Promise.resolve( response );
         } else {
@@ -205,9 +201,9 @@ export function dateFormat(date, delimiter) {
 }
 
 /**@description: Rounds the Number to the necessary precision
- * @param: {number} num number to be rounded
- * @param: {number} decimal Number of decimals (100 - (2 decimals), 1000 (3 decimals) etc..
- * @returns: {number} Number rounded with necessary precision
+ * @param {number} num number to be rounded
+ * @param {number} decimal Number of decimals (100 - (2 decimals), 1000 (3 decimals) etc..
+ * @returns {number} Number rounded with necessary precision
  * */
 export function numFormat(num, decimal) {
     return Math.round(num * decimal)/decimal;
@@ -235,10 +231,4 @@ export function equalCols(...elemsArr) {   //for making DOM elems` height to be 
     for (let i = 0; i < elemsArr.length; i++) {
         elemsArr[i].style.height = highestCal + "px";
     }
-}
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
 }

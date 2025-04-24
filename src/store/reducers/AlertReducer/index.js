@@ -5,38 +5,22 @@ const alertStateDefault = {
     alertContent: []
 };
 
-const initialAlert = {
-    alertType: "loading",       //    could be "loading", "error" or "null"
-    alertContent: ["loading"]   //    the array of strings
-};
-
-const alertReducer = (initialState = initialAlert, { type, payload }) => {
-    const alertState = { ...initialState };
-    const loadingAndErrorHandle = () => {
-        if (alertState.alertType === type) {
+const alertReducer = (initialState = alertStateDefault, { type, payload }) => {
+    switch (type) {
+        case alertConstants.ALERT_CLEAR: {
             return {
-                ...alertState,
-                alertContent: alertState.alertContent.concat(payload)
+                ...alertStateDefault
+            }
+        }
+        case alertConstants.ALERT_LOADING:
+        case alertConstants.ALERT_ERROR:
+            return {
+                alertType: type,
+                alertContent: Array.isArray(payload) ? [...payload] : [payload]
             };
-        }
-        return {
-            alertType: type,
-            alertContent: [
-                ...payload
-            ]
-        }
-    };
-
-    const typesObj = {
-        [alertConstants.ALERT_CLEAR]: () => ({
-            ...alertStateDefault
-        }),
-        [alertConstants.ALERT_LOADING]: () => loadingAndErrorHandle(),
-        [alertConstants.ALERT_ERROR]: () => loadingAndErrorHandle(),
-    };
-
-    return (type in typesObj) ? typesObj[type]() : alertState;
-
+        default:
+            return initialState;
+    }
 };
 
 export default alertReducer;

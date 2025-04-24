@@ -1,20 +1,26 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useMemo, useEffect, useRef } from "react";
 import * as PropTypes from "prop-types";
 import "./GraphItem.scss";
+
+const initScore = (score = "0") => {
+    const outScore = parseInt(score);
+    return outScore > 0 ? outScore : 0;
+};
 
 export default function GraphItem({ score }) {
     const innScore = score.trim();
     const scoreRef = useRef(null);
 
-    const initScore = useCallback((score = "0") => {
+/*    const initScore = useCallback((score = "0") => {
         const outScore = parseInt(score);
         return outScore > 0 ? outScore : 0;
-    }, []);
+    }, []);*/
 
-    const outScoreWidth = initScore(innScore) + "%";
+    const outScoreWidth = useMemo(() => initScore(innScore) + "%", [innScore]);
+    //const outScoreWidth = initScore(innScore) + "%";
+
 
     useEffect(() => {
-        log(innScore, "innScore");
         const { current } = scoreRef;
         setTimeout(() => {
             current.style.width = outScoreWidth;
@@ -38,9 +44,3 @@ export default function GraphItem({ score }) {
 GraphItem.propTypes = {
     score: PropTypes.string.isRequired
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

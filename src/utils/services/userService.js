@@ -2,9 +2,9 @@
 import { getLocalStorage, setLocalStorage, initAxios } from "./index";
 
 /**
- * @param {string} path: url to data to be fetched
- * @param {number} timeLimit: time limits for storing in localStorage (days)
- * @param {string} extension: optional type of the data received from http request
+ * @param {string} path : url to data to be fetched
+ * @param {number} timeLimit : time limits for storing in localStorage (days)
+ * @param {string} extension : optional type of the data received from http request
  * @returns {Promise} of the fetched data. Catch will be used outside
  */
 export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
@@ -12,24 +12,22 @@ export const getAndStore = async ( path, timeLimit=1, extension="json" ) => {
 
     let localData = getLocalStorage( dataName, timeLimit );
     if ( localData ) { //it returns obj or false
-        //log(localData, "getting data at local storage: ");
         return localData.data;
     }
 
     return await initAxios(path, extension)
         .then( data => {
             setLocalStorage( dataName, data );
-            //log(data, "data after setting localStorage:");
             return data;
         } )
 };
 
 /**
  * @description it prepares the data for AsideBar and ContentBar Components
- * @param {Object} innData: core data, fetched or taken from localStorage
+ * @param {Object} innData : core data, fetched or taken from localStorage
  * @param {Object} filtersData taken from the state
- * @param {Object[]} filtersData.dataFilters: the array of filters
- * @param {function[]} filtersData.filterSetters: the array of functions which set the state dataFilters
+ * @param {Object[]} filtersData.dataFilters : the array of filters
+ * @param {function[]} filtersData.filterSetters : the array of functions which set the state dataFilters
  * @returns {null|{asideData: {Object}, contentData: {Object}}}
  */
 export function prepareData(innData, filtersData) {
@@ -37,15 +35,15 @@ export function prepareData(innData, filtersData) {
         return null;
     }
 
-    const { dataFilters, filterActions } = filtersData;
+    const { filterState, filterActions } = filtersData;
     const { activateFilter } = filterActions;
 
     /**
      * useMemo just for demonstration of the hook: in other cases it`s used for performance optimizations
      * of heavy calculations
      */
-    const filterActive = getFilterActive(dataFilters);
-    const filterNames = getFilterNames(dataFilters);
+    const filterActive = getFilterActive(filterState);
+    const filterNames = getFilterNames(filterState);
     const getDataActive = getFuncDataActive(innData, filterActive);
     const fullName = innData.fullName;
     const photoUrl = innData.photoUrl;
@@ -59,7 +57,7 @@ export function prepareData(innData, filtersData) {
     };
     const contentData = {
         data: getDataActive("content"),
-        filterActive
+        filterActive: filterActive,
     };
 
     return {
@@ -69,19 +67,19 @@ export function prepareData(innData, filtersData) {
 
 
     /** It returns the active filter name
-     * @param {Object[]} dataFilters: the array of filters
+     * @param {Object[]} filterState : the array of filters
      * @returns {null|string}
      */
-    function getFilterActive(dataFilters) {
-        if (!dataFilters.length) {
+    function getFilterActive(filterState) {
+        if (!filterState.length) {
             return null;
         }
-        return dataFilters.find(filter => !!filter.isActive).filterName;
+        return filterState.find(filter => !!filter.isActive).filterName;
     }
 
     /**
      * @param {Object} data
-     * @param {string} filterActive: the name of the active filter
+     * @param {string} filterActive : the name of the active filter
      * @returns {null|Function}
      */
     function getFuncDataActive(data, filterActive) {
@@ -113,10 +111,10 @@ export function prepareData(innData, filtersData) {
 
 /**
  * @description it inits the scrolling text, which is wrapped in the parent at fixed position top of the window.
- * @param {HTMLElement} elem: with text should have its own wrapper, parentElement in DOM,
+ * @param {HTMLElement} elem : with text should have its own wrapper, parentElement in DOM,
  * for elem is positioned to its wrapper
  * @param {number} duration in milliseconds for scrolling all the text through the length of its wrapper
- * @param {boolean} isInfinite: if true, the text starts scrolling infinitely
+ * @param {boolean} isInfinite : if true, the text starts scrolling infinitely
  */
 export const initScrollingText = (elem, duration, isInfinite = false) => {
     let startTime = null;
@@ -162,9 +160,3 @@ export const initScrollingText = (elem, duration, isInfinite = false) => {
         }
     });
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

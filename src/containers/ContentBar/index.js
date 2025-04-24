@@ -50,17 +50,5 @@ export default function ContentBar({ withData }) {
 }
 
 ContentBar.propTypes = {
-    withData: PropTypes.shape({
-        filterActive: PropTypes.string.isRequired,
-        data: PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            details: PropTypes.array.isRequired
-        }),
-    })
+    withData: PropTypes.object
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}
