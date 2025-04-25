@@ -23,9 +23,3 @@ export default function GraphSection({ data }) {
 GraphSection.propTypes = {
     data: PropTypes.objectOf(PropTypes.string).isRequired
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

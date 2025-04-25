@@ -7,6 +7,10 @@ import App from "./app";
 import "./styles/index.scss";
 import store from "./store";
 
+//import reportWebVitals from "./reportWebVitals";
+
+//reportWebVitals(console.log);   //logging metrics
+
 /*
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode >

@@ -1,21 +1,25 @@
-@import "../../styles/global_styles/_variables";
-@import "../../styles/global_styles/_mixins";
-@import "../../styles/global_styles/_animations";
+@use "../../styles/global_styles/root" as root;
 
 .contentBar {
   position: relative;
   flex-grow: 1;
   flex-basis: 30em;
-  color: $blue;
+  color: root.$blue;
   padding-left: 1.8em;
   padding-bottom: 2em;
 
+  opacity: 0;
+
+  &.fade-in {
+    animation: fadeIn 0.5s linear forwards;
+  }
+
   .heading {
     letter-spacing: 0.13em;
-    background: linear-gradient(90deg, $white, $foxy);
+    background: linear-gradient(90deg, root.$white, root.$foxy);
 
-    @include text-shadow(0.07em, 0.1em);
-    @include init-font(1.5em, 700);
+    @include root.text-shadow(0.07em, 0.1em);
+    @include root.init-font(1.5em, 700);
 
     padding: 0.9em 0;
   }

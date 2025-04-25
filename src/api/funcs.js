@@ -120,16 +120,10 @@ export function dateFormat(date, delimiter) {
 }
 
 /**@description: Rounds the Number to the necessary precision
- * @param: {number} num number to be rounded
- * @param: {number} decimal Number of decimals (100 - (2 decimals), 1000 (3 decimals) etc..
- * @returns: {number} Number rounded with necessary precision
+ * @param {number} num number to be rounded
+ * @param {number} decimal Number of decimals (100 - (2 decimals), 1000 (3 decimals) etc..
+ * @returns {number} Number rounded with necessary precision
  * */
 export function numFormat(num, decimal) {
     return Math.round(num * decimal)/decimal;
-}
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
 }

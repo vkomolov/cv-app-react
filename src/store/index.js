@@ -5,7 +5,7 @@ import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 
 const sagaMiddleWare = createSagaMiddleware();
-
+//createStore is not supported anymore, use RTK
 const store = createStore(rootReducer, composeWithDevTools(
     applyMiddleware(
         sagaMiddleWare

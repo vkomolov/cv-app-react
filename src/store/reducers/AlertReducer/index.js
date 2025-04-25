@@ -5,13 +5,9 @@ const alertStateDefault = {
     alertContent: []
 };
 
-/*const alertInitial = {
-    alertType: "loading",
-    alertContent: ["loading"]
-};*/
-
 const alertReducer = (initialState = alertStateDefault, { type, payload }) => {
     const loadingAndErrorHandle = () => {
+        //if alertType is already not null and it equals the action type, then to add payload to alertContent
         if (initialState.alertType === type) {
             return {
                 ...initialState,

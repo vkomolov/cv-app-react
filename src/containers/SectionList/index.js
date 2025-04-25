@@ -13,17 +13,6 @@ export default function SectionList({ sectionData }) {
     const styledWrapperOnScroll = isScrolledShown
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";
-
-    const handleFilter = (chosenFilter) => {
-        if (chosenFilter !== filterActive) {
-            //navigating to the following url;
-            navigate(`/${ chosenFilter }`);
-
-            //starting page from the initial position
-            window.scrollTo(0, 0);
-        }
-    };
-
     const handleScroll = useCallback(() => {
         if (sectionListRef) {
             const sectionListComponent = sectionListRef.current;
@@ -34,48 +23,12 @@ export default function SectionList({ sectionData }) {
         }
     },[]);
 
-    const onKeyDownHandler = (event) => {
+    const onKeyDownHandler = useCallback((event) => {
         if (event.key === "Enter") {
             const filterName = event.target.dataset.filter;
-            handleFilter(filterName);
+            handleFilter(filterName, filterActive, navigate);
         }
-    };
-
-    const getSectionsArr = () => {
-        return filterNames.map(filter => {
-            let specClass = filter === filterActive
-                ? "sectionName specClass"
-                : "sectionName toBeHovered";
-
-            return (
-                <li
-                    className={ specClass }
-                    aria-label={ `navigation to /${ filter }` }
-                    /*for onKeyDownHandler*/
-                    data-filter={ filter }
-                    role="menuitem"
-                    tabIndex="0"
-                    onClick={ () => handleFilter(filter) }
-                    onKeyDown={ onKeyDownHandler }
-                    key={v4()}
-                >
-                    { filter }
-                </li>
-            );
-        });
-    };
-
-    const getSectionList = (isForScroll = false) => (
-        <ul
-            className="sectionList"
-            role="menu"
-            ref={ !isForScroll ? sectionListRef : null }
-        >
-            {
-                getSectionsArr()
-            }
-        </ul>
-    );
+    }, [filterActive]);
 
     //initiating listener of scrolling on window.scroll
     useEffect(() => {
@@ -86,12 +39,20 @@ export default function SectionList({ sectionData }) {
         //as componentDidMount
     }, []);
 
+    const paramsData = {
+        sectionListRef,
+        filterNames,
+        filterActive,
+        onKeyDownHandler,
+        navigate
+    }
+
     return (
         <>
             <div className={ styledWrapperOnScroll }>
-                { getSectionList(true) }
+                { getSectionList(true, paramsData) }
             </div>
-            { getSectionList(false) }
+            { getSectionList(false, paramsData) }
         </>
     )
 }
@@ -100,8 +61,50 @@ SectionList.propTypes = {
     sectionData: PropTypes.object.isRequired
 };
 
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
+function handleFilter(chosenFilter, filterActive, navigate) {
+    if (chosenFilter !== filterActive) {
+        //navigating to the following url;
+        navigate(`/${ chosenFilter }`);
+
+        //starting page from the initial position
+        window.scrollTo(0, 0);
+    }
+}
+
+function getSectionsArr(filterNames, filterActive, onKeyDownHandler, navigate) {
+    return filterNames.map(filter => {
+        let specClass = filter === filterActive
+            ? "sectionName specClass"
+            : "sectionName toBeHovered";
+
+        return (
+            <li
+                className={ specClass }
+                aria-label={ `navigation to /${ filter }` }
+                /*for onKeyDownHandler*/
+                data-filter={ filter }
+                role="menuitem"
+                tabIndex="0"
+                onClick={ () => handleFilter(filter, filterActive, navigate) }
+                onKeyDown={ onKeyDownHandler }
+                key={v4()}
+            >
+                { filter }
+            </li>
+        );
+    });
+}
+
+function getSectionList(isForScroll, { sectionListRef, filterNames, filterActive, onKeyDownHandler, navigate }) {
+    return (
+        <ul
+            className="sectionList"
+            role="menu"
+            ref={ !isForScroll ? sectionListRef : null }
+        >
+            {
+                getSectionsArr(filterNames, filterActive, onKeyDownHandler, navigate)
+            }
+        </ul>
+    );
 }
