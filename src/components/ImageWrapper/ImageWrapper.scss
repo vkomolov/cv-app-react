@@ -1,9 +1,7 @@
-@import "../../styles/global_styles/_variables";
-@import "../../styles/global_styles/_mixins";
-@import "../../styles/global_styles/_animations";
+@use "../../styles/global_styles/root" as root;
 
 .imageWrapper {
-  @include flex-box($flex-box-row-center...);
+  @include root.flex-box(row, center, center);
   width: fit-content;
 
   img {

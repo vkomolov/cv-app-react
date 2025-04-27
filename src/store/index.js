@@ -6,6 +6,7 @@ import rootSaga from "./sagas";
 
 const sagaMiddleWare = createSagaMiddleware();
 
+//createStore is deprecated, use RTK
 const store = createStore(rootReducer, composeWithDevTools(
     applyMiddleware(
         sagaMiddleWare
