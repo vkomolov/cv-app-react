@@ -55,7 +55,7 @@ function prepareData(auxData, filters, activateFilter) {
 
 
     /** It returns the active filter name
-     * @param {Object[]} filters: the array of filters
+     * @param {Object[]} filters : the array of filters
      * @returns {null|string}
      */
     function getFilterActive(filters) {
@@ -67,7 +67,7 @@ function prepareData(auxData, filters, activateFilter) {
 
     /**
      * @param {Object} data
-     * @param {string} filterActive: the name of the active filter
+     * @param {string} filterActive : the name of the active filter
      * @returns {null|Function}
      */
     function getFuncDataActive(data, filterActive) {
@@ -115,9 +115,3 @@ export const useOpacityTransition = (duration = 1000) => {
 
     return ref;
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

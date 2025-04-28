@@ -1,7 +1,7 @@
 import alertConstants from "../constants";
 
 /**
- * @param {string[]} payload: possibly multiple text messages to the loading alert
+ * @param {string[]} payload : possibly multiple text messages to the loading alert
  * @returns {{payload: Array, type: string}}
  */
 export const setAlertLoading = (...payload) => ({
@@ -10,7 +10,7 @@ export const setAlertLoading = (...payload) => ({
 });
 
 /**
- * @param {string[]} payload: possibly multiple text messages to the error alert
+ * @param {string[]} payload : possibly multiple text messages to the error alert
  * @returns {{payload: Array, type: string}}
  */
 export const setAlertError = (...payload) => ({
