@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as PropTypes from "prop-types";
-import { v4 } from "uuid";
 import "./SectionList.scss";
 
 function handleFilter(chosenFilter, filterActive, activateFilter) {
@@ -52,7 +51,7 @@ function getSectionsArr(sectionData) {
                 tabIndex="0"
                 onClick={ () => handleFilter(filter, filterActive, activateFilter) }
                 onKeyDown={ onKeyDownHandler }
-                key={v4()}
+                key={filter}
             >
                 { filter }
             </li>
@@ -74,23 +73,13 @@ function getSectionList(sectionListRef, sectionData, isForScroll = false) {
     )
 }
 
-function checkScrolled(filtersVisible, isScrolled, setIsScrolled, isScrolledShown, setIsScrolledShown) {
-    if (!filtersVisible) {
-        if (!isScrolled) {
-            setIsScrolled(true); //setting new state for isScrolled
-            setTimeout(() => {
-                setIsScrolledShown(true);
-            }, 200);
-        }
-    }
-    else {
-        if (isScrolledShown) {
-            setIsScrolledShown(false);
-
-            setTimeout(() => {
-                setIsScrolled(false);
-            }, 200);
-        }
+function checkScrolled(visible, isScrolled, setScrolled, isShown, setShown) {
+    if (!visible && !isScrolled) {
+        setScrolled(true);
+        setTimeout(() => setShown(true), 200);
+    } else if (visible && isShown) {
+        setShown(false);
+        setTimeout(() => setScrolled(false), 200);
     }
 }
 
@@ -104,15 +93,17 @@ export default function SectionList({ sectionData }) {
         ? "wrapper-on-scroll scroll-active"
         : "wrapper-on-scroll";
 
-    const handleScroll = getScrollHandler(sectionListRef, setFiltersVisible);
+
 
     //initiating listener on window.scroll
     useEffect(() => {
+        const handleScroll = getScrollHandler(sectionListRef, setFiltersVisible);
+
         window.addEventListener("scroll", handleScroll);
 
         return () => window.removeEventListener("scroll", handleScroll);
         //as componentDidMount
-    }, [handleScroll]);
+    }, [sectionListRef, setFiltersVisible]);
 
     useEffect(() => {
         checkScrolled(filtersVisible, isScrolled, setIsScrolled, isScrolledShown, setIsScrolledShown)
@@ -131,5 +122,9 @@ export default function SectionList({ sectionData }) {
 }
 
 SectionList.propTypes = {
-    sectionData: PropTypes.object.isRequired
+    sectionData: PropTypes.shape({
+        filterNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+        filterActive: PropTypes.string.isRequired,
+        activateFilter: PropTypes.func.isRequired,
+    }).isRequired
 };
