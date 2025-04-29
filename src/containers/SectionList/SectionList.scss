@@ -1,6 +1,4 @@
-@import "../../styles/global_styles/_variables";
-@import "../../styles/global_styles/_mixins";
-@import "../../styles/global_styles/_animations";
+@use "../../styles/global_styles/root" as root;
 
 .sectionList {
 
@@ -11,9 +9,9 @@
     letter-spacing: 0.12em;
     margin-bottom: 0.3em;
 
-    @include init-font(1.15em, 700);
-    @include text-shadow(0.11em, 0.2em);
-    @include transition();
+    @include root.init-font(1.15em, 700);
+    @include root.text-shadow(0.11em, 0.2em);
+    @include root.transition();
 
     &.toBeHovered:hover {
         transform: translateX(7px);
@@ -21,7 +19,7 @@
     }
 
     &.specClass {
-        color: $foxy;
+        color: root.$foxy;
     }
 }
 
@@ -33,24 +31,24 @@
     left: 0;
     margin: 0 0.5em;
 
-    @include flex-box($flex-box-row-center...);
-    @include transition();
+    @include root.flex-box(row, center, center);
+    @include root.transition();
 
     &.scroll-active {
-      top: 0;
+        top: 0;
     }
 
     .sectionList {
         margin: 0;
         width: 100%;
-        max-width: calc(#{$maxWidth} - 1em);
-        background: linear-gradient(90deg, $white, $foxy);
+        max-width: calc(#{root.$maxWidth} - 1em);
+        background: linear-gradient(90deg, root.$white, root.$foxy);
         opacity: 0.97;
 
-        @include flex-box($flex-box-row-left...);
+        @include root.flex-box(row, flex-start, center);
 
         .sectionName {
-            color: $greyDark;
+            color: root.$greyDark;
             margin: 0;
             padding: 0.25em;
 
@@ -60,7 +58,7 @@
             }
 
             &.specClass {
-                color: $foxy;
+                color: root.$foxy;
             }
         }
     }

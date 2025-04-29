@@ -12,7 +12,7 @@ import "./ImageWrapper.scss";
  * @constructor
  */
 export default function ImageWrapper({ imgSrc, alt, className, params, children }) {
-    const classNameOut= className?.length
+    const classNameOut= className.length
         ? `imageWrapper ${className}`
         : "imageWrapper";
     let inlineStyle = null;
@@ -22,7 +22,7 @@ export default function ImageWrapper({ imgSrc, alt, className, params, children 
         }
     }
 
-    const childrenWrapped = children?.length ? (
+    const childrenWrapped = children.length ? (
         <div className="image-info">
             { children }
         </div>
@@ -49,9 +49,3 @@ ImageWrapper.propTypes = {
     params: PropTypes.object,
     children: PropTypes.array
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

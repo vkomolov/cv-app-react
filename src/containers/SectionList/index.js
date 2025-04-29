@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as PropTypes from "prop-types";
-import { nanoid } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import "./SectionList.scss";
 
@@ -57,7 +56,7 @@ export default function SectionList({ sectionData }) {
                     tabIndex="0"
                     onClick={ () => handleFilter(filter) }
                     onKeyDown={ onKeyDownHandler }
-                    key={nanoid()}
+                    key={filter}
                 >
                     { filter }
                 </li>

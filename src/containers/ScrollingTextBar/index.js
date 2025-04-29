@@ -10,9 +10,8 @@ export default function ScrollingTextBar({ data }) {
     useEffect(() => {
         const scrollingText = refContainer.current;
         initScrollingText(scrollingText, duration, isFinite);
-        /*eslint react-hooks/exhaustive-deps:0*/
         //componentDidMount Effect
-    }, []);
+    }, [duration, isFinite]);
 
     return (
         text.length &&
@@ -46,9 +45,3 @@ export const scrollingTextData = {
     duration: 50000,
     isFinite: true,
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}
