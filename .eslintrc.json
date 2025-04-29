@@ -13,6 +13,9 @@
     ],
     "overrides": [
     ],
+    "globals": {
+        "process": "readonly"
+    },
     "parserOptions": {
       "ecmaFeatures": {
         "jsx": true

@@ -6,7 +6,7 @@ const jsonUrl = "./asset/pData/cv.json";
 
 export function* loadInitialData(delays=1000) {
     try {
-        yield put(alertLoading("Loading"));
+        yield put(alertLoading("Loading Data..."));
         //const startTime = performance.now();
         const auxData = yield call(getInitialData, jsonUrl);
         //const endTime = performance.now();
@@ -28,11 +28,4 @@ export function* loadInitialData(delays=1000) {
 export default function* rootSaga() {
     //blocking effect for getting initial data
     yield call(loadInitialData, 1000);
-}
-
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
 }

@@ -14,10 +14,3 @@ export function* getInitialData(jsonUrl) {
 
     return innData;
 }
-
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}
