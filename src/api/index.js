@@ -84,8 +84,8 @@ export function prepareData(auxData, filterNames, filterActive) {
         return null;
     }
 
-    const fullName = auxData.fullName || null;
-    const photoUrl = auxData.photoUrl || null;
+    const fullName = auxData?.fullName || null;
+    const photoUrl = auxData?.photoUrl || null;
 
     const asideData = {
         data: getDataActive("aside"),

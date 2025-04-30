@@ -26,9 +26,3 @@ export default function AsideBar({ withData }) {
 AsideBar.propTypes = {
     withData: PropTypes.object
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

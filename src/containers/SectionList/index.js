@@ -1,30 +1,20 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as PropTypes from "prop-types";
-import { nanoid } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import "./SectionList.scss";
 
-export default function SectionList({ sectionData }) {
-    const navigate = useNavigate();
-    const [isScrolledShown, setIsScrolledShown] = useState(false);
-    const sectionListRef = useRef(null);
+function handleFilter(chosenFilter, filterActive, navigate) {
+    if (chosenFilter !== filterActive) {
+        //navigating to the following url;
+        navigate(`/${ chosenFilter }`);
 
-    const { filterNames, filterActive } = sectionData;
-    const styledWrapperOnScroll = isScrolledShown
-        ? "wrapper-on-scroll scroll-active"
-        : "wrapper-on-scroll";
+        //starting page from the initial position
+        window.scrollTo(0, 0);
+    }
+}
 
-    const handleFilter = (chosenFilter) => {
-        if (chosenFilter !== filterActive) {
-            //navigating to the following url;
-            navigate(`/${ chosenFilter }`);
-
-            //starting page from the initial position
-            window.scrollTo(0, 0);
-        }
-    };
-
-    const handleScroll = useCallback(() => {
+function getScrollHandler(sectionListRef, setIsScrolledShown) {
+    return () => {
         if (sectionListRef) {
             const sectionListComponent = sectionListRef.current;
             const posTop = sectionListComponent.getBoundingClientRect().top;
@@ -32,76 +22,87 @@ export default function SectionList({ sectionData }) {
             //setting the state with the same value will be ignored
             setIsScrolledShown(isScrolled);
         }
-    },[]);
+    }
+}
 
-    const onKeyDownHandler = (event) => {
+function getOnKeyDownHandler(filterActive, navigate) {
+    return (event) => {
         if (event.key === "Enter") {
-            const filterName = event.target.dataset.filter;
-            handleFilter(filterName);
+            const chosenFilter = event.target.dataset.filter;
+            handleFilter(chosenFilter, filterActive, navigate);
         }
-    };
+    }
+}
 
-    const getSectionsArr = () => {
-        return filterNames.map(filter => {
-            let specClass = filter === filterActive
-                ? "sectionName specClass"
-                : "sectionName toBeHovered";
+function getSectionsArr(sectionData, navigate) {
+    const { filterNames, filterActive } = sectionData;
+    const onKeyDownHandler = getOnKeyDownHandler(filterActive, navigate);
+    return filterNames.map(filter => {
+        let specClass = filter === filterActive
+            ? "sectionName specClass"
+            : "sectionName toBeHovered";
 
-            return (
-                <li
-                    className={ specClass }
-                    aria-label={ `navigation to /${ filter }` }
-                    /*for onKeyDownHandler*/
-                    data-filter={ filter }
-                    role="menuitem"
-                    tabIndex="0"
-                    onClick={ () => handleFilter(filter) }
-                    onKeyDown={ onKeyDownHandler }
-                    key={nanoid()}
-                >
-                    { filter }
-                </li>
-            );
-        });
-    };
+        return (
+            <li
+                className={ specClass }
+                aria-label={ `navigation to /${ filter }` }
+                data-filter={ filter }
+                role="menuitem"
+                tabIndex="0"
+                onClick={ () => handleFilter(filter, filterActive, navigate) }
+                onKeyDown={ onKeyDownHandler }
+                key={filter}
+            >
+                { filter }
+            </li>
+        );
+    });
+}
 
-    const getSectionList = (isForScroll = false) => (
+function getSectionList(sectionListRef, sectionData, navigate, isForScroll = false) {
+    return (
         <ul
             className="sectionList"
             role="menu"
             ref={ !isForScroll ? sectionListRef : null }
         >
             {
-                getSectionsArr()
+                getSectionsArr(sectionData, navigate)
             }
         </ul>
-    );
+    )
+}
+
+export default function SectionList({ sectionData }) {
+    const navigate = useNavigate();
+    const [isScrolledShown, setIsScrolledShown] = useState(false);
+    const sectionListRef = useRef(null);
+
+    const styledWrapperOnScroll = isScrolledShown
+        ? "wrapper-on-scroll scroll-active"
+        : "wrapper-on-scroll";
 
     //initiating listener of scrolling on window.scroll
     useEffect(() => {
+        const handleScroll = getScrollHandler(sectionListRef, setIsScrolledShown);
         window.addEventListener("scroll", handleScroll);
 
         return () => window.removeEventListener("scroll", handleScroll);
-        /*eslint react-hooks/exhaustive-deps:0*/
-        //as componentDidMount
-    }, []);
+    }, [sectionListRef, setIsScrolledShown]);
 
     return (
         <>
             <div className={ styledWrapperOnScroll }>
-                { getSectionList(true) }
+                { getSectionList(sectionListRef, sectionData, navigate, true) }
             </div>
-            { getSectionList(false) }
+            { getSectionList(sectionListRef, sectionData, navigate, false) }
         </>
     )
 }
 
 SectionList.propTypes = {
-    sectionData: PropTypes.object.isRequired
+    sectionData: PropTypes.shape({
+        filterNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+        filterActive: PropTypes.string.isRequired,
+    }).isRequired
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

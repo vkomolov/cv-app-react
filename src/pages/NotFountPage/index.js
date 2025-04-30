@@ -10,7 +10,6 @@ const NotFoundPage = () => {
     const { filters, auxData } = useRoutesData();
 
     const rootRout = useMemo(() => {
-        log(filters, "filters in 404 useMemo:");
         if (filters.length) {
             return filters[0];
         }
@@ -18,7 +17,6 @@ const NotFoundPage = () => {
     }, [filters]);
 
     const photoUrl = useMemo(() => {
-        log(auxData, "auxData in 404 useMemo");
         if (auxData && "photoUrl" in auxData) {
             return auxData["photoUrl"];
         }
@@ -52,9 +50,3 @@ const NotFoundPage = () => {
 };
 
 export default NotFoundPage;
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}

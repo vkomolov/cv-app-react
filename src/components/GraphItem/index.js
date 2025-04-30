@@ -18,7 +18,6 @@ export default function GraphItem({ score }) {
         setTimeout(() => {
             current.style.width = outScoreWidth;
         }, 300);
-        /*eslint react-hooks/exhaustive-deps:0*/
         //componentDidMount effect
     }, [outScoreWidth]);
 
@@ -37,9 +36,3 @@ export default function GraphItem({ score }) {
 GraphItem.propTypes = {
     score: PropTypes.string.isRequired
 };
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}
