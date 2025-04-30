@@ -9,7 +9,7 @@ import localforage from "localforage";
  * Else to return data;
  * @async
  * @param { string } name of the LocalStorage data;
- * @param { number } [timeLimit=1] number of days;
+ * @param { number } [timeLimit=1] : number of days;
  * @returns { object | boolean } the data, stored in the LocalStorage... or false,
  * if its not found or expired by time
  * */
@@ -48,7 +48,7 @@ export async function setLocalForage(name="localData", data) {
  * If the LocalStorage does not exist then to return false;
  * Else to return the data;
  * @param { string } name of the LocalStorage data;
- * @param { number } [timeLimit=1]: number of days;
+ * @param { number } [timeLimit=1] : number of days;
  * @returns { object | boolean } the data, stored in the LocalStorage...
  * or false, if its not found or expired by time
  * */
@@ -126,10 +126,4 @@ export function dateFormat(date, delimiter) {
  * */
 export function numFormat(num, decimal) {
     return Math.round(num * decimal)/decimal;
-}
-
-///////////////// dev
-// eslint-disable-next-line no-unused-vars
-function log(it, comments="value: ") {
-    console.log(comments, it);
 }

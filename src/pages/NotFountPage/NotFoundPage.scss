@@ -1,26 +1,22 @@
-@import "../../styles/global_styles/_variables";
-@import "../../styles/global_styles/_mixins";
-@import "../../styles/global_styles/_animations";
-
-
+@use "../../styles/global_styles/root" as root;
 
 .full-page-wrapper {
   width: 100%;
   height: calc(100vh - 1.5em);
-  @include flex-box($flex-box-row-center...);
+  @include root.flex-box(row, center, center);
   align-items: stretch;
 
   .aside-container {
     flex-basis: 50%;
     flex-grow: 1;
     padding: 0.8em;
-    background-color: $blue;
-    color: $white;
-    @include flex-box($flex-box-col-center...);
+    background-color: root.$blue;
+    color: root.$white;
+    @include root.flex-box(row, center, center);
 
     .sign-404 {
       display: block;
-      @include init-font(10em, 700);
+      @include root.init-font(10em, 700);
 
       text-shadow: 0 2px 2px rgba(230, 230, 230, 1),
       0 3px 0 rgba(190, 190, 190, 1),
@@ -37,7 +33,7 @@
     }
 
     .heading-404 {
-      @include init-font(2em, 600);
+      @include root.init-font(2em, 600);
       letter-spacing: 0.02em;
       margin-top: 0.5em;
       margin-bottom: 1em;
@@ -45,7 +41,7 @@
 
     .text-404 {
       width: 11em;
-      @include init-font(1.5em, 400);
+      @include root.init-font(1.5em, 400);
     }
 
     .link-to-main {
@@ -54,8 +50,8 @@
       padding: 0.6em;
       margin: 2em 1em;
       border-radius: 0.5em;
-      background-color: $foxy;
-      @include init-font(1.5em, 600);
+      background-color: root.$foxy;
+      @include root.init-font(1.5em, 600);
 
       &:before {
         display: block;
@@ -66,37 +62,32 @@
         height: 130%;
         content: "";
         border-radius: 0.5em;
-        @include transition();
+        @include root.transition();
       }
 
       &:hover:before {
-        box-shadow: inset -0.2em -0.2em 0.3em $white, inset 0.2em 0.2em 0.3em $white;
+        box-shadow: inset -0.2em -0.2em 0.3em root.$white, inset 0.2em 0.2em 0.3em root.$white;
       }
-
     }
-
   }
 
   .image-bar {
     padding: 0.8em;
     flex-basis: 50%;
     flex-grow: 1;
-    @include flex-box($flex-box-row-center...);
-    border: 1px dotted red;
+    @include root.flex-box(row, center, center);
+    border: 1px dotted root.$red;
 
     .img-container {
       max-width: 30em;
 
       .photo-heading {
-        @include init-font(1.5em, 600);
+        @include root.init-font(1.5em, 600);
       }
 
       .mail-to {
-        @include init-font(1.2em, 400);
+        @include root.init-font(1.2em, 400);
       }
     }
-
-
   }
-
 }

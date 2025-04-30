@@ -1,14 +1,11 @@
-@import '../../styles/global_styles/variables';
-@import '../../styles/global_styles/mixins';
-@import '../../styles/global_styles/animations';
-@import '../../styles/global_styles/media';
+@use "../../styles/global_styles/root" as root;
 
 .totalWrapper {
   //font-size is in #root with rem, which is changed by media queries
   position: relative;
   width: 100%;
-  background-color: $white;
+  background-color: root.$white;
 
-  @include flex-box($flex-box-row-top...);
-  @include box-shadow(2px, 8px);
+  @include root.flex-box(row, center, flex-start);
+  @include root.box-shadow(2px, 8px);
 }

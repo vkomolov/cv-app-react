@@ -1,6 +1,6 @@
 {
   "fullName": "Vadim Komolov",
-  "photoUrl": "asset/img/vk.jpeg",
+  "photoUrl": "asset/img/vk.webp",
   "personal": {
     "aside": {
       "details": [
@@ -104,7 +104,7 @@
               "title": "JS ES6",
               "details": "85"
             },
-			{
+            {
               "title": "Typescript",
               "details": "70"
             },
@@ -115,7 +115,7 @@
             {
               "title": "MySql",
               "details": "75"
-            }, 
+            },
             {
               "title": "MongoDB",
               "details": "75"
@@ -187,7 +187,7 @@
               "title": "Gulp (custom plugins)",
               "details": "85"
             },
-			{
+            {
               "title": "Webpack",
               "details": "75"
             },
@@ -195,7 +195,7 @@
               "title": "Power Pivot, Power Query, DAX",
               "details": "90"
             },
-			{
+            {
               "title": "Figma",
               "details": "75"
             },
@@ -237,7 +237,7 @@
           "comments": "FullStack Dev, design, copywriting, translating",
           "li": [
             "Developing webSites and apps: HTML5, CSS3 (SCSS/CSS Modules), JS, React/Redux/Router, MySql/MongoDB;",
-			"Telegram Bots on Node.js (node-telegram-bot-api);",
+            "Telegram Bots on Node.js (node-telegram-bot-api);",
             "Creating catalogs, tech-lists with a unique design and content (ua, ru, en);",
             "Copywriting, translating (ua, ru, en);"
           ]
@@ -300,7 +300,7 @@
               "title": "The Telegram bot on node-telegram-bot-api",
               "path": "https://github.com/vkomolov/telegram-bot-articles"
             },
-			{
+            {
               "title": "Gulp-5 Basic Front-End Package with custom plugins",
               "path": "https://github.com/vkomolov/Gulp5_Starting_Kit"
             },
